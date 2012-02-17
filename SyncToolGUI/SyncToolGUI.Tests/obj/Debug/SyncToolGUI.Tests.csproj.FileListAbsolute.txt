@@ -1,0 +1,8 @@
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\bin\Debug\SyncToolGUI.Tests.dll.config
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\bin\Debug\SyncToolGUI.Tests.dll
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\bin\Debug\SyncToolGUI.Tests.pdb
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\bin\Debug\SyncToolGUI.dll
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\bin\Debug\SyncToolGUI.pdb
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\obj\Debug\SyncToolGUI.Tests.dll
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI.Tests\obj\Debug\SyncToolGUI.Tests.pdb

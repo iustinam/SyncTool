@@ -1,0 +1,5 @@
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.dll
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.pdb
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.dll
+C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.pdb

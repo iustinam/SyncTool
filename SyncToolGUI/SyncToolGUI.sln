@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncToolGUI", "SyncToolGUI\SyncToolGUI.csproj", "{28B06565-21AF-4A61-BF13-B27857016FBB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncToolGUI.Tests", "SyncToolGUI.Tests\SyncToolGUI.Tests.csproj", "{77776833-441A-4C82-A7D7-45044D51D896}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28B06565-21AF-4A61-BF13-B27857016FBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B06565-21AF-4A61-BF13-B27857016FBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B06565-21AF-4A61-BF13-B27857016FBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B06565-21AF-4A61-BF13-B27857016FBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77776833-441A-4C82-A7D7-45044D51D896}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77776833-441A-4C82-A7D7-45044D51D896}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77776833-441A-4C82-A7D7-45044D51D896}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77776833-441A-4C82-A7D7-45044D51D896}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
