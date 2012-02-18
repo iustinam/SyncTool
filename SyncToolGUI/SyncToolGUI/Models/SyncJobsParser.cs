@@ -4,19 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Xml;
 using System.IO;
+using SyncToolGUI.Models;
 
 namespace SyncToolGUI.Models
 {
     public class SyncJobsParser
     {
         private Dictionary<int, SyncJob> _syncJobs=new Dictionary<int,SyncJob>();
-        private static SyncJobsParser _instance=new SyncJobsParser();
+        private static SyncJobsParser _instance;
+        private string _confPath;
+        private AppConfiguration _appConf = AppConfiguration.Instance;
+
         private SyncJobsParser()
         {
+            
         }
         public static SyncJobsParser Instance
         {
-            get { return _instance; }
+            get { if(_instance==null)
+                      _instance = new SyncJobsParser();
+                return _instance; }
         }
         private Boolean _initialized=false;
 
@@ -102,12 +109,13 @@ namespace SyncToolGUI.Models
 
         public List<SyncJob> GetAllSyncJobs()
         {
-            if (!this._initialized) this.LoadJobs(@"C:\synctool\jobs_conf.xml");
+            if (!this._initialized) this.LoadJobs(this._appConf.JobsConfPath);
             return this._syncJobs.Values.ToList<SyncJob>(); 
         }
 
         public SyncJob GetJob(int id)
         {
+            if (!this._initialized) this.LoadJobs(this._appConf.JobsConfPath);
             return this._syncJobs[id];
         }
 

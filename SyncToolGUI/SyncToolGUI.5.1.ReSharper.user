@@ -1,0 +1,90 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="ProcessStatistics`0" priority="1" />
+      <Item value="param" priority="9" />
+      <Item value="null" priority="0" />
+      <Item value="int" priority="1" />
+      <Item value="new" priority="1" />
+      <Item value="param1" priority="2" />
+      <Item value="Count`1" priority="1" />
+      <Item value="foreach" priority="0" />
+      <Item value="i" priority="0" />
+      <Item value="CopyTo`0" priority="0" />
+      <Item value="Int32`0" priority="0" />
+      <Item value="DateTime`0" priority="1" />
+      <Item value="return" priority="1" />
+      <Item value="if" priority="1" />
+      <Item value="AllowGet" priority="0" />
+      <Item value="doneEvents" priority="0" />
+      <Item value="this" priority="0" />
+      <Item value="SyncJobStatistics" priority="0" />
+      <Item value="while" priority="0" />
+      <Item value="received" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:SyncToolGUI.Models.ProcessManager">
+      <Item value="JobStatistics" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:SyncToolGUI.Models.SyncJobStatistics">
+      <Item value="ProcessStatisticsList" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Add`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="Count" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.Sockets.SocketType">
+      <Item value="Stream" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Net.Sockets.ProtocolType">
+      <Item value="Tcp" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="1504" fromTop="5" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:AppConfiguration.cs" caret="194" fromTop="0" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Controllers/f:SyncJobsController.cs" caret="1223" fromTop="12" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3665" fromTop="4" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="194" fromTop="7" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="448" fromTop="12" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="885" fromTop="10" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="1504" fromTop="5" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="4667" fromTop="15" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Controllers/f:SyncJobsController.cs" caret="1339" fromTop="13" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="2847" fromTop="7" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="899" fromTop="5" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="4528" fromTop="13" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3351" fromTop="9" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3892" fromTop="9" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+</Configuration>

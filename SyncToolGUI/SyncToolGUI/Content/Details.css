@@ -1,0 +1,38 @@
+﻿.info_header ,
+.info_info,
+.info_clients,
+.info_ignore
+{
+    margin: 5px;
+    padding: 5px;
+    background-color: #DEF;
+    border-radius: 5px;
+    border: 1px solid #777;
+}
+
+.info_ignore
+{
+    height: 200px;
+}
+
+.ignore_words
+{
+    position: relative;
+    top: 0px;
+    float: left;
+    width: 50%;
+}
+
+.ignore_expr
+{
+    position: relative;
+    top: 0px;
+    float: left;
+}
+
+.ignore_words,
+.ignore_expr
+{
+    overflow: auto;
+    height: 180px;
+}

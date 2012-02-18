@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SyncToolDBStoreContainer" CdmEntityContainer="SyncToolDBContainer">
+    <EntitySetMapping Name="Configurations">
+      <EntityTypeMapping TypeName="IsTypeOf(SyncToolDB.Configuration)">
+        <MappingFragment StoreEntitySet="Configurations">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

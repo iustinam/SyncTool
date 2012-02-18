@@ -3,3 +3,13 @@ C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.dll
 C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.pdb
 C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.dll
 C:\Users\bkt\Desktop\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.pdb
+D:\SyncTool\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.dll
+D:\SyncTool\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.pdb
+D:\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\ResolveAssemblyReference.cache
+D:\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.dll
+D:\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.pdb
+C:\Users\bkt\Desktop\SyncTool\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.dll
+C:\Users\bkt\Desktop\SyncTool\SyncToolGUI\SyncToolGUI\bin\SyncToolGUI.pdb
+C:\Users\bkt\Desktop\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\bkt\Desktop\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.dll
+C:\Users\bkt\Desktop\SyncTool\SyncToolGUI\SyncToolGUI\obj\Debug\SyncToolGUI.pdb

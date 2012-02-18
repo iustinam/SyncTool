@@ -51,6 +51,9 @@
             <td>
                 <%: item.Ignore %>
             </td>
+            <td>
+                 <%: Html.ActionLink("Watch", "WatchJob", new { id=item.Id }) %>
+            </td>
         </tr>
     
     <% } %>
