@@ -72,13 +72,10 @@ my (
     $s_attr,$d_attr        #used for alterind attributes
 );
 
-my $xml="C:\\synctool\\conf.xml";
+my $xml="C:\\Users\\bkt\\Desktop\\SyncTool\\synctool\\conf.xml";
 my $paths=XMLin($xml);
 
 use constant {
-    #STAT_WR_SLEEP => 3,
-    #LOG_FOLDER => $paths->{running_folder},
-    #PORFILE_FOLDER => $paths->{running_folder},
     ERR_FILE => 'D:/sync1/errors.txt',
 
 # number of threads in pool for syncing simultaneously at a given moment in time
@@ -87,8 +84,8 @@ use constant {
 
 my $running_folder=$paths->{running_folder};
 $running_folder =~ s!/$!!;
-my $LOG_FOLDER =$running_folder."\\Logs\\";
-my $PORFILE_FOLDER = $running_folder."\\Logs\\";
+my $LOG_FOLDER =$running_folder."\\".$paths->{logs_folder}."\\";
+my $PORFILE_FOLDER = $running_folder."\\".$paths->{portfiles}."\\";
 if(not -d $LOG_FOLDER){
  mkdir $LOG_FOLDER or print "sync: err: creating $LOG_FOLDER\n";
 }
@@ -1085,7 +1082,10 @@ EOF
     }
     
     print  "\n----".threads->self()->tid()." sync $port:  waiting ..\n";
-
+	select($s);
+    $|=1;
+    select(STDOUT);
+	
     my @cmd;
     while(my $cli=$s->accept()){
         $cli->recv(my $recv_data,1024);
@@ -1169,9 +1169,22 @@ EOF
                                     
             }elsif($cmd[0] eq "2"){  #gui asks for stats, start thr that sends stats to gui.,
                 print "sync $port: recv 2 send stats\n"; 
-                if(not $thr_stats2sock){
-                    $thr_stats2sock=threads->new(\&send_stats2sock);
-                }
+                #!!#if(not $thr_stats2sock){
+                #!!#    $thr_stats2sock=threads->new(\&send_stats2sock);
+                #!!#}
+		
+				my $kb=eval($log{KB}{ADD}/1000);
+				my $skipped=$log{F}{SKIP_ADD}+$log{F}{SKIP_ALT}+$log{F}{SKIP_DEL}+$log{F}{SKIP_REPL}+$log{F}{SKIP_U}+
+				$log{D}{SKIP_ADD}+$log{D}{SKIP_ALT}+$log{D}{SKIP_DEL}+$log{D}{SKIP_U};
+											
+				my $stats=$opt{sid}."_".$opt{did}."_".$log{F}{SCAN}."_".$log{F}{ADD}."_".$log{F}{DEL}."_".$log{F}{REPL}."_".$log{F}{ALT}."_".
+						  $kb."_".$log{TIME}{ALL}."_".$skipped;    
+				print "sync : send_stats2sock: sending $stats\n";
+				 
+				$cli->print($stats);
+				
+				print   "----".threads->self()->tid()." send_stats2sock finishing..\n";
+	
             }elsif($cmd[0] eq "3"){ #gui does not want stats
                 print "sync $port: recv 3 no more stats\n";
                 if($thr_stats2sock){
@@ -1235,7 +1248,7 @@ sub start_n_waitsock(){
             print   "----".threads->self()->tid()." sync : start_n_waitsock finishing..\n";
             threads->exit();
         }
-        $thr_stats2sock=threads->new(\&send_stats2sock);
+        #$thr_stats2sock=threads->new(\&send_stats2sock); # !!!
          #close STDERR;
          #close STDOUT;
          #open (STDOUT,">>",\$stderrs) or print "sync: main: could not redirect stdout $!\n";

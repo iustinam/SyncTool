@@ -59,8 +59,9 @@
     <RecentFiles>
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="1504" fromTop="5" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:AppConfiguration.cs" caret="194" fromTop="0" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:SyncJobsParser.cs" caret="5103" fromTop="14" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Controllers/f:SyncJobsController.cs" caret="1223" fromTop="12" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3665" fromTop="4" />
+      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3801" fromTop="12" />
     </RecentFiles>
     <RecentEdits>
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="194" fromTop="7" />

@@ -76,10 +76,10 @@
     <id>5</id>
     <client>
       <id>1</id>
-      <addr>C:\test</addr>
+      <addr>C:\test\d</addr>
     </client>
     <ignore>0</ignore>
-    <master>C:\Perl</master>
+    <master>C:\test\s</master>
     <start>14:04:40</start>
     <title>vm</title>
   </job>

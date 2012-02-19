@@ -95,6 +95,7 @@
     </Content>
     <Content Include="Content\Details.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Stats.js" />
     <Content Include="SyncToolDB.edmx.sql" />
     <Content Include="Views\SyncJobs\Details.aspx" />
     <Content Include="Views\SyncJobs\Index.aspx" />

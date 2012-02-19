@@ -1,6 +1,8 @@
 <conf>
-	<running_folder>C:/synctool</running_folder>
+	<running_folder>C:\Users\bkt\Desktop\SyncTool\synctool</running_folder>
 	<jobs_conf_filename>jobs_conf.xml</jobs_conf_filename>
 	<sync_path>sync.pl</sync_path>
+	<portfiles>run</portfiles>
+	<logs_folder>Logs</logs_folder>
 	<touch_portfile_time>3</touch_portfile_time>
 </conf>

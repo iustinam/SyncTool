@@ -73,7 +73,7 @@ my $jobs_confFile = $running_folder.$paths->{jobs_conf_filename};
 my $sync_path=$running_folder.$paths->{sync_path};
 
 #change running_folder variable (not the same significance todo rename, here it points to the logs dir)
-$running_folder =$running_folder."Logs/";
+$running_folder =$running_folder.$paths->{portfiles}."\\";
 
 if(not -d $running_folder){
  mkdir $running_folder or print "sync: err: creating $running_folder\n";
@@ -888,6 +888,10 @@ sub send_msj2GetStats{
 	select(STDOUT);
 	my $msj_2="2";
 	syswrite($socket,$msj_2);
+	
+	$socket->recv(my $recv_data,1024);
+	print Dumper($recv_data);
+	print "------------------";
 	close $socket;
 	print "gui: sent $msj_2 to $port \n";
 	#sleep(0.5);

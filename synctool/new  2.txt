@@ -1,0 +1,21 @@
+C:\synctool>perl sync.pl --s "c:\Perl" --d "C:\test" -sid 1 -did 2
+Use of uninitialized value in concatenation (.) or string at sync.pl line 90.
+C:/synctool\\1_2_22.05.26_18.02.12.log
+sync 32583: wait_sock: created portfile C:\synctool\run\1.2.32583.portfile
+
+----1 sync 32583:  waiting ..
+Terminating on signal SIGINT(2)
+
+C:\synctool>perl sync.pl --s "c:\Perl" --d "C:\test" -sid 1 -did 2
+C:/synctool\Logs\1_2_22.12.47_18.02.12.log
+sync 32645: wait_sock: created portfile C:\synctool\run\1.2.32645.portfile
+
+----1 sync 32645:  waiting ..
+sync 32645: recv 2 send stats
+sync : send_stats2sock: sending 1_2_2535_1450_0_0_0_19791.638_26_0
+----1 send_stats2sock finishing..
+----2 killing parent
+gui: Couldn't connect to 32645 to stop
+syswrite() on unopened filehandle $socket at sync.pl line 963.
+----2 sync_starter finishing..
+Terminating on signal SIGINT(2)

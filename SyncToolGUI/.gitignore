@@ -1,0 +1,5 @@
+_ReSharper.SyncToolGUI/*
+*.sln
+*.exe
+*.dll
+*.cache
