@@ -62,7 +62,6 @@
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:SyncJobsParser.cs" caret="5103" fromTop="14" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Controllers/f:SyncJobsController.cs" caret="1223" fromTop="12" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3801" fromTop="12" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Scripts/f:Stats.js" caret="583" fromTop="23" />
     </RecentFiles>
     <RecentEdits>
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:Statistics.cs" caret="194" fromTop="7" />
@@ -76,10 +75,6 @@
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="4528" fromTop="13" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3351" fromTop="9" />
       <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Models/f:ProcessManager.cs" caret="3892" fromTop="9" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Scripts/f:Stats.js" caret="771" fromTop="9" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Scripts/f:Stats.js" caret="102" fromTop="4" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Scripts/f:Stats.js" caret="357" fromTop="16" />
-      <File id="28B06565-21AF-4A61-BF13-B27857016FBB/d:Scripts/f:Stats.js" caret="583" fromTop="23" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -89,8 +84,7 @@
     <Providers />
   </UnitTestRunner>
   <UnitTestRunnerNUnit>
-    <NUnitInstallDir IsNull="False">
-    </NUnitInstallDir>
+    <NUnitInstallDir IsNull="False" />
     <UseAddins>Never</UseAddins>
   </UnitTestRunnerNUnit>
 </Configuration>

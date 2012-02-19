@@ -100,6 +100,7 @@
     <Content Include="Views\SyncJobs\Details.aspx" />
     <Content Include="Views\SyncJobs\Index.aspx" />
     <Content Include="Views\SyncJobs\WatchJob.aspx" />
+    <Content Include="Content\Watch.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

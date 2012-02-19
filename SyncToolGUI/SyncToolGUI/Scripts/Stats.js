@@ -14,13 +14,24 @@ function fetchStatistics() {
 }
 
 function parseStatistics(data) {
+    /*resetam toate joburile ca fiind oprite*/
+    for (var j in document.jobs) {
+        var elem = $("#" + document.jobs[j] + "_running");
+
+        elem.text("stopped");
+        elem.attr("class", "state_off");
+    }
+
     for (var pi in data.ProcessStatisticsList) {
         parseProcess(data.ProcessStatisticsList[pi]);
     }
 }
 
 function parseProcess(data) {
-    $("#" + data.ProcessId + "_running").text("running");
+    var elem = $("#" + data.ProcessId  + "_running");
+
+    elem.text("running");
+    elem.attr("class", "state_on");
 
     $("#" + data.ProcessId + "_fs").text(data.FilesScanned);
     $("#" + data.ProcessId + "_fa").text(data.FilesAdded);
