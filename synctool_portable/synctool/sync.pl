@@ -23,29 +23,21 @@ use Filesys::DfPortable;
 
 # 2 ways to start: gui/service 
 # 3 ways to stop: normal finish/killed by gui + external event (uncontrolled)
-
-my $gui_port="1313";
+my $gui_port;
 my $portfile:shared;
 my $done:shared; # control threads that stop this process
 my $job_done:shared;    #notify when task is complete
 my $port:shared;   #name for portfile and port on which we expect messages from gui
-my $send_stats:shared;
-my $send_stats_socket;
 
 my ($thr_worker, # runs the sync 
-$thr_sync_joiner,    #waits for sync to complete normally(sets $done=1) unless stopped by gui.
-$thr_stats2file,    #writes statistics every second while $done=0; (avoid 
 $thr_stats2sock,    #send message to socket
 $thr_start_n_waitsock,
 );
  # parent thread will remain blocked reading from socket (when recv "exit" msj ,set $done=1)
-my $gui_on=0;   #we know that gui exists if we were asked to send stats. if set to 1 , send msj1 (exit) when finishing normally.
-my $stderrs;    #variable to hold out STDERR output if --gui set
 my $last_action_add=0; #prevent logging "ALT" actions if an ADD was made previously>> keep log simple
 my $script_start_time=time; # when writing stats file, calculate total duration
 
 my %opt = ();
-my @job_logs;
 my $log_file;      #contains every file scanned
 my $stats_file:shared;           #contains statistics such as # files scanned/deleted/copied, #bytes copied , etc.
 my $src:shared; # needed for drop_stats thread, which writes to file (opt{s} is initialized in child thread)
@@ -71,31 +63,46 @@ my (
     $s_attr,$d_attr        #used for alterind attributes
 );
 
-my $xml="C:\\synctool\\conf.xml";
-my $paths=XMLin($xml);
-
 use constant {
-    #STAT_WR_SLEEP => 3,
-    #LOG_FOLDER => $paths->{running_folder},
-    #PORFILE_FOLDER => $paths->{running_folder},
     ERR_FILE => 'D:/sync1/errors.txt',
-
 # number of threads in pool for syncing simultaneously at a given moment in time
-    DIR_THR_NO => 10
+    DIR_THR_NO => 10,
+    DEFAULT_CONF_PATH =>"D:\\_eclipse\\conf.xml"
 };
+my $LOG_FOLDER;
+my $PORFILE_FOLDER;
+my $STAT_WR_SLEEP:shared;
 
-my $running_folder=$paths->{running_folder};
-$running_folder =~ s!/$!!;
-my $LOG_FOLDER =$running_folder."\\Logs\\";
-my $PORFILE_FOLDER = $running_folder."\\Logs\\";
-if(not -d $LOG_FOLDER){
- mkdir $LOG_FOLDER or print "sync: err: creating $LOG_FOLDER\n";
+print "\n###########################################################################\n";
+
+sub load_paths{
+    #my $xml="D:\\_eclipse\\conf.xml";
+    my ($xml)=@_;
+    if(not -f $xml){
+        {   #main thread will die
+            lock($done);
+            $done=1;
+        }
+        print "Invalid path: $xml\n";
+        threads->exit();
+    }
+    my $paths=XMLin($xml);
+    my $running_folder=$paths->{running_folder};
+    $running_folder =~ s!/$!!;
+    $running_folder =~ s!\$!!;
+    
+    $LOG_FOLDER =$running_folder."\\".$paths->{logs_folder}."\\";
+    $PORFILE_FOLDER = $running_folder."\\".$paths->{portfiles}."\\";
+    if(not -d $LOG_FOLDER){
+        mkdir $LOG_FOLDER or print "sync: err: creating $LOG_FOLDER\n";
+    }
+    {
+        lock($STAT_WR_SLEEP);
+        $STAT_WR_SLEEP = $paths->{touch_portfile_time};
+    }
+    
+    #print $LOG_FOLDER." ".$PORFILE_FOLDER." ".$STAT_WR_SLEEP;
 }
-my $STAT_WR_SLEEP = $paths->{touch_portfile_time};
-
-# items action types
-# DEL ADD ALT REPL (SKIP *) EXCL
-
 ###########################################################################
 
 &main(@ARGV);
@@ -135,14 +142,12 @@ EOF
 sub list {
     my $dir = shift @_;
     $dir =~ s!/$!!; #remove trailing slash  
-    #print  "2 $dir \n";
     opendir( DIR, $dir ) || die "err: opendir failed: $!";
-    #print  "3 $dir\n"; 
 
     #        grep not current dir or parent ( . and .. )
     my @ls = grep !/\.\.?$/, readdir(DIR);
     closedir DIR;
-    #print  "4\n"; 
+    
 #    print Dumper(@ls)."\n-\n";
 #    my %temp= map {$_=>1} @ls;
 #    foreach(@exclude_list){
@@ -342,15 +347,7 @@ sub md5 {
 # format: pathname type action starttime elapsedtime
 sub logg {
     my ( $pathname, $type, $action, $start, $elapsed ) = @_;
-    push @job_logs,
-      {
-        PATH    => $pathname,
-        TYPE    => $type,
-        ACTION  => $action,
-        STARTED => $start,
-        ELAPSED => $elapsed
-      };
-      
+    
     if($last_action_add&&($action eq "ALT")){
         $last_action_add=0;
         update_log("TIME",$action,$elapsed);
@@ -371,29 +368,12 @@ sub logg {
 ###########################################################################
 
 # updates %log for key and value
-my $now=1;
 sub update_log{
     my ($key1,$key2,$val)=@_;
     
     {
         lock(%log);
         $log{$key1}{$key2}+=$val;
-    }
-    if(time%5 eq 0){
-        if($now){
-#            if($send_stats){
-#                my $stats=$opt{sid}."_".$opt{did}."_".$log{TIME}{ALL};    
-#                print "sync $port: send_stats2sock: sending $stats\n";
-#                syswrite($send_stats_socket,$stats);
-#            }
-#            if($portfile){
-#                lock_nstore \%log,$portfile;
-#                print "sync $port: stored..\n";
-#            }
-            $now=0; 
-        }   
-    }else{
-        $now=1;   
     }
 }
 ###########################################################################
@@ -672,9 +652,10 @@ sub init {
         "excl=s" => \@exclude_list, #must look like " -excl \\a\b\c,\\b,\\d\s\a, "
         "exclre=s" => \@exclude_list_re,
         "nogui" => \$opt{nogui},
+        "conf=s" => \$opt{conf},
       )
       or &usage;
-      
+     
     {
         lock($src);
         $src=$opt{s};  
@@ -695,6 +676,9 @@ sub init {
     #die();
     
     if ( $opt{h} ) { &usage; }
+    my $conf=$opt{conf};
+    if(!$opt{conf}) { print "Using the default configuration file: ".DEFAULT_CONF_PATH; $conf=DEFAULT_CONF_PATH; }
+    &load_paths($conf);
     
     my $sid=$opt{sid}?$opt{sid}:"sid";
     my $did=$opt{did}?$opt{did}:"did";
@@ -725,8 +709,6 @@ sub init {
 
     # init structures for logging
     # autovificate this tree
-    
-    
     {
         lock(%log);
         $log{F}=&share({});
@@ -833,8 +815,10 @@ sub write_stats_to_handle{
 sub drop_stats{
     while(!$done){
         #print  "----".threads->self()->tid()." writing..\n";
-        sleep($STAT_WR_SLEEP);
-        #
+        
+        if($STAT_WR_SLEEP) {sleep($STAT_WR_SLEEP);}
+        else {sleep(1);}
+        
         
         #touch portfile to let gui know that we are running
         if($portfile){
@@ -853,7 +837,7 @@ sub drop_stats{
             print   "----".threads->self()->tid()." sleeping\n";
             sleep(1);
         }
-        open( $sth, '>', $stats_file ) or die "err: Cannot open stats file $stats_file \n";  #rewrite.
+        open( $sth, '>', $stats_file ) or print "err: Cannot open stats file $stats_file \n";  #rewrite.
         
         &write_stats_to_handle($sth,\%log);
         close $sth;
@@ -884,27 +868,7 @@ sub sync_starter{
         lock($job_done);
         $job_done=1;   
     }
-    
-#    print "\n\nthr act: ".Dumper(threads->list(threads::running));
-#    {
-#        lock($done);
-#        $done=1;
-#    }
-#    print "\n\nthr act: ".Dumper(threads->list(threads::running));
-    # $thr_stats2sock might be waiting for join (if gui is up)
-    
-#    if($thr_start_n_waitsock){   #this is now parent
-#        #$thr_stats2sock->join();   
-#        print "killing \n";
-#        $thr_start_n_waitsock->kill('KILL')->join();
-#    }
-    
-    
-#    # $thr_stats2file waits to be joined..  # ??? de ce nu apare ca joinable?
-#    $thr_stats2file->join();
-#    
-#    print "\n\nthr act: ".Dumper(threads->list(threads::running));
-    
+
     if($portfile){
         unlink($portfile) or print "sync ".eval($port?$port:"").": err: unlink $portfile \n";
         undef($portfile);
@@ -913,12 +877,7 @@ sub sync_starter{
     &write_stats_to_handle($logh,\%log);
         
     close $logh or die($!);
-    
-#    {
-#        lock($done);
-#        $done=1;
-#    }
-    
+
     ### kill parent
     print   "----".threads->self()->tid()." killing parent\n";
     while(!$port) {sleep(1);}
@@ -927,37 +886,13 @@ sub sync_starter{
                                   PeerPort  =>  $port,
                                   Proto => 'tcp',
                                )                
-	or print "gui: Couldn't connect to $port to stop \n";   
+	or print "sync: Couldn't connect to $port to stop \n";   
     select($socket);
 	$|=1;
 	select(STDOUT);
 	my $msj_1="1";
 	syswrite($socket,$msj_1);
 	close $socket;
-    
-#    my $sth;
-#    # write stats also to $stats_file if we finished normally
-#    open( $sth, '>', $stats_file ) or print "sync ".eval($port?$port:"").": err: Cannot open stats file $stats_file \n"; 
-#    
-#    &write_stats_to_handle($sth,\%log);
-#    print "end\n";
-#    close $sth;
-
-    
-    # write $stderrs to file
-#    open (ERR, '>>', ERR_FILE) or print "sync $port: err: Cannot open stats".ERR_FILE." \n";
-#    print ERR "--------------------------------------------------------------------\n\n";
-#    print ERR $opt{sid}."_".$opt{did}.POSIX::strftime("_%H.%M.%S_%d.%m.%y",localtime);
-#    print ERR $stderrs."\n";
-#    close ERR;
-
-#    foreach(threads->list(threads::running)){
-#        if(not $_->equal(threads->self())){
-#            print "killing $_->tid() \n";
-#            $_->kill('KILL');   
-#        }
-#    }
-    #threads->object("0")->kill('KILL');
     
     print   "----".threads->self()->tid()." sync_starter finishing..\n";
 }
@@ -1051,23 +986,16 @@ EOF
                    # kill thr that sends status messages to gui
                    # sync thr and joiner ...they die
                    
-                   #if($thr_worker->is_running()){
-                        #print "----".threads->self()->tid()." worker is running\n";
-                        
-                        sleep(1);
-                        if($thr_worker->is_joinable()){
-                            $thr_worker->join();
-                            print   "----".threads->self()->tid()." sync $port: joined worker\n";
-                        }
-                        
-                        if($thr_worker->is_running()){
-                            $thr_worker->kill('KILL')->join();
-                            print   "----".threads->self()->tid()." killed worker \n";
-                        }
-                        
-                        
-                   #}
+                    sleep(1);
+                    if($thr_worker->is_joinable()){
+                        $thr_worker->join();
+                        print   "----".threads->self()->tid()." sync $port: joined worker\n";
+                    }
                     
+                    if($thr_worker->is_running()){
+                        $thr_worker->kill('KILL')->join();
+                        print   "----".threads->self()->tid()." killed worker \n";
+                    }
                     if($portfile) {
                         print   "----".threads->self()->tid()." sync $port: deleting portfile $portfile\n";
                         unlink($portfile) or print "sync $port: err: someone erased our portfile $portfile before us!! \n";
@@ -1076,10 +1004,6 @@ EOF
                     
                     if($thr_stats2sock){
                         if($job_done){  
-#                            {
-#                                lock($done);
-#                                $done=1;
-#                            }
                             while(not $thr_stats2sock->is_joinable()){
                                 print   "----".threads->self()->tid()." sync $port: waiting for thr_stats2sock to finish\n";
                                 sleep(1);
@@ -1098,13 +1022,7 @@ EOF
                     }
 
                     print   "----".threads->self()->tid()." sync $port: start_n_waitsock finishing..\n";
-                    
-#                    print "\n\nthr act: ";
-#                    foreach(threads->list(threads::running)){
-#                         print $_->tid()." ";
-#                    }
-#                    print "\n";
-                    
+
                     threads->exit();
                                     
             }elsif($cmd[0] eq "2"){  #gui asks for stats, start thr that sends stats to gui.,
@@ -1157,6 +1075,7 @@ sub start_n_waitsock(){
     $thr_worker= threads->new(\&sync_starter,$opt{s}, $opt{d}) or die("err create sync thread: ".$!);
 
     if($opt{gui}){  #gui is on, so we should start sending stats immediately
+        # a gui started us , but it either died , or there are more than 1 guis out there
         if (not &gui_is_on()){
             if($thr_worker->is_running()){
                 $thr_worker->kill('KILL')->join();
@@ -1175,18 +1094,13 @@ sub start_n_waitsock(){
     
     print   "worker: tid ".$thr_worker->tid()."\n" if ($opt{v});
     print   "start_n_wait: tid".threads->self()->tid()."\n" if ($opt{v});
-#    print "\n\nthr act: ";
-#    foreach(threads->list(threads::running)){
-#        print $_->tid()."\n";
-#    }
-#    
     &wait_sock();
 }
 
 sub main {
     
     $thr_start_n_waitsock=threads->new(\&start_n_waitsock) or die("err create start_n_waitsock thread: ".$!);
-    
+    sleep(0.5);
     &drop_stats();
     $thr_start_n_waitsock->join();
     print   "----".threads->self()->tid()." joined thr_start_n_waitsock; parent dying..\n";

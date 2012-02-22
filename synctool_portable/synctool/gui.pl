@@ -8,6 +8,7 @@ use IO::Socket;
 use Storable qw(lock_nstore lock_retrieve);
 use POSIX;
 use Carp;                  # prints stack trace
+use Clone qw(clone);
 ################################# gui stuff
 use Tk;
 use Tk::Dialog;
@@ -25,11 +26,6 @@ use Tk::Checkbutton;
 use Tk::Toplevel;
 use Tk::Optionmenu;
 ################################# vars
-#use constant{
-#  PORTFILE_FOLDER => 'D:/sync1/' ,
-#  RUNNING_FILE => 'D:/sync1/gui_running',
-#};
-
 
 my $version = "3820934120";
 my $lupdate = "check the mtime";
@@ -59,39 +55,39 @@ my %thr; # thr{sid}{did}
 my %edit;   # {sid_wwId} , keep track of opened edit job windows
 my $winAdd ; #only one edit/new ww at a time
 
-### read paths conf xml file
 
-my $xml="C:\\synctool\\conf.xml";
+print "###################################################################################\n";
+################################################################################# READ PATHS FROM CONF
+my $xml="D:\\_eclipse\\conf.xml";
 my $paths=XMLin($xml);
-#print Dumper($paths);
 
 my $running_folder=$paths->{running_folder};
 $running_folder =~ s!/$!!;
 $running_folder =~ s!\$!!;
-$running_folder =$running_folder."/";
+my $LOG_FOLDER =$running_folder."\\".$paths->{logs_folder}."\\";
+my $PORFILE_FOLDER = $running_folder."\\".$paths->{portfiles}."\\";
+
 my $jobs_confFile = $running_folder.$paths->{jobs_conf_filename};
+
 my $sync_path=$running_folder.$paths->{sync_path};
 
-#change running_folder variable (not the same significance todo rename, here it points to the logs dir)
-$running_folder =$running_folder."Logs/";
-
-if(not -d $running_folder){
- mkdir $running_folder or print "sync: err: creating $running_folder\n";
+if(not -d $PORFILE_FOLDER){
+ mkdir $PORFILE_FOLDER or print "sync: err: creating $PORFILE_FOLDER\n";
 }
-my $running_file=$running_folder."gui_running";
+$PORFILE_FOLDER =~s!/$!!;
+$PORFILE_FOLDER =~s!\$!!;
+my $running_file=$PORFILE_FOLDER."\\gui_running";
 
 my $touch_portfile_time=$paths->{touch_portfile_time};
 print "$running_folder $running_file $jobs_confFile $touch_portfile_time $sync_path \n";
 
 
-## Read Job Conf File
+################################################################################# READ JOBS CONF
 my $conf;
-my $xs; #will hold teh xmlsimple obj
+my $xs; #will hold the xmlsimple obj
 &readXmlJobs();
 #my $conf=XMLin($jobs_confFile,forcearray=>[qw(client)]); #todo check if exists, print err parsing xml id any
-#&writeXmlJobs();
-#die();
-#print Dumper($map);
+
 &init(); #share this structure based on sid(s) and did(s) in %conf
 
 my $thr_wait_sock=threads->new(\&wait_socket_msj)->detach();
@@ -101,36 +97,29 @@ my $thr_touch_running_file;
 #print Dumper($conf);
 $| = 1;
 
-foreach my $job ( keys %{$conf->{job}}){
-    #print Dumper($conf->{job}{$job}{client});
-    #my @indexes=sort keys %{$conf->{job}{$job}{client}};
-    #print $indexes[-1];
-    
-    #my @vals=values %{$conf->{job}{$job}{client}};
-    #print @vals;
-    #my @adr=values %{$conf->{job}{$job}{client}};
-    #my @res;
-    #push @res,$_->{addr} foreach(@adr);
-    #print "res @res";
-    
-   # my $new_cli="D:\\casdev\\rg1";
-   
-                
-    foreach(keys %{$conf->{job}{$job}{client}}){
-        
-        #print "src: $conf->{job}{$job}{master} \n";
-        ##push(@job_list,$conf->{job}{$job}{master};
-        print "dst: $conf->{job}{$job}{client}{$_}{addr} \n";  
-    }   
-}
-my @job_ids =sort keys %{$conf->{job}};
-my @job_list;
-foreach(@job_ids) { push @job_list,$conf->{job}{$_}{title};}
-#print Dumper(@job_list);
-#die();
+#foreach my $job ( keys %{$conf->{job}}){                
+#    foreach(keys %{$conf->{job}{$job}{client}}){
+#        print "dst: $conf->{job}{$job}{client}{$_}{addr} \n";  
+#    }   
+#}
+#################################################################################
 
-##############################################################################
-# GUI elemets
+my $MW_listBox;
+#needs $conf and $MW_listBox
+sub MW_loadJobList{
+    print "here\n";
+    print Dumper($conf->{job}{10});
+    #my $MW_listBox =shift or ((print "no ww id to put the joblist\n" )&& return) ; ##?? mere
+    my @job_list;
+    my @job_ids =sort keys %{$conf->{job}};
+    foreach(@job_ids) { push @job_list,$conf->{job}{$_}{title};}
+    @job_list= sort{lc($a) cmp lc($b)} @job_list;
+    $MW_listBox->delete('0', 'end');
+    $MW_listBox->insert('end', @job_list);
+}
+
+############################################################################## # GUI elemets
+
 my $selected_job ; # job element selected in listbox
 
 # Create GUI
@@ -208,23 +197,22 @@ my $b_frame = $mw->Frame()->pack(-side => 'bottom',-padx => 10,-pady => 10);
     
 my $l_frame = $t_frame->Frame()->pack(-side => 'left');
     
-my $listBox = $l_frame->Scrolled("Listbox", -selectmode => "single", -width => "50", -height => "5",  #?in ce il masoara
+$MW_listBox = $l_frame->Scrolled("Listbox", -selectmode => "single", -width => "50", -height => "5",  #?in ce il masoara
 		  -scrollbars => 'osoe'); # optional south and optional east
+&MW_loadJobList();
 
-$listBox->insert('end', @job_list);
-$listBox->bind('<Button-1>', sub {
-    $selected_job = $listBox->get($listBox->curselection());
+$MW_listBox->bind('<Button-1>', sub {
+    $selected_job = $MW_listBox->get($MW_listBox->curselection());
     ## we have the name, we need to find the id corresponding to src
     foreach(keys %{$conf->{job}}){
         if($conf->{job}{$_}{title} eq $selected_job){
             $selected_job=$_;
             print "jobid $_ \n";
             last;
-            
         }
     }
 });
-$listBox->pack(-side => 'top', -fill => 'both', -expand => 1);  #?
+$MW_listBox->pack(-side => 'top', -fill => 'both', -expand => 1);  #?
 
 my $r_frame = $t_frame->Frame()->pack(
     -side => 'right',
@@ -282,11 +270,15 @@ MainLoop();
 sub edit_job{
     my $edit_sid = shift || undef;
     my $tmpJob={};
+    #my %tmpJob;
+    my $edit_flag=0;
     #do not allow multiple edit/new job windows...they share variables.
     if($winAdd ){
         return;
     }
-    if(not $edit_sid){ #then is a new job window.. get next sid available and insert into conf hash
+    if(not $edit_sid){ 
+        # NEW 
+        #get next sid available and insert into conf hash
         my @tmp=keys %{$conf->{job}}; 
         @tmp=sort @tmp;
         #print $tmp[-1]."\n";
@@ -299,38 +291,38 @@ sub edit_job{
         $tmpJob->{exclude}=[];
         $tmpJob->{exclude_re}=[];
     }else{
-        $tmpJob=$conf->{job}{$edit_sid}; #duplicate or same?
-        print Dumper($tmpJob);
-#        return;   
+        # EDIT
+        $tmpJob= clone($conf->{job}{$edit_sid}); #duplicate or same?    
+        if( not ref $tmpJob->{client} eq "HASH"){
+            $tmpJob->{client}={};
+            print "clients null";
+        }
+        print Dumper($tmpJob); 
+        $edit_flag=1; 
     }
     
     $btnAdd->configure(-state=>'disabled');
     $btnEdit->configure(-state=>'disabled');
     
+    #create ww
     $winAdd = $mw->Toplevel;
     $winAdd->geometry("+400+200");
     $winAdd->title("Edit Job");
     $winAdd->resizable(0,0);
     
+    #################### Close
     $winAdd->protocol('WM_DELETE_WINDOW',sub{
         $winAdd ->destroy(); 
         $winAdd=undef;
         $btnAdd->configure(-state=>'normal');$btnEdit->configure(-state=>'normal');
         &writeXmlJobs();
+        &MW_loadJobList();
     });
     
     my $t_frame = $winAdd->Frame()->pack(-side => 'top');
     my $l_frame = $t_frame->Frame()->pack(-side => 'left',-padx => 10,-pady => 10);
     my $r_frame = $t_frame->Frame()->pack(-side => 'right',-padx => 10,-pady => 10);
     my $b_frame = $winAdd->Frame()->pack(-side => 'bottom',-padx => 10,-pady => 10);
-    
-    #my $l_frame   = $winAdd->Frame->grid(-row => 0,-col => 0,-sticky => 'nw');
-    #my $r_frame   = $winAdd->Frame->grid(-row => 0,-col => 1,-sticky => 'nw');
-    #my $bottom = $winAdd->Frame->grid(-row => 2, -col => 0, -columnspan => 3, -sticky => 'nw');
-    
-                        
-    #my $lbl_name = $l_frame->Label(-text =>"Job Name:") ->grid(-row=>0,-column=>0, -columnspan=>1, -sticky=>'nsew')
-    #    ->pack(-side         => 'top',-anchor       => 'nw');
     
     require Tk::LabEntry;
     
@@ -368,14 +360,21 @@ sub edit_job{
     $l2_frame->Button(-text=>"+", -command => sub{
             if($new_cli){
                 #push @{$tmpJob->{client}},$new_cli if not $new_cli~~@{$tmpJob->{client}};
-                my @indexes=sort keys %{$tmpJob->{client}};
-                my $ok=1;
-                foreach(values %{$tmpJob->{client}}){
-                    if ($new_cli~~$_->{addr}) {$ok=0;}
+                
+                my @indexes;
+                if(scalar %{$tmpJob->{client}}){
+                    @indexes=sort keys %{$tmpJob->{client}};
+                    my $ok=1;
+                    foreach(values %{$tmpJob->{client}}){
+                        if ($new_cli~~$_->{addr}) {$ok=0;}
+                    }
+                    $tmpJob->{client}{$indexes[-1]+1}{addr}=$new_cli if $ok;
+                }else{
+                    #print "first cli\n";
+                    $tmpJob->{client}{"1"}{addr}=$new_cli;
                 }
-                $tmpJob->{client}{$indexes[-1]+1}{addr}=$new_cli if $ok;
-                print Dumper($conf);
-                &new_job_load_clients_listbox($edit_sid); 
+                $new_cli='';
+                &new_job_load_clients_listbox($tmpJob);
             }
         },-width=>2,-height=>0.3)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
@@ -384,7 +383,7 @@ sub edit_job{
                  foreach (keys %{$tmpJob->{client}}){
                     if( $tmpJob->{client}{$_}{addr} eq $selected_client){
                         delete($tmpJob->{client}{$_});
-                        &new_job_load_clients_listbox($edit_sid);
+                        &new_job_load_clients_listbox($tmpJob);
                     }   
                  }
              }    
@@ -400,7 +399,7 @@ sub edit_job{
 		  -scrollbars => 'osoe');
 		  
     #$new_listBox->insert('end', @{$tmpJob->{client}});
-    &new_job_load_clients_listbox($edit_sid); #load current clients
+    &new_job_load_clients_listbox($tmpJob);
     $new_listBox_cli->bind('<Button-1>', sub {
         $selected_client = $new_listBox_cli->get($new_listBox_cli->curselection());
     });
@@ -418,8 +417,8 @@ sub edit_job{
     
     $r0_frame->Checkbutton(-text=>"Ignore Job",-variable=>\$tmpJob->{ignore})
              ->pack(-side => "top", -anchor => "nw", -padx => 1);
-    $r1_frame->LabEntry(-label =>"Start Time", -labelPack=>[-side => "left", -anchor => "w"], 
-                        -width=>30, -textvariable=>\$tmpJob->{start} ) 
+    $r1_frame->LabEntry(-label =>"Start Time (hh:mm:ss) ", -labelPack=>[-side => "left", -anchor => "w"], 
+                        -width=>24, -textvariable=>\$tmpJob->{start} ) 
             ->pack(-side => "top", -anchor => "nw", -padx => 1);
             
     ########## exclude full name area
@@ -438,7 +437,11 @@ sub edit_job{
                 }
                 push @{$tmpJob->{exclude}},$new_exclude if $ok;
                 $new_exclude="";
-                &new_job_load_exclude_listbox($edit_sid); 
+                #if($edit_flag){
+                    &new_job_load_exclude_listbox($tmpJob); 
+                #}else{
+                #    &new_job_load_exclude_listbox;
+                #}
             }
         },-width=>2,-height=>0.3)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
@@ -448,7 +451,7 @@ sub edit_job{
                  my %h=map{$_=>1} @{$tmpJob->{exclude}};
                  delete $h{$selected_exclude};
                  @{$tmpJob->{exclude}}=keys %h;
-                 new_job_load_exclude_listbox($edit_sid);
+                 &new_job_load_exclude_listbox($tmpJob); 
              }    
         },-width=>2,-height=>0.3)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
@@ -456,7 +459,9 @@ sub edit_job{
     $new_listBox_exclude = $r3_frame->Scrolled("Listbox", -selectmode => "single", -width => "45", -height => "5",  #?in ce il masoara
 		  -scrollbars => 'osoe');
     #$new_listBox->insert('end', @{$tmpJob->{client}});
-    &new_job_load_exclude_listbox($edit_sid);
+    
+    &new_job_load_exclude_listbox($tmpJob); 
+    
     $new_listBox_exclude->bind('<Button-1>', sub {
         $selected_exclude = $new_listBox_exclude->get($new_listBox_exclude->curselection());
     });
@@ -479,7 +484,7 @@ sub edit_job{
                 }
                 push @{$tmpJob->{exclude_re}},$new_exclude_re if $ok;
                 $new_exclude_re="";
-                &new_job_load_exclude_re_listbox($edit_sid); 
+                &new_job_load_exclude_re_listbox($tmpJob);
             }
         },-width=>2,-height=>0.3)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
@@ -489,7 +494,7 @@ sub edit_job{
                  my %h=map{$_=>1} @{$tmpJob->{exclude_re}};
                  delete $h{$selected_exclude_re};
                  @{$tmpJob->{exclude_re}}=keys %h;
-                 new_job_load_exclude_re_listbox($edit_sid);
+                 &new_job_load_exclude_re_listbox($tmpJob);
              }    
         },-width=>2,-height=>0.3)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
@@ -497,46 +502,113 @@ sub edit_job{
     $new_listBox_exclude_re = $r6_frame->Scrolled("Listbox", -selectmode => "single", -width => "45", -height => "5",  #?in ce il masoara
 		  -scrollbars => 'osoe');
     #$new_listBox->insert('end', @{$tmpJob->{client}});
-    &new_job_load_exclude_re_listbox($edit_sid);
+    &new_job_load_exclude_re_listbox($tmpJob);
+    
     $new_listBox_exclude_re->bind('<Button-1>', sub {
         $selected_exclude_re = $new_listBox_exclude_re->get($new_listBox_exclude_re->curselection());
     });
     $new_listBox_exclude_re->pack(-side => 'top',-anchor=> 'nw');
     #################
+    # SAVE
     
-    
-    my $btn_close = $b_frame->Button(-text => "Close and Save to XML",
+    my $btn_close = $b_frame->Button(-text => "Close and Save to Configuration",
+                                     -command => sub{
+                                         my $err=0; # set if any err found
+                                         my $err_mes;
+                                         
+                                         #vrfy start time 
+                                         if (not $tmpJob->{start}) {
+                                             $err_mes.="- Please specify a start time (eg. 12:59:00)\n" ;$err=1;
+                                         }else{
+                                             $tmpJob->{start}=~m/^([0-2][0-9]):([0-5][0-9]):([0-5][0-9])$/;
+                                             #$winAdd-> messageBox(-message=>$1." ".$2." ".$3,-type=>'ok',-icon=>'error');
+                                             if((not($1&&$2&&$3)) or $1>23 or $2>59 or $3>59){
+                                                #$winAdd-> messageBox(-title=>"Error Time Format",-message=>"Please specify a valid start time\n eg. 12:59:00",-type=>'ok',-icon=>'error');
+                                                #return;
+                                                $err_mes.="- Please specify a valid start time (eg. 12:59:00).\n"; 
+                                                $err=1;
+                                             }
+                                         }
+                                         #vrfy duplicate or null job name
+                                         if (not $tmpJob->{title}) {$err_mes.="- Please specify the job name\n"; $err=1;}
+                                         foreach (keys %{$conf->{job}}){
+                                            if(($conf->{job}{$_}->{title} eq $tmpJob->{title})&&(not $_==$edit_sid)){
+                                                #$winAdd-> messageBox(-title=>"Error Duplicate Name",-message=>"Duplicate job name.",-type=>'ok',-icon=>'error');
+                                                #return;
+                                                $err_mes.="- Duplicate job name.\n"; 
+                                                $err=1;
+                                            }   
+                                         }
+                                         #vrfy master mandatory/valid path
+                                         if(not $tmpJob->{master}) {$err_mes.="- Please specify a master share\n"; $err=1;}
+                                         else{
+                                             if(not -d $tmpJob->{master}) {$err_mes.="- Source path is invalid\n"; $err=1;}
+                                         }
+                                         #vrfy >1 client mandatory/valid paths
+                                         if(not scalar %{$tmpJob->{client}}){
+                                             $err_mes.="- Please specify at least one destination\n"; $err=1;
+                                         }else{
+                                             print Dumper($tmpJob->{client});
+                                             foreach (values %{$tmpJob->{client}}){
+                                                 if(not -d $_->{addr}) {$err_mes.="- Client path '". $_->{addr}."' is invalid\n"; $err=1;}
+                                             }
+                                         }
+                                         #vrfy any dest equals source
+                                         foreach(values %{$tmpJob->{client}}){
+                                             if ($tmpJob->{master}~~$_->{addr}) {
+                                                 $err_mes.="- Client equals master\n"; $err=1;
+                                             }
+                                         }
+                                         
+                                         if($err){
+                                             $winAdd-> messageBox(-title=>"Error Job Specifications",-message=>$err_mes,-type=>'ok',-icon=>'error');
+                                             return;
+                                         }
+                                         $winAdd ->destroy(); 
+                                         $winAdd=undef;
+                                         $btnAdd->configure(-state=>'normal');$btnEdit->configure(-state=>'normal');
+                                        
+                                         $conf->{job}{$edit_sid}=$tmpJob;      
+                                         &writeXmlJobs();
+                                         &MW_loadJobList();
+                                     })->pack(-side => 'left',-anchor=> 'nw', -padx => 3);
+    my $btn_cancel = $b_frame->Button(-text => "Cancel",
                                      -command => sub{
                                          $winAdd ->destroy(); 
                                          $winAdd=undef;
                                          $btnAdd->configure(-state=>'normal');$btnEdit->configure(-state=>'normal');
-                                         &writeXmlJobs();
-                                     })->pack();
+                                     })->pack(-side => 'left',-anchor=> 'nw', -padx => 3);
 }
 ###################################################
 
 sub new_job_load_clients_listbox{
-    my $edit_sid = shift || '';
+    #my $edit_sid = shift || '';
+    #return if not $edit_sid;
+    my $job= shift;
+    
     $new_listBox_cli->delete('0', 'end');
-    my @adr=values %{$conf->{job}{$edit_sid}{client}};
+    #my @adr=values %{$conf->{job}{$edit_sid}{client}};
+    return if not ref $job->{client} eq "HASH";
+    my @adr=values %{$job->{client}};   
+    
     my @res;
     push @res,$_->{addr} foreach(@adr);
-    #$new_listBox_cli->insert('end', @{$conf->{job}{$edit_sid}{client}});
-    $new_listBox_cli->insert('end', sort @res);
+    @res=sort{lc($a) cmp lc($b)} @res;
+    $new_listBox_cli->insert('end',@res);
 }
 ####################################################
 
 sub new_job_load_exclude_listbox{
-    my $edit_sid = shift || '';
+    my $job= shift;
     $new_listBox_exclude->delete('0', 'end');
-    $new_listBox_exclude->insert('end', @{$conf->{job}{$edit_sid}{exclude}});
+    $new_listBox_exclude->insert('end', sort{lc($a) cmp lc($b)} @{$job->{exclude}}) if ($job->{exclude});
 }
 ####################################################
 
 sub new_job_load_exclude_re_listbox{
-    my $edit_sid = shift || '';
+    my $job= shift;
     $new_listBox_exclude_re->delete('0', 'end');
-    $new_listBox_exclude_re->insert('end', @{$conf->{job}{$edit_sid}{exclude_re}});
+    $new_listBox_exclude_re->insert('end',sort{lc($a) cmp lc($b)} @{$job->{exclude_re}} ) if ($job->{exclude_re});
 }
 ##############################################################################
 
@@ -689,7 +761,7 @@ sub view_job{
 #            #$stats{$sid_wwId}{cli}{$_}{lbl_TIME}->configure(-text=>" "); #todo
 #            #$stats{$sid_wwId}{cli}{$_}{lbl_SKIP}->configure(-text=>" ");
         }
-        opendir( D, $running_folder) or die ("err: cannot open portfile dir: $!");
+        opendir( D, $PORFILE_FOLDER) or die ("err: cannot open portfile dir: $!");
         my @portfiles= grep /.*\.portfile$/, readdir(D);
         #print "\n!!".Dumper(@portfiles)."\n\n";
         closedir(D);
@@ -703,7 +775,7 @@ sub view_job{
                 print "!!found $3\n";
                 $stats{$sid_wwId}{cli}{$2}{file_exists}=1;
                 
-                my $sec_since_last_modified=time-(stat($running_folder.$_))[9];
+                my $sec_since_last_modified=time-(stat($PORFILE_FOLDER.$_))[9];
                 $stats{$sid_wwId}{cli}{$2}{port}=$3;
                 #print "!!".Dumper(%info)." \n";
                 if(not $info{$sid_wwId}{$2}{knows}){
@@ -712,7 +784,7 @@ sub view_job{
                         print "portfile $_ modified long ago\n";
                         $stats{$sid_wwId}{cli}{$2}{last_status}="Failed";
                         $stats{$sid_wwId}{cli}{$2}{port}=undef;
-                        unlink($running_folder.$_) or print "gui: winView->repeat: removing old portfile $_ \n";
+                        unlink($PORFILE_FOLDER.$_) or print "gui: winView->repeat: removing old portfile $_ \n";
                     }else{
                         print "gui: view_job: $stats{$sid_wwId}{cli}{$2}{port} does not know ...\n";
                         #if(($info{$sid_wwId}{$2}{run})&&(&send_msj2GetStats($sid_wwId,$stats{$sid_wwId}{cli}{$2}{port}))){
@@ -820,13 +892,8 @@ sub view_job{
 
 # starts a new sync job # params sid,did
 sub start{
-    #print "params: ".@_[0]." ".@_[1]."\n";
     my ($sid_wwId,$did)=@_;
     #print "sid and did: $sid_wwId $did \n";
-    
-    # ----
-    #get next port available and insert it into $stats
-    #my $nextport="1314";
 
     #start process
     my @cmd1=("perl",$sync_path,"--s",$conf->{job}{$sid_wwId}{master},"--d",$conf->{job}{$sid_wwId}{client}{$did}{addr},"-sid",$sid_wwId,"-did",$did,"--gui");   #"2>nul"
@@ -842,7 +909,6 @@ sub start{
             push @cmd1,$_.",";
         }
     }
-    #my $cmd="perl sample.pl --s \"".$conf->{job}{$sid_wwId}{master}."\" --d \"".$conf->{job}{$sid_wwId}{client}{$did}{addr}."\" -sid ".$sid_wwId." -did ".$did." -c 2 -p ".$nextport;
     print "\ngui calling: @cmd1 \n";
 #    my $pid=fork();
 #    if(not defined $pid){
@@ -982,16 +1048,16 @@ sub view_last_stats{
     my ($s,$d)=@_;
     print "gui: view_last_stats: sid and did: $s $d \n";
 
-    opendir( D, $running_folder) or die ("gui: view_last_stats: err: cannot open portfile dir: $!");
+    opendir( D, $LOG_FOLDER) or die ("gui: view_last_stats: err: cannot open portfile dir: $!");
     my $laststats;
     my @statsfiles= grep /^($s)_($d).*\.stats/, readdir(D);
     #print Dumper(@statsfiles);
-    my @sorted=sort{-M $running_folder.$a <=> -M $running_folder.$b} @statsfiles;
+    my @sorted=sort{-M $LOG_FOLDER.$a <=> -M $LOG_FOLDER.$b} @statsfiles;
     closedir(D);
     if(scalar @sorted){
         $laststats=$sorted[0];
         #print "gui: view_last_stats: file with last mtime is $laststats, mtime ".POSIX::strftime( "%H:%M:%S %d/%m/%y", gmtime( -M PORFILE_FOLDER.$laststats ) )." \n";    
-        my @cmd=("start","notepad.exe",$running_folder.$laststats);
+        my @cmd=("start","notepad.exe",$LOG_FOLDER.$laststats);
         system 1,@cmd;
         print "started notepad \n";
     }
@@ -1018,13 +1084,13 @@ sub view_last_log{
 
 sub get_last_modified_file{
     my ($s,$d)=@_;
-    opendir( D, $running_folder) or die ("gui: view_last_log: err: cannot open portfile dir: $!");
+    opendir( D, $LOG_FOLDER) or die ("gui: view_last_log: err: cannot open portfile dir: $!");
     my $lastlog;
     my @logfiles= grep /^($s)_($d).*\.log/, readdir(D);
-    my @sorted=sort{-M $running_folder.$a <=> -M $running_folder.$b} @logfiles;
+    my @sorted=sort{-M $LOG_FOLDER.$a <=> -M $LOG_FOLDER.$b} @logfiles;
     closedir(D);
     if(scalar @sorted){
-        return $running_folder.$sorted[0];
+        return $LOG_FOLDER.$sorted[0];
     }else{
         return undef;   
     }
@@ -1143,7 +1209,7 @@ sub wait_socket_msj{
         lock($listen_port);
         $listen_port=$s->sockport();    
     }
-    opendir( D, $running_folder) or die ("err: cannot open portfile dir: $!");
+    opendir( D, $PORFILE_FOLDER) or die ("err: cannot open portfile dir: $!");
     my @guis= grep /gui_running.*$/, readdir(D);
     closedir(D);
         
@@ -1152,11 +1218,11 @@ sub wait_socket_msj{
         
         my $sec_since_last_modified;
         foreach(@guis){
-            print "!!: ".$running_folder.$_."\n";
-            $sec_since_last_modified=time-(stat($running_folder.$_))[9];
+            print "!!: ".$PORFILE_FOLDER.$_."\n";
+            $sec_since_last_modified=time-(stat($PORFILE_FOLDER.$_))[9];
             if($sec_since_last_modified>$TOUCH_GUI_RUN+1){
                 print "this is dead: $_\n";
-                unlink($running_folder.$_) or print "gui: err: could not unlink $_ \n";
+                unlink($PORFILE_FOLDER.$_) or print "gui: err: could not unlink $_ \n";
             }else{
                 print "There is another instance of gui running! Quitting..\n";
                 exit(0);
@@ -1170,11 +1236,11 @@ sub wait_socket_msj{
     print "created RUNNING_FILE \n";
     
     #signal our presence to all processes that are already started so that they will know our port before we ask stats from them
-    opendir( D, $running_folder) or die ("gui: init: err: cannot open portfile dir: $!");
+    opendir( D, $PORFILE_FOLDER) or die ("gui: init: err: cannot open portfile dir: $!");
     my @portfiles= grep /.*\.portfile$/, readdir(D);
     closedir(D);
     foreach(@portfiles){
-        my $sec_since_last_modified=time-(stat($running_folder.$_))[9];
+        my $sec_since_last_modified=time-(stat($PORFILE_FOLDER.$_))[9];
         /([0-9]+)\.([0-9]+)\.([0-9]+)\.portfile$/;
         
         if($sec_since_last_modified<=$touch_portfile_time){
@@ -1255,6 +1321,9 @@ sub init{
     #share the %info because this will be modified by each thread that receives stats from a process
     foreach my $sid (keys %{$conf->{job}}){
         $info{$sid}=&share({});
+        print $sid."\n";
+        if(not ref $conf->{job}{$sid}{client} eq "HASH") {next;}
+        #print "\n".Dumper($conf->{job}{$sid}{client})."\n";
         foreach my $did( keys %{$conf->{job}{$sid}{client}} ){
             #print "gui: sharing info{$sid }{$did }\n";
             $info{$sid}{$did}=&share({});
