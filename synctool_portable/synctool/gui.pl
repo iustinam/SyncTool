@@ -1,5 +1,7 @@
+################################# param : -conf "path" (else default)
 use strict;
 use warnings;
+use Getopt::Long;
 use threads;
 use threads::shared;
 use XML::Simple;
@@ -28,17 +30,18 @@ use Tk::Optionmenu;
 ################################# vars
 
 my $version = "3820934120";
-my $lupdate = "check the mtime";
+my $lupdate = POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($0))[9]));
 my $TOUCH_GUI_RUN=1;
 
 my $listen_port:shared;
 
-### edit/add job vars
-my @new_clients;
-my $new_name;
-my $new_master;
-my $new_start;
-my @new_exclude;
+### Main Window vars
+my $MW_listBox;
+my $selected_job ; # job element selected in listbox
+
+### Edit/Add job vars
+#my @new_clients;
+#my @new_exclude;
 my $selected_client;
 my $new_cli; # textvariable to hold new client to add
 my $new_listBox_cli; 
@@ -58,8 +61,15 @@ my $winAdd ; #only one edit/new ww at a time
 
 print "###################################################################################\n";
 ################################################################################# READ PATHS FROM CONF
-my $xml="D:\\_eclipse\\conf.xml";
-my $paths=XMLin($xml);
+use constant{
+    DEFAULT_CONF_PATH =>"D:\\_eclipse\\conf.xml"
+};
+my $xml_conf;
+GetOptions(
+        "conf=s" => \$xml_conf,
+        );
+if (not $xml_conf) {$xml_conf= DEFAULT_CONF_PATH ;print "Using default configuration file: ".$xml_conf."\n"}
+my $paths=XMLin($xml_conf); # dies if conf not found
 
 my $running_folder=$paths->{running_folder};
 $running_folder =~ s!/$!!;
@@ -94,7 +104,6 @@ my $thr_wait_sock=threads->new(\&wait_socket_msj)->detach();
 my $thr_wait_kids=threads->new(\&wait_kids)->detach();
 my $thr_touch_running_file;
 
-#print Dumper($conf);
 $| = 1;
 
 #foreach my $job ( keys %{$conf->{job}}){                
@@ -104,11 +113,8 @@ $| = 1;
 #}
 #################################################################################
 
-my $MW_listBox;
 #needs $conf and $MW_listBox
 sub MW_loadJobList{
-    print "here\n";
-    print Dumper($conf->{job}{10});
     #my $MW_listBox =shift or ((print "no ww id to put the joblist\n" )&& return) ; ##?? mere
     my @job_list;
     my @job_ids =sort keys %{$conf->{job}};
@@ -119,19 +125,6 @@ sub MW_loadJobList{
 }
 
 ############################################################################## # GUI elemets
-
-my $selected_job ; # job element selected in listbox
-
-# Create GUI
-my $mw = MainWindow->new();
-
-$mw->title ("SyncTool \@conti");
-$mw->geometry('+40+350');
-$mw->resizable(0,0);
-
-# handle EXIT
-#$mw->protocol('WM_DELETE_WINDOW',&bbye());
-#$SIG{'INT'}=sub{print "Cancelled.\n"; &unlink_running_file();threads->exit()}; 
 
 sub unlink_running_file{
     if($listen_port){
@@ -163,8 +156,19 @@ sub bbye{
     &unlink_running_file();
     threads->exit();
 }
-############### File Menu
 
+############### Create Main Window
+my $mw = MainWindow->new();
+
+$mw->title ("SyncTool \@conti");
+$mw->geometry('+40+350');
+$mw->resizable(0,0);
+
+############### handle EXIT
+$mw->protocol('WM_DELETE_WINDOW',sub{ &bbye()} );
+$SIG{'INT'}=sub{print "Cancelled.\n";&bbye()};  #switch to ww and back to make it work
+
+############### File Menu
 $mw->configure(
     -menu => my $menubar = $mw->Menu
     );
@@ -187,7 +191,7 @@ my $help = $menubar->cascade(-label     => '~Help',
 
 $help->command(
    -label        => "About",
-   -command      => \&mnabout,
+   -command      => sub{$mw-> messageBox(-title=>"About SyncTool",-message=>"SyncTool v ".$version.",\nmodified ".$lupdate."   ",-type=>'ok',-icon=>'info');},
 );
 #############################################
 
@@ -207,7 +211,6 @@ $MW_listBox->bind('<Button-1>', sub {
     foreach(keys %{$conf->{job}}){
         if($conf->{job}{$_}{title} eq $selected_job){
             $selected_job=$_;
-            print "jobid $_ \n";
             last;
         }
     }
@@ -233,7 +236,7 @@ my $btnAdd = $r_frame->Button(
 my $btnDelete = $r_frame->Button(
      -text         => "Delete", 
      -width        => 10,
-     -command      => sub { &delete_job }
+     -command      => sub { &delete_job($selected_job) if $selected_job;  }
 )->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')
      ->pack(
      -side         => 'top',
@@ -243,7 +246,7 @@ my $btnDelete = $r_frame->Button(
 my $btnEdit = $r_frame->Button(
      -text         => "EditConf", 
      -width        => 10,
-     -command      => sub { &edit_job($selected_job) }
+     -command      => sub { &edit_job($selected_job) if $selected_job; }
 )->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')
      ->pack(
      -side         => 'top',
@@ -280,9 +283,10 @@ sub edit_job{
         # NEW 
         #get next sid available and insert into conf hash
         my @tmp=keys %{$conf->{job}}; 
-        @tmp=sort @tmp;
+        @tmp=sort{$a <=> $b} @tmp;
         #print $tmp[-1]."\n";
         $edit_sid=$tmp[-1]+1;
+        #print Dumper(@tmp)." ".$edit_sid."\n\n";
         $tmpJob->{master}='';
         $tmpJob->{title}='';
         $tmpJob->{start}='';
@@ -297,7 +301,7 @@ sub edit_job{
             $tmpJob->{client}={};
             print "clients null";
         }
-        print Dumper($tmpJob); 
+        #print Dumper($tmpJob); 
         $edit_flag=1; 
     }
     
@@ -509,7 +513,7 @@ sub edit_job{
     });
     $new_listBox_exclude_re->pack(-side => 'top',-anchor=> 'nw');
     #################
-    # SAVE
+    # SAVE 
     
     my $btn_close = $b_frame->Button(-text => "Close and Save to Configuration",
                                      -command => sub{
@@ -613,7 +617,12 @@ sub new_job_load_exclude_re_listbox{
 ##############################################################################
 
 sub delete_job{
-    
+    my $sid = shift || undef;
+    return if not $sid;
+    delete $conf->{job}{$sid};
+    print Dumper($conf);
+    &writeXmlJobs();
+    &MW_loadJobList();    
 }
 ##############################################################################
 
@@ -1301,19 +1310,7 @@ sub touch_running_file{
         
     }
 }
-##############################################################################
 
-# Subroutine for about operation.
-sub mnabout{
-  my $dw = $mw->Dialog(
-              -title     => 'About SyncTool',
-              -bitmap    => 'info',
-              -buttons   => ["OK",],
-              -text      => "SyncTool $version\n".
-                            "Last Updated: $lupdate\n",
-  );
-  $dw->Show;
-}
 ##############################################################################
 
 sub init{
@@ -1336,14 +1333,44 @@ sub init{
     
 }
 ############################################################################## XML STUFF
+sub validateConf{
+    #duplicate job names
+    my %names;
+    $names{$conf->{job}{$_}{title}}=0 foreach keys %{$conf->{job}};
+    $names{$conf->{job}{$_}{title}}++ foreach keys %{$conf->{job}};
+    #print Dumper(%names);
+    foreach (keys %names){
+        if($names{$_}>1){
+            die("Invalid jobs config: Duplicate  job name\n");
+        }
+    }
+    
+    #duplicate clients for job
+    my %clients;
+    foreach my $sid (keys %{$conf->{job}}){
+        #print "$sid\n";
+        die "Invalid jobs config: Job ".$sid." must contain a master\n" if(not $conf->{job}{$sid}{master});
+        undef %clients;
+        
+        #not at least 1 client 
+        die "Invalid jobs config: Job ".$sid." must contain at least one client\n" if(not (ref $conf->{job}{$sid}{client} eq "HASH"));
+        $clients{$conf->{job}{$sid}{client}{$_}{addr}}=0 foreach keys %{$conf->{job}{$sid}{client}};
+        $clients{$conf->{job}{$sid}{client}{$_}{addr}}++ foreach keys %{$conf->{job}{$sid}{client}};
+        #print Dumper(%clients);
+        foreach (keys %clients){
+            if($clients{$_}>1){
+                die("Invalid jobs config: Duplicate client for job with id ".$sid."\n");
+            }
+        }
+    }
+}
 
 sub writeXmlJobs{
     #my $out= $xs->XMLout( $conf,keeproot => 1,XMLDecl => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" ) ;
     my $out= $xs->XMLout( $conf,KeyAttr=>[qw/id/],XMLDecl => "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>" ) ;
     open (my $conffile,'>',$jobs_confFile) or die($!);
     print $conffile $out;
-    close ($conffile);
-        
+    close ($conffile);   
 }
 
 sub readXmlJobs{
@@ -1369,4 +1396,5 @@ sub readXmlJobs{
     };
     $conf = $xs->XMLin($document,KeyAttr=>[qw/id/],forcearray=>[qw(client exclude exclude_re)]); #,KeyAttr=>[], keeproot => 1);
     print Dumper($conf);
+    &validateConf();
 }
