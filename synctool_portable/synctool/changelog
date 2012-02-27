@@ -1,0 +1,17 @@
+=================================================================================
+-------clean
+#use Time::HiRes qw( time); # import time function with miliseconds, else our log hash will be stored more than 10 times in a sec...
+
+#    print "\n\nthr act: ";
+#    foreach(threads->list(threads::running)){
+#        print $_->tid()."\n";
+#    }
+my @job_logs;
+
+---param conf si default
+merge cu default de pe src dest .. 
+merge si cu conf 
+
+din gui.. merge sa pornesc si sa opresc din view ww , merge si daca inchid view ww si o inchid
+
+=================================================================================

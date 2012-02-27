@@ -1,0 +1,41 @@
+http://perldoc.perl.org/perlport.html#Files-and-Filesystems
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> to be ignored by readers
+
+############## TODO
+toate componentele vor avea parametrul pentru pathul catre fisierul conf.xml. (altfel default este D:\synctool\conf.xml)
+
+comentarii pt cod (#-)..script sa sterg restul 
+-sync thr flow	
+-start/stop existing died cases
+
+gui:
+conf param
+organizez in fct (main.., init)
+delete
+
+vrfy parsare xml: id/nume job dupl ,cli dupl
+
+shortcuts
+
+sync:
+permisiuni?cel mult verifici daca userul curent(cel cu care rulezi scriptul) are drept de scriere pe fiecare path destinatie
+pt skip, ar trebui sa incerc o copiere/delete ?
+thr pt dirs.
+mail
+
+
+test: cum pornesc serv cu anumit user. instalez , test pe alt calc
+
+? service: dispose on stop?..nu mai da err cu debuggerul dupa ce i-am pus fara thr pt stopped.
+
+test cu service 2 zile folder running nou
+
+teste cu exclude list
+incerc sa reproduc erori .. caut fisiere speciale pe shareuri-->scripturi generator de modificari...ia fis random si le alt, le sterge sau creaza fis noi, si directoare.. toate case=urile.
+
+sync: redirect stderr in variabila si o scrie intr-un fisier errors.txt cand termina treaba
+sync:thr pt dirs
+sync: timp mai precis.
+ce stats pastrez?
+
+exclude dupa path-uri sau dupa numele fisierului?
