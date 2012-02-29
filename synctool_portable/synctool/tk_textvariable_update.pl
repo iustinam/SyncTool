@@ -20,11 +20,12 @@ $h=&share({});
 my $label = $mw->Entry(-textvariable => \$t)->pack();
 
 threads->new(sub{   print "here";
-    sleep(5);
-    {
-        lock($t);
-        $t = time();
-    }
+#    sleep(5);
+#    {
+#        lock($t);
+        $t = time() while(1);
+#    }
+
 #    sleep(5);
 #    $h->{time} = time();
 #    sleep(5);
