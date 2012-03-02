@@ -15,3 +15,37 @@ merge si cu conf
 din gui.. merge sa pornesc si sa opresc din view ww , merge si daca inchid view ww si o inchid
 
 =================================================================================
+bug: modif psths in gui
+modif citire xml prim param (in cazul in care am bkp)
+
+restore job conf
+-gui: tabs: jobs/service/conf(srv smtp)
+
+rez pb path bkp ( system facea escape iar la \\)
+========
+reset in  tab conf
+nu mai folosesc bottom frame in tabul jobs
+lista emails in edit job ww
+
+validare email la adaugare inlista "+"
+pb butoare cli dispar dupa getopenfile
+
+sync.pl
+list nu face die ci return
+===========================2.03
+13 sec in log sync pe un thr (facut queue, comentat pasarea laalt thr) ,15 in stats., ---fara print, erau dir deja syncronizate
+10 sec-log, 12-stats, --cu print erau dir deja sync
+8 sec-log, 9-=stats fara prints!!
+
+0:0:56-log cand dest e goala, cu thr 
+0:1:15-log ,dest goala, fara thr
+
+err nu face join la toate thr.. cand comentez in sync pasarea la alte threaduri..pun 100 undef-uri
+
+combinare:
+%workerParams{src,parent} nepartajata ,.. ca sa stie fiecare thr unde pune logurile
+
+..ordine aproape.. actiunea pe dir apelate recursiv apare in logul parintelui ( deci un add pt un dir care va avea alt log va aparea ca actiune in logul parintelui"
+
+simulare thr picat cu die imediat dupa ce sync paseaza altui thr in queue primul dir din sursa
+perl sync.pl --s "D:\casdev" --d "D:\test" -sid 1 -did 2

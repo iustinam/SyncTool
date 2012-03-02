@@ -2,36 +2,27 @@ http://perldoc.perl.org/perlport.html#Files-and-Filesystems
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> to be ignored by readers
 push <commit<status<add .< in folderul synctool din repo
 ############## TODO
-masterfolder de jobs_bkp 
+master: 
+folder de jobs_bkp 
+param lista emails
+gui:
+apel sync param mail
+
+!!!!!!!!!!!!try cu src si dest inexistente.. ar trebui sa faca return si sa se termine thr sync apoi restu.
 
 folosesc file::spec pentru toate pathurile
 
 sync:
-mail
-pt skip, ar trebui sa incerc o copiere/delete ?
-
-thr pt dirs.
-
-perl threadpool
-enqueue ..thr raman active 
-dequeue_nb
-http://www.matthewgkeller.com/blog/2011/02/24/a-perl-thread-pool/
-http://www.perlmonks.org/?node_id=735923
-in sync (while(macar un thr din lista e activ $activeThr>0) { while $work->dequeue_nb() {.., $activeThr--}  }
-while(1) {sleep(1);$work=deq, if(!work si activethr<1) au terminat toate.,exit 
--apel rec : $work->equeue
--shared: $work si $activeThrNo
--starter: sleep cat timp e macar unu activ. si apoi le face join
-
+param lista emails
+setare warn daca e skip actiunea (in logg?)
 opt pt -usethr si nr 
-lista shared de thr - share thr obj
-in sync start creez thr pt s si d .. si adaug thr creat si apoi while(1) wrf ce thr sunt joinable din lista si le fac join si le sterg din lista 
-daca lista e goala .. ies din while , stop thr worker
-in sync() creez thr in lista aia pt foldere daca count <10, altfel folosesc thr curent 
 
-o sa ia primele 10 dir din sursa si le face bthr...restul raman in primul thr
-o sa am thr parinte care  moare inaintea kids.
-unde fac join? in while .. isjoinable
+
+
+sync scrie la fiecare actiune in %log si in fisierul de log (fct logg(
+log per thrid
+updatelog incrementeaza numere
+logg scrie in fisier si apeleaza updatelog
 
 
 test: cum pornesc serv cu anumit user. instalez , test pe alt calc
@@ -49,66 +40,3 @@ sync: timp mai precis.
 ce stats pastrez?
 
 exclude dupa path-uri sau dupa numele fisierului?
-
-===========radu
-
--tab service: install/uninstall/check install/view service log sc interrogate
--tab conf: all conf.xml options
-
--emails in jobs config si smtp_server in conf
--sync.pl: emails sent on task complete/error/warn	
-
-
-
-
--threads on dirs
-
-
--test on linux...
-
-
-
-%threads_stats:shared;
-1	params	@messages naspa|OK|warn
-2
-3
-4
-5
-6
-7
-8
-9
-10
-...
-n
-
-
-%threads_logs::shared;
-1	@messages
-
-
-
-main
-	while (mai am foldere{
-		t=new Thread(\&sync_one,"xxx","yyy")
-		if (threads::active<10)
-			t->start;
-			%threads_stats{t}="naspa"
-		}
-		else{
-			t->join
-		}
-	}
-
-&hai_sa_dam_mailuri()
-&hai_sa_facem_logul()
-
-thr1{
-	...
-	threads_stats{el..}{"xxx"."yyy}="OK"|"warn"
-}
-
-
-email:
-folder xxx not synced
-	

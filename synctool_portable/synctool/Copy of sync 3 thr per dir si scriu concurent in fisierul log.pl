@@ -53,7 +53,6 @@ my $debug_file;    # filled when -v option is set
 my %output:shared;
 my $activeSyncThr:shared;
 my $workQueue=Thread::Queue->new();
-my %workerParams; # parent and src, to know where in the output hash to put the columnar logs
 
 #my $dbh
 #my $verbose; #used by thread 0 to know if verbose was set (thread 1 initializes %opt)
@@ -373,12 +372,6 @@ sub logg {
         print $logh pack( "A19 A9 A5 A10 A*",
             $v_start, $v_elapsed, $type, $action, $pathname )
           . "\n";
-        
-        {
-            lock(%output);
-            $output{$workerParams{parent}}{$workerParams{src}}{content}.=  pack( "A19 A9 A5 A10 A*",$v_start, $v_elapsed, $type, $action, $pathname ). "\n"; 
-        }
-        
     }
 }
 ###########################################################################
@@ -485,32 +478,30 @@ sub sync {
             $last_action_add=0;
             
             print  "-----------\n" if($opt{v});
-            if($activeSyncThr<DIR_THR_NO){
-                #print "\n".threads->self()->tid()." Passing dir to other: $s_path \n";
-                {
-                    lock($activeSyncThr);
-                    $activeSyncThr++;
-                }
-                {
-                    lock(%output);
-                    $output{$src}=&share({})if(not ref $output{$src} eq 'HASH');
-                    $output{$src}{$s_path}=&share({}) if(not ref $output{$src}{$s_path} eq 'HASH');
-                    share $output{$src}{$s_path}{dst};
-                    $output{$src}{$s_path}{dst}=$d_path;
-                    share $output{$src}{$s_path}{content};
-                    $output{$src}{$s_path}{content}="";
-                    share $output{$src}{$s_path}{warned};
-                    share $output{$src}{$s_path}{success};
-                    $output{$src}{$s_path}{success}=0;
-                    $output{$src}{$s_path}{warned}=0;
-                }
-                
-                $workQueue->enqueue({parent=>$src,src=>$s_path}) if (-d $d_path);
-            }else{
+#            if($activeSyncThr<DIR_THR_NO){
+#                #print "\n".threads->self()->tid()." Passing dir to other: $s_path \n";
+#                {
+#                    lock($activeSyncThr);
+#                    $activeSyncThr++;
+#                }
+#                {
+#                    lock(%output);
+#                    $output{$src}=&share({})if(not ref $output{$src} eq 'HASH');
+#                    $output{$src}{$s_path}=&share({}) if(not ref $output{$src}{$s_path} eq 'HASH');
+#                    share $output{$src}{$s_path}{dst};
+#                    $output{$src}{$s_path}{dst}=$d_path;
+#                    share $output{$src}{$s_path}{content};
+#                    share $output{$src}{$s_path}{warned};
+#                    share $output{$src}{$s_path}{success};
+#                    $output{$src}{$s_path}{success}=0;
+#                    $output{$src}{$s_path}{warned}=0;
+#                }
+#                
+#                $workQueue->enqueue({parent=>$src,src=>$s_path});
+#            }else{
                 #print "\n".threads->self()->tid()." No more free threads.. \n";
                 &sync( $s_path, $d_path ) if (-d $d_path); #if err occured when mkdir
-            }
-            #die(); #simulate 
+#            }
         }
         elsif ( -f $s_path ) {    # item exists in src dir and is a file
             #if ( $d_list{$item} ) {    # item exists in dst
@@ -896,25 +887,6 @@ sub drop_stats{
 }
 ###########################################################################
 
-sub writeLogInOrder{
-    my $parent=shift or undef;
-    #print "writing log for $parent\n";
-    return if not $parent;
-    return if not $output{$parent};
-    my @ar=keys %{$output{$parent}};
-    my @arr=sort{lc($a) cmp lc($b)} @ar;
-    foreach(@arr){
-        print $logh $output{$parent}{$_}{content};
-        #print $logh pack( "A19 A9 A5 A10 A*","##################","########","####","#########","")."\n";
-        print $logh "\n"; 
-        print $logh "!!Warning!!    Syncronization did not complete for: $output{$parent}{$_}{dst} \n" if not $output{$parent}{$_}{success};
-        #print $logh pack( "A19 A9 A5 A10 A*","------------------","-----","####","#########","")."\n";
-        print $logh "\n";
-        &writeLogInOrder($_);
-    }
-}
-###########################################################################
-
 # worker takes from queue a hash {parent,src}
 sub doWork(){
     $SIG{'KILL'}=sub{ print   "----".threads->self()->tid()." sync : sync thr: dying..\n";threads->exit() };
@@ -937,8 +909,6 @@ sub doWork(){
 #            }
             #print "\n".threads->self()->tid()." $item->{parent}, $item->{src},$output{$item->{parent}}{$item->{src}}{dst} \n";
             #print "\n".threads->self()->tid()." Dequeuing ".$item->{src}." ".$output{$item->{parent}}{$item->{src}}{dst}."\n";
-            $workerParams{parent}=$item->{parent};
-            $workerParams{src}=$item->{src};
             &sync($item->{src},$output{$item->{parent}}{$item->{src}}{dst});
             
             {
@@ -996,7 +966,6 @@ sub sync_starter{
         share $output{ROOT}{$s}{dst};
         $output{ROOT}{$s}{dst}=$d;
         share $output{ROOT}{$s}{content};
-        $output{ROOT}{$s}{content}="";
         share $output{ROOT}{$s}{warned};
         share $output{ROOT}{$s}{success};
         $output{ROOT}{$s}{success}=0;
@@ -1018,7 +987,7 @@ sub sync_starter{
             
             #join all
             print "starter: enqueuing undef\n";
-            $workQueue->enqueue((undef) x 100);
+            $workQueue->enqueue((undef) x DIR_THR_NO);
             print "starter: joining all sync threads\n";
              foreach(keys %pool){
                  $pool{$_}->kill('KILL')->join();
@@ -1048,11 +1017,6 @@ sub sync_starter{
     my @joinable = threads->list(threads::joinable);
     print scalar @running." running, ".scalar @joinable." joinable \n";
         
-    #combine results in order: truncate and rewrite file .log
-    truncate $logh,0;
-    print $logh pack( "A19 A9 A5 A10 A*", "STARTED", "ELAPSED", "TYPE", "ACTION", "PATH" ). "\n";
-    &writeLogInOrder('ROOT');
-    
     
     {
         lock($job_done);

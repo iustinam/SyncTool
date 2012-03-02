@@ -510,7 +510,6 @@ sub sync {
                 #print "\n".threads->self()->tid()." No more free threads.. \n";
                 &sync( $s_path, $d_path ) if (-d $d_path); #if err occured when mkdir
             }
-            #die(); #simulate 
         }
         elsif ( -f $s_path ) {    # item exists in src dir and is a file
             #if ( $d_list{$item} ) {    # item exists in dst
@@ -905,11 +904,6 @@ sub writeLogInOrder{
     my @arr=sort{lc($a) cmp lc($b)} @ar;
     foreach(@arr){
         print $logh $output{$parent}{$_}{content};
-        #print $logh pack( "A19 A9 A5 A10 A*","##################","########","####","#########","")."\n";
-        print $logh "\n"; 
-        print $logh "!!Warning!!    Syncronization did not complete for: $output{$parent}{$_}{dst} \n" if not $output{$parent}{$_}{success};
-        #print $logh pack( "A19 A9 A5 A10 A*","------------------","-----","####","#########","")."\n";
-        print $logh "\n";
         &writeLogInOrder($_);
     }
 }
