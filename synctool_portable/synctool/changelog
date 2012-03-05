@@ -49,3 +49,27 @@ combinare:
 
 simulare thr picat cu die imediat dupa ce sync paseaza altui thr in queue primul dir din sursa
 perl sync.pl --s "D:\casdev" --d "D:\test" -sid 1 -did 2
+===========================5.03
+
+optiune -mailto -smtp 
+pus mails in opt 1/0 daca e valid, cele invalide: warning la inceputul logului si in $output{ROOT}{$opt{s}}{ERRORS}
+daca smtp nu e specificat si mail e ,  warning la inceputul logului si in $output{ROOT}{$opt{s}}{ERRORS}, nu trimite mail.
+redeschid log si scriu err care pot aparea in sendmail (smtp invalid,err modul
+NU- sau.. scriu in output... $output{ROOT}{$opt{s}}{ERRORS}
+scot die pt daca nu e dir sursa etc.. din &init>> pus in &list >> scriu in logh si in $output{ROOT}{$opt{s}}{ERRORS} 
+
+share $output{ROOT}{$s}{ERRORS}
+
+test: lista mails cu 2 invalide+ smtp > warning in log si trimite la ce e bun
+no smtp+ lista mails
+lista mails goala
+
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de"
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@conti" -smtp "smtphub07.conti.de"
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com"
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@contim"
+
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com","radu.moisa@continental-corporation.com" -smtp "smtphub07.conti.de"
+
+setare warn daca e skip actiunea (in logg)
+
