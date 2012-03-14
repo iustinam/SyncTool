@@ -14,11 +14,12 @@
       <id>3</id>
       <addr>D:\casdev\t\iasi3</addr>
     </client>
+    <email>sa</email>
     <exclude>checkstyle</exclude>
     <exclude>abracadabra</exclude>
     <exclude>dddd</exclude>
     <exclude_re>check</exclude_re>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>\\iasp351x\didl9505\SCC\</master>
     <start>16:44:30</start>
     <title>synergy1</title>
@@ -27,17 +28,12 @@
     <id>10</id>
     <client>
       <id>1</id>
-      <addr>D:/_summer</addr>
+      <addr>D:/_eclipse/run</addr>
     </client>
-    <exclude>sad</exclude>
-    <exclude>das</exclude>
-    <exclude_re>aaa</exclude_re>
-    <exclude_re>ddd</exclude_re>
-    <exclude_re>bbb</exclude_re>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>D:/_eclipse</master>
     <start>11:11:11</start>
-    <title>aaa</title>
+    <title>bb</title>
   </job>
   <job>
     <id>2</id>
@@ -53,6 +49,8 @@
       <id>3</id>
       <addr>D:\casdev\t\Wetzlar3</addr>
     </client>
+    <email>aa@bb.com</email>
+    <email>dd@dd</email>
     <ignore>1</ignore>
     <master>\\wetp003a\did65022\SCC</master>
     <start>14:04:20</start>
@@ -72,17 +70,21 @@
       <id>3</id>
       <addr>D:\casdev\t\rg3</addr>
     </client>
-    <ignore>0</ignore>
+    <email>sadadasd</email>
+    <ignore>1</ignore>
     <master>\\rbgs392x\did01524\SCC\</master>
     <start>14:04:40</start>
     <title>synergy3</title>
   </job>
   <job>
     <id>4</id>
-    <client></client>
+    <client>
+      <id>1</id>
+      <addr>C:\test\d</addr>
+    </client>
     <exclude>ss</exclude>
     <exclude>rr</exclude>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>D:\wkspace\synctool\s</master>
     <start>14:04:41</start>
     <title>mokup</title>
@@ -93,7 +95,7 @@
       <id>1</id>
       <addr>C:\test\d</addr>
     </client>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>C:\test\s</master>
     <start>14:04:40</start>
     <title>vm</title>
@@ -125,14 +127,19 @@
     </client>
     <ignore>0</ignore>
     <master>D:\Perl</master>
-    <start>14:04:40</start>
+    <start>14:37:30</start>
     <title>conti 20.02</title>
+	<email>Iustina.2.Melinte@continental-corporation.com</email>
   </job>
   <job>
     <id>8</id>
     <client>
       <id>1</id>
       <addr>D:/test1</addr>
+    </client>
+    <client>
+      <id>2</id>
+      <addr>D:/casdev</addr>
     </client>
     <ignore>1</ignore>
     <master>D:/_summer</master>
@@ -144,6 +151,10 @@
     <client>
       <id>1</id>
       <addr>D:/test1</addr>
+    </client>
+    <client>
+      <id>2</id>
+      <addr>D:/_eclipse/run</addr>
     </client>
     <exclude>dsad</exclude>
     <exclude>dasd</exclude>

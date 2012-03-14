@@ -18,7 +18,6 @@ use Regexp::Assemble;
 use XML::Simple;
 use Filesys::DfPortable;
 use MIME::Lite;
-use Cwd;    
 
 #use Time::HiRes qw( time); # import time function with miliseconds, else our log hash will be stored more than 10 times in a sec...
 
@@ -55,7 +54,6 @@ my %output:shared;
 my $activeSyncThr:shared;
 my $workQueue=Thread::Queue->new();
 my %workerParams; # parent and src, to know where in the output hash to put the columnar logs
-my $dirThrNo;  #nr de threaduri ( cel default sau 1 daca nu e dat parametru -usethr)
 
 #my $dbh
 #my $verbose; #used by thread 0 to know if verbose was set (thread 1 initializes %opt)
@@ -207,25 +205,6 @@ sub list {
     
     return @ret;
 }
-
-sub getShortIfLongPath{
-    my ($old_path)=@_;
-     # VRFY if path is longer than max lenght on NTFS, if so , do some trick
-    #my @chars=split(//,$old_path);
-    if((length $old_path)>=255){
-        my ($a,$b,$c)= File::Spec->splitpath($old_path);
-        my $parent =File::Spec->catdir($a,$b);
-        
-        my $shortpath = Win32::GetShortPathName($parent) or die($!);
-        #print $shortpath."\n";
-        my $dest=File::Spec->catfile($shortpath,$c);
-        print $dest."\n";   
-        return $dest;
-    }else{
-        #return old value
-        return $old_path;   
-    }
-}
 ###########################################################################
 
 # keep attr, fs independent, mode set
@@ -285,17 +264,7 @@ sub copy_one {
             }else {
 
                 #croak "err:$!\n";
-                my $new_path=&getShortIfLongPath($d_path);
-                if($new_path){
-                    if ( File::Copy::copy($s_path, $new_path) ) {
-                        $ret = 0;
-                    }else{
-                        print "nu a mers nici asta\n";
-                        $ret=1;   
-                    }
-                }else{
-                    $ret = 1;
-                }
+                $ret = 1;
             }
         }
     } else {
@@ -330,19 +299,11 @@ sub rm_tree {
 
         print  "is dir..listing $path\n" if($opt{v});
         my @rm_list=&list($path);
-#        if(not @rm_list){
-#            print "empty $path\n";
-#            return;
-#        }
-        if(@rm_list){
-            foreach (@rm_list){
-                if(&rm_tree( File::Spec->catfile( $path, $_ ),0 )) {
-                    print "err rmtree $path\n";
-                    return 1;
-                }
-            }
+        if(not @rm_list){
+            return;
         }
-        print  "is dir..rem empty $path\n" ;#if($opt{v});
+        &rm_tree( File::Spec->catfile( $path, $_ ),0 ) foreach @rm_list;
+        print  "is dir..rem empty $path\n" if($opt{v});
         
         # before we remove any dir, FIRST UNSET ANY ATTRIBUTES, especially read-only stuff
         if(not Win32::File::SetAttributes($path,NORMAL)) {
@@ -454,7 +415,7 @@ sub logg {
 # updates %log for key and value
 sub update_log{
     my ($key1,$key2,$val)=@_;
-    return if(not ($val&&$key1&&$key2));
+    
     {
         lock(%log);
         $log{$key1}{$key2}+=$val;
@@ -489,9 +450,6 @@ sub sync {
         
         my $s_path = File::Spec->catfile( $src, $item );
         my $d_path = File::Spec->catfile( $dst, $item );
-
-        # !!!!!!!!!!!!! workaround path dest too long
-        $d_path=getShortIfLongPath($d_path);
 
         $action_start = time;
 
@@ -558,7 +516,7 @@ sub sync {
             # simulate
             #logg(  $d_path . ": Altering attributes: " ,"D", "SKIP_ALT", $action_start, time - $action_start ); 
             print  "-----------\n" if($opt{v});
-            if($activeSyncThr<$dirThrNo){
+            if($activeSyncThr<DIR_THR_NO){
                 #print "\n".threads->self()->tid()." Passing dir to other: $s_path \n";
                 {
                     lock($activeSyncThr);
@@ -783,12 +741,6 @@ sub init {
       )
       or &usage;
      
-     if(not $opt{usethr}){
-         $dirThrNo=1;
-     }else{
-         $dirThrNo=DIR_THR_NO;
-     }
-     
     {
         lock($src);
         $src=$opt{s};  
@@ -807,7 +759,7 @@ sub init {
     #print $excl_re->re."\n";
     
     @mails=split(/,/,join(',',@mails));
-    #print Dumper(@mails);
+    print Dumper(@mails);
     #validate
     foreach(@mails){
         $_=~m/^([a-zA-Z0-9_.]+)@([a-zA-Z0-9_-]+)(\.[a-zA-Z0-9]+)+$/;
@@ -1082,7 +1034,7 @@ sub sync_starter{
         lock($activeSyncThr);
         $activeSyncThr=0;
     }
-    my %pool=map{ $_=>threads->new(\&doWork) } 1..$dirThrNo;
+    my %pool=map{ $_=>threads->new(\&doWork) } 1..DIR_THR_NO;
     
     {
         lock($activeSyncThr);
@@ -1142,7 +1094,7 @@ sub sync_starter{
             
             #join all
             print "starter: enqueuing undef\n";
-            $workQueue->enqueue((undef) x $dirThrNo);
+            $workQueue->enqueue((undef) x 10);
             print Dumper($workQueue);
             print "starter: joining all sync threads\n";
              foreach(keys %pool){
@@ -1223,54 +1175,42 @@ sub sendMail(){
     my $content;
     #pun in content only warnings and unsuccessful tasks (died threads)
     my $doSend=0;
-    my $thr_success=1;
     foreach my $p (keys %output){
         foreach(keys %{$output{$p}}){
             if((!$output{$p}{$_}{success})||$output{$p}{$_}{warned}){
                 $content.="\n____________________________________________________________\n";
                 $content.=$output{$p}{$_}{dst}.":\n";
-                $thr_success=0;
+                $doSend=1;
             }
             if(!$output{$p}{$_}{success}){
                 $content.="! Syncronization did not complete \n";
-                $thr_success=0;
             }
             if($output{$p}{$_}{warned}){
                 $content.="! There are warnings regarding certain files \n";
-                $thr_success=0;
             }
-            
-            if($output{$p}{$_}{content}&&!$output{$p}{$_}{success}){
+            if($output{ROOT}{$opt{s}}{ERRORS}){ # inexistent dirs or invalid mails
+                $content.="\n"."Logged Errors:\n";
+                $content.=$output{ROOT}{$opt{s}}{ERRORS};
+            }
+            if($output{ROOT}{$opt{s}}{content}&&!$output{$p}{$_}{success}){
                 $content.="\n"."Logged actions:\n";
-                $content.=$output{$p}{$opt{s}}{content};
-                $thr_success=0;
+                $content.=$output{ROOT}{$opt{s}}{content};
             }
-            if($output{$p}{$_}{content}&&$output{$p}{$_}{warned}){
-                $thr_success=0;
+            if($output{ROOT}{$opt{s}}{content}&&$output{$p}{$_}{warned}){
                 $content.="\n"."Logged file warnings:\n";
                 map {
                     if(/.*SKIP.*/){$content.=$_."\n";}
-                } split(/\n/,$output{$p}{$_}{content});
+                } split(/\n/,$output{ROOT}{$opt{s}}{content});
                 #$content.=grep(/.*SKIP.*/,split(/\n/,$output{ROOT}{$opt{s}}{content}));
             }
         }
     }
-    if($output{ROOT}{$opt{s}}{ERRORS}){ # inexistent dirs or invalid mails
-        $content.="\n"."Logged Errors:\n";
-        $content.=$output{ROOT}{$opt{s}}{ERRORS};
-        $thr_success=0;
-    }
-    if($thr_success){
-         $content.="\n"."Syncronization finished with success\n";
-    }
-    
     my $handle;
     open ($handle,'>>',\$content ) or print "err: cannot open variable content to print stats\n";
     &write_stats_to_handle($handle,\%log);
     close $handle;
 
-    seek ($logh,0,2);
-    if($content){ #&&$doSend){
+    if($content&&$doSend){
         foreach(keys %{$opt{mails}}){
             if($opt{mails}{$_}){
                 my $msg = MIME::Lite->new (
@@ -1287,16 +1227,6 @@ sub sendMail(){
                 if(not $msg->attach(Type => 'TEXT',Data => $content)){
                      print $logh  "Sending mail to $_: Error adding the text message part: $!\n";
                 }
-                
-                if(not $msg->attach (
-                   Type => 'TEXT',
-                   Path => $log_file,
-                   Filename => $log_file,
-                   Disposition => 'attachment'
-                )){
-                    print $logh  "Sending mail to $_: Error adding log attachment: $!\n";
-                }
-                
                 print $logh "\nSent mail to $_\n";
                 
                 MIME::Lite->send('smtp', $opt{smtp}, Timeout=>60);

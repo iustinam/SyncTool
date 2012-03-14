@@ -70,8 +70,7 @@ my $winAdd ; #only one edit/new ww at a time
 print "###################################################################################\n";
 ################################################################################# READ PATHS FROM CONF
 use constant{
-    DEFAULT_CONF_PATH =>"D:\\_eclipse\\conf.xml",
-    SERVICE_FILE=>"SyncToolService.exe",
+    DEFAULT_CONF_PATH =>"D:\\_eclipse\\conf.xml"
 };
 my $xml_conf;
 my $paths;
@@ -82,8 +81,6 @@ my $sync_path;
 my $BKP_FOLDER;
 my $running_file;
 my $touch_portfile_time;
-my $service_log_file;
-my $service_path;
 
 GetOptions(
         "conf=s" => \$xml_conf,
@@ -102,15 +99,12 @@ sub loadPaths{
     my $running_folder=$paths->{running_folder};
     $running_folder =~ s!/$!!;
     $running_folder =~ s!\$!!;
-    
     $LOG_FOLDER =$running_folder."\\".$paths->{logs_folder}."\\";
     $PORFILE_FOLDER = $running_folder."\\".$paths->{portfiles}."\\";
     
     $jobs_confFile = $running_folder."\\".$paths->{jobs_conf_filename};
     
     $sync_path=$running_folder."\\".$paths->{sync_path};
-    $service_log_file=File::Spec::Win32->catfile($running_folder,$paths->{serviceLogFile});
-    $service_path=File::Spec::Win32->catfile($running_folder,SERVICE_FILE);
     $BKP_FOLDER = File::Spec::Win32->catdir($running_folder,$paths->{bkp_folder});
     
     if(not -d $PORFILE_FOLDER){
@@ -252,79 +246,81 @@ my $tabConf = $nb->add('Configuration', -label => 'Configuration');
 ############################################# SERVICE TAB
 
 my $frTabService_Up = $tabService->Frame()->pack(-side=>'top',-anchor => "nw",-pady => 20);
+#my $frTabService_Up_left = $frTabService_Up->Frame()->pack(-side => 'left',-padx => 20,-pady => 10);
+#my $frTabService_Up_right = $frTabService_Up->Frame()->pack(-side => 'right',-padx => 20,-pady => 10);
 my $frTabService_Bottom = $tabService->Frame()->pack(-side => 'top',-padx => 10,-pady => 10,-anchor => "nw");
+
+#my $frTabService_Up_left1= $frTabService_Up_left->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#$frTabService_Up_left1->Label(-text =>"Installation status: ", -justify => 'left')->pack(-side => "left", -anchor => "nw");
+#my $lblInstallSts=$frTabService_Up_left1->Label(-text =>" ", -justify => 'left')->pack(-side => "left", -anchor => "nw");
+#
+#my $frTabService_Up_left2= $frTabService_Up_left->Frame()->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#$frTabService_Up_left2->Label(-text =>"Running: ", -justify => 'left')->pack(-side => "left", -anchor => "nw");
+#my $lblRunSts=$frTabService_Up_left2->Label(-text =>" ", -justify => 'left')->pack(-side => "left", -anchor => "nw");
+#
+#my $btnUnInstall;
+#my $btnInstall= $frTabService_Up_right->Button(-text=>"Install",-width=>15,-command=>sub{})
+#    ->grid(
+#    $btnUnInstall=$frTabService_Up_right->Button(-text=>"Uninstall",-width=>15,-command=>sub{}),
+#    -sticky => "nsew", -padx => 3, -pady => 1
+#         );
+#my $btnServiceStop;
+#my $btnServiceStart= $frTabService_Up_right->Button(-text=>"Start",-command=>sub{})
+#    ->grid(
+#    $btnServiceStop=$frTabService_Up_right->Button(-text=>"Stop",-command=>sub{}),
+#    -sticky => "nsew", -padx => 3, -pady => 1
+#         );
 
 my ($lblInstallSts,$btnUnInstall,$btnInstall,$lblRunSts,$btnServiceStop,$btnServiceStart);
 $frTabService_Up->Label(-text =>"Installation status: ", -justify => 'left')
     ->grid(
-    $lblInstallSts = $frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
-    $btnInstall= $frTabService_Up->Button(-text=>"Install",-width=>15,-command=>sub{
-         system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe $service_path";
-         #&refreshServiceTab;
-    }),
-    $btnUnInstall=$frTabService_Up->Button(-text=>"Uninstall",-width=>15,-command=>sub{
-        system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe /u $service_path";
-        #&refreshServiceTab;
-    }),
+    $lblInstallSts = $frTabService_Up->Label(-text =>" ", -justify => 'left'),
+    $btnInstall= $frTabService_Up->Button(-text=>"Install",-width=>15,-command=>sub{}),
+    $btnUnInstall=$frTabService_Up->Button(-text=>"Uninstall",-width=>15,-command=>sub{}),
     -row=>0, -columnspan=>1, -sticky=>'nsew', -padx=>3,-pady=>2
     );
 
 $frTabService_Up->Label(-text =>"Running: ", -justify => 'left')
     ->grid(
-    $lblRunSts=$frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
-    $btnServiceStart= $frTabService_Up->Button(-text=>"Start",-command=>sub{
-        system 1,"sc start synctoolservice -conf ".File::Spec->catfile($xml_conf);
-    }),
-    $btnServiceStop=$frTabService_Up->Button(-text=>"Stop",-command=>sub{
-        system 1,"sc stop synctoolservice";
-    }),
+    $lblRunSts=$frTabService_Up->Label(-text =>" ", -justify => 'left'),
+    $btnServiceStart= $frTabService_Up->Button(-text=>"Start",-command=>sub{}),
+    $btnServiceStop=$frTabService_Up->Button(-text=>"Stop",-command=>sub{}),
     -row=>1, -columnspan=>1, -sticky=>'nsew',-padx=>3,-pady=>2
     );
 
 
+#my $frTabService_Up_right1= $frTabService_Up_right->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#my $btnInstall = $frTabService_Up_right1->Button(-text=>"Install",-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+#my $btnUnInstall = $frTabService_Up_right1->Button(-text=>"Uninstall",-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+#
+#my $frTabService_Up_right2= $frTabService_Up_right->Frame()->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#my $btnServiceStart = $frTabService_Up_right2->Button(-text=>"Start",-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+#my $btnServiceStop = $frTabService_Up_right2->Button(-text=>"Stop",-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+
+#my $frTabService_Bottom1= $frTabService_Bottom->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#$frTabService_Bottom1->Button(-text=>"Notify Jobs Reconfiguration",-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+
 my $frTabService_Bottom2= $frTabService_Bottom->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
 $frTabService_Bottom2->Label(-text =>"Last seen running: ", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-my $lblLasSeen= $frTabService_Bottom2->Label(-text =>"ieri", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
+my $lblLasSeen= $frTabService_Bottom2->Label(-text =>"ieri", -justify => 'left')->pack(-side => "left", -anchor => "nw");
 
-$frTabService_Bottom->Button(-width=>40,-text=>"Recheck Service Status",-command=>sub{&refreshServiceTab();})
+#my $frTabService_Bottom3= $frTabService_Bottom->Frame()->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+#$frTabService_Bottom3->Button(-text=>"Recheck Service Status",-width=>25,-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+#$frTabService_Bottom3->Button(-text=>"Notify Jobs Reconfiguration",-width=>25,-command=>sub{})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+
+$frTabService_Bottom->Button(-width=>40,-text=>"Recheck Service Status",-command=>sub{})
     ->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
 $frTabService_Bottom->Button(-width=>40,-text=>"Notify Jobs Reconfiguration",-command=>sub{})
     ->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-$frTabService_Bottom->Button(-width=>40,-text=>"Open Configured Service Log",
-    -command=>sub{system 1,"start notepad.exe $service_log_file";})
+$frTabService_Bottom->Button(-width=>40,-text=>"Open Configured Service Log",-command=>sub{})
     ->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-$frTabService_Bottom->Button(-width=>40,-text=>"Open Default Service Log",
-    -command=>sub{system 1,"start notepad.exe C:\\SyncTool\\sync_service.log";})
+$frTabService_Bottom->Button(-width=>40,-text=>"Open Default Service Log",-command=>sub{})
     ->grid(-row=>3, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-$frTabService_Bottom->Button(-width=>40,-text=>"Open Service Control Manager",
-    -command=>sub{system 1,'services.msc';})
-    ->grid(-row=>4, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
     
     
 sub refreshServiceTab{
-    $btnServiceStart->configure(-state=>'disabled');
-    $btnServiceStop->configure(-state=>'disabled');
-    $btnInstall->configure(-state=>'disabled');
-    $btnUnInstall->configure(-state=>'disabled');
-        
-    if(not system('SC QUERY state= all |findstr "SyncTool"')){  #installed
-        $lblInstallSts->configure(-text=>"Installed");
-        $btnUnInstall->configure(-state=>'normal');
-        
-        if(system('sc query SyncToolService | FIND "STATE" | FIND "RUNNING"')){ #not running
-            $lblRunSts->configure(-text=>"no");
-            $btnServiceStart->configure(-state=>'normal');  
-        }else{     #running
-            $lblRunSts->configure(-text=>"yes");
-            $btnServiceStop->configure(-state=>'normal');
-        }
-    }else{  #not installed
-        $lblInstallSts->configure(-text=>"Uninstalled");
-        $btnInstall->configure(-state=>'normal');
-    }   
-    
-    #check last modified date for service log file
-    $lblLasSeen->configure(-text=>POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($service_log_file))[9])));
+    $lblInstallSts->configure(-text=>"Installed");
+    $lblRunSts->configure(-text=>"yes");
 }
 ############################################# GLOBAL CONFIG TAB
  #my $frTabConf_Up   = $tabConf->Frame->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x', -padx => 1, -pady => 1.5);

@@ -1,0 +1,1 @@
+perl gui.pl -conf "D:\_eclipse\conf.xml"

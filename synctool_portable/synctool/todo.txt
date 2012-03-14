@@ -2,23 +2,39 @@ http://perldoc.perl.org/perlport.html#Files-and-Filesystems
 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> to be ignored by readers
 push <commit<status<add .< in folderul synctool din repo
 ############## TODO
-master: 
-folder de jobs_bkp 
-param lista emails
-gui:
-apel sync param mail
-cum de merge asta ... if(not ($1||$2||$3) ){ $winAdd->messageBox(-title=>"Error Invalid Mail"...... trebuia SI
 
 folosesc file::spec pentru toate pathurile
 
+=======================================================================================
+master: 
+mai crapa brusc cateodata fara sa scrie nici in pathul default...lainceput
+exceptii pe fisiere ... sa fac catch
+crapa start stop rapid
 
+-conf "D:\_eclipse\conf.xml"
+build cu timer bun
 
+=======================================================================================
+gui:
+perl path in conf
+nu mere refresh la tabul cu service dupa install
+latenta system call in refresh tab
+start/stop service
+
+cum de merge asta ... if(not ($1||$2||$3) ){ $winAdd->messageBox(-title=>"Error Invalid Mail"...... trebuia SI
+problema cu pathuri cu spatii.
+start all
+sync pornit cu param -conf
+ce se int daca sync.pl nu primeste conf bun?
+
+=======================================================================================
 sync:
-testez trimite mail numai daca pica un thr sau are warnings
-print intr-o variabila statisticile din log.. bla.pl
-vrfy skip seteaza warn si mailul contine..
+ping smtp?
+sync: ce se intampla daca smtp e invalid
+
 problema thr care nu el face join.. fac dump la coada.. cand primesc ele undef. si astept sa mai faca
-optiune pt folosire threads -usethr
+ramasese o data acolo .. in proc explorer (-nu-i specificasem smtp)
+=======================================================================================
 
 test: cum pornesc serv cu anumit user. instalez , test pe alt calc
 
@@ -35,9 +51,11 @@ sync: timp mai precis.
 ce stats pastrez? 
 exclude dupa path-uri sau dupa numele fisierului?
 
-
 ------------------------
 sync scrie la fiecare actiune in %log si in fisierul de log (fct logg(
 log per thrid
 updatelog incrementeaza numere
 logg scrie in fisier si apeleaza updatelog
+
+service:
+mai intai deschide logul si daca nu gaseste conf-ulscrie in el eroarea.

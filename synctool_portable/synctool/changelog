@@ -15,6 +15,9 @@ merge si cu conf
 din gui.. merge sa pornesc si sa opresc din view ww , merge si daca inchid view ww si o inchid
 
 =================================================================================
+dialog:
+http://www.bin-co.com/perl/perl_tk_tutorial/dialogs.php
+
 bug: modif psths in gui
 modif citire xml prim param (in cazul in care am bkp)
 
@@ -71,5 +74,101 @@ perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@
 
 perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com","radu.moisa@continental-corporation.com" -smtp "smtphub07.conti.de"
 
+perl sync.pl -sid 1 -did 2 --s "D:\Per" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de"
+
 setare warn daca e skip actiunea (in logg)
+
+============================================7./03
+sync.pl
+print in stats .. closed filehandle..?
+abia dupa ce am pus print la queue  mergea join la toate thr ,mdea.
+
+
+simulat warns cu skip.. pune in mail
+nu se trimite mail daca nu avem nici warnings nici unsuccessful
+print intr-o variabila statisticile din log.. 
+
+opt usethr
+output e fol si de fct care trim mail....
+ nu fac decat sa setez nr de thr create.. 1 daca nu am usethr (ca sa nu crape thr starter la die in sync( dir inexistente etc)...)
+ 
+ teste foldere cu spatii si altele
+ 
+ perl sync.pl -sid 1 -did 2 --s " C:\CISCO_CCNA" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de"
+ ---SPATIU intre ghilimele>> chomp
+ perl sync.pl -sid 1 -did 2 --s "C:\CISCO_CCNA" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de"
+ perl sync.pl -sid 1 -did 2 --s "C:\CISCO_CCNA" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de" -usethr
+
+ perl sync.pl -sid 1 -did 2 --s "C:\Documents and Settings\Default User" --d "D:\test1" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de" -usethr
+
+
+
+perl sync.pl -sid 1 -did 2 --s "D:\Perl" --d "D:\test" -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de" -usethr
+
+========================================9.03
+service:
+serviceLogFile in conf
+creaza fis de log daca nu ezxista si toate folderele
+
+test pe rbgs:
+sync pornit din cmd 
+cmd.bat
+perl sync.pl --conf "D:\synctool\conf.xml" -usethr -sid 1 -did 2 --s "\\rbgs392x\did01524\SW\TestSyncTool" --d "\\iad3488d\tcp_software\TestSyncTool" -mail "Iustina.2.Melinte@continental-corporation.com","radu.moisa@continental-corporation.com" -smtp "smtphub07.conti.de"
+
+pun jobsconf cu un job .. cu mails eu si radu..
+service compilez cu timere bune
+copii installer? ilpune in c?
+scm: start cu param 
+-conf "D:\synctool\conf.xml"
+
+
+FUCK
+service.exe e salvat in C!!!! cand dau build
+C:\Program Files\Continental AG\SyncToolServiceSetupWizard
+LOL.. NU A PUS SERVICE.EXE IN BUILDUL DIN PROJ DE d PANA NU AM STERS TOT DIN FOLDERUL DEBUG AL PROJ SREVICE
+
+D:\synctool>perl sync.pl --conf "D:\synctool\conf.xml" -usethr -sid 1 -did 2 --s "\\rbgs392x\did01524\SW\TestSyncTo
+ol" --d "\\iad3488d\tcp_software\TestSyncTool" -mail "Iustina.2.Melinte@continental-corporation.com","radu.moisa@co
+ntinental-corporation.com" -smtp "smtphub07.conti.de"
+
+
+############################################### 12.03
+pb path prealung nu mere nici copy in cmd 
+poate copia de la sursa.. nmu poate scrie pe dest
+nu pot copia nici daca fac chdir in dir destinatie
+nici pe share in explorer nu pot crea un fisier cu nume mai mare
+
+destinatia o construiesc cu Win32::GetShortPathName +nume fisier si mere copy
+..nu mere -s (size) pe dest..pun la inceput in &sync.. ins ca a mers -f 
+testat: mere alt pe destpath>255
+ex:
+\\rbgs392x\did01524\SW\TestSyncTool\mmpenv.MMP_Environment_for_DS_Client\MsVisualStudio2005+Sp1\Program Files\Microsoft Visual Studio 8\SDK\v2.0\QuickStart\aspnet\samples\security\logincontrols_cs\App_Themes\SmokeAndGlass\Images\smokeandglass_brownfadetop.gif
+
+pb: nu apare in log dupa ce il rescrie:  ALT 
+add err in output 
+
+sync: adaugat attachement  log in mail
+service : pathurile s si d din cmd cu ghilimele
+daca fac stop si start rapid.. nu poate sterge fisierul running.. am pus try catch si scrie in log.
+
+path catre perl executable.. daca nu e in conf , se opreste
+
+testat: 
+merge cu pathul catre perl citit din conf
+conf inxistent: face onstop si inchide log si scrie in logul default
+conf fara path
+
+gui:
+intrun for
+#$frTabConf_Left->Label(-text =>"Running Folder: ", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Jobs Configuration Filename: ", -justify => 'left')->pack(-side => "top", -anchor => "nw");                       
+#$frTabConf_Left->Label(-text =>"Sync Script Filename: ", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Porfiles Folder", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Logs Folder", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Backups Folder", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Touch Portfiles Interval (sec):", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"SMTP Server:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Default Service Log:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#$frTabConf_Left->Label(-text =>"Perl Path:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+
 

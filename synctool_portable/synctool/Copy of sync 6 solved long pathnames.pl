@@ -1287,16 +1287,6 @@ sub sendMail(){
                 if(not $msg->attach(Type => 'TEXT',Data => $content)){
                      print $logh  "Sending mail to $_: Error adding the text message part: $!\n";
                 }
-                
-                if(not $msg->attach (
-                   Type => 'TEXT',
-                   Path => $log_file,
-                   Filename => $log_file,
-                   Disposition => 'attachment'
-                )){
-                    print $logh  "Sending mail to $_: Error adding log attachment: $!\n";
-                }
-                
                 print $logh "\nSent mail to $_\n";
                 
                 MIME::Lite->send('smtp', $opt{smtp}, Timeout=>60);
