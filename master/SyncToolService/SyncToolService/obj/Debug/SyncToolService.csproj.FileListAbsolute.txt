@@ -1,0 +1,5 @@
+D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.pdb
+D:\repo\SyncTool\master\SyncToolService\SyncToolService\obj\Debug\ResolveAssemblyReference.cache
+D:\repo\SyncTool\master\SyncToolService\SyncToolService\obj\Debug\SyncToolService.exe
+D:\repo\SyncTool\master\SyncToolService\SyncToolService\obj\Debug\SyncToolService.pdb

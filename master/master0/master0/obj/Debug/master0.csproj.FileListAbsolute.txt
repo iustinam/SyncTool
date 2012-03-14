@@ -1,0 +1,19 @@
+C:\Documents and Settings\UIDU3198\My Documents\Visual Studio 2008\Projects\master0\master0\bin\Debug\master0.exe
+C:\Documents and Settings\UIDU3198\My Documents\Visual Studio 2008\Projects\master0\master0\bin\Debug\master0.pdb
+C:\Documents and Settings\UIDU3198\My Documents\Visual Studio 2008\Projects\master0\master0\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\UIDU3198\My Documents\Visual Studio 2008\Projects\master0\master0\obj\Debug\master0.exe
+C:\Documents and Settings\UIDU3198\My Documents\Visual Studio 2008\Projects\master0\master0\obj\Debug\master0.pdb
+D:\csharp\master0\master0\bin\Debug\master0.exe
+D:\csharp\master0\master0\bin\Debug\master0.pdb
+D:\csharp\master0\master0\obj\Debug\ResolveAssemblyReference.cache
+D:\csharp\master0\master0\obj\Debug\master0.SyncToolService.resources
+D:\csharp\master0\master0\obj\Debug\master0.csproj.GenerateResource.Cache
+D:\csharp\master0\master0\obj\Debug\master0.exe
+D:\csharp\master0\master0\obj\Debug\master0.pdb
+D:\repo\SyncTool\master\master0\master0\obj\Debug\master0.exe
+D:\repo\SyncTool\master\master0\master0\obj\Debug\master0.pdb
+D:\repo\SyncTool\master\master0\master0\bin\Debug\master0.exe
+D:\repo\SyncTool\master\master0\master0\bin\Debug\master0.pdb
+D:\repo\SyncTool\master\master0\master0\obj\Debug\ResolveAssemblyReference.cache
+D:\repo\SyncTool\master\master0\master0\obj\Debug\master0.SyncToolService.resources
+D:\repo\SyncTool\master\master0\master0\obj\Debug\master0.csproj.GenerateResource.Cache

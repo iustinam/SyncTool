@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "master0", "master0\master0.csproj", "{9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "MasterInstaller", "MasterInstaller\MasterInstaller.vdproj", "{5D112B8E-11A5-4509-839D-C9175E988D9B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D112B8E-11A5-4509-839D-C9175E988D9B}.Debug|Any CPU.ActiveCfg = Debug
+		{5D112B8E-11A5-4509-839D-C9175E988D9B}.Debug|Any CPU.Build.0 = Debug
+		{5D112B8E-11A5-4509-839D-C9175E988D9B}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

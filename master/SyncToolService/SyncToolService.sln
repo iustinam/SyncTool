@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncToolService", "SyncToolService\SyncToolService.csproj", "{AB8AE2C9-6881-4157-8E2F-BA50D2402C2B}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SyncToolServiceSetup", "SyncToolServiceSetup\SyncToolServiceSetup.vdproj", "{453AF4FF-0E3D-44DC-B7B8-0E5A126ACCA0}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SyncToolServiceSetupWizard", "SyncToolServiceSetupWizard\SyncToolServiceSetupWizard.vdproj", "{AFD85950-134D-464F-AB07-C286E9C0D4B4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB8AE2C9-6881-4157-8E2F-BA50D2402C2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB8AE2C9-6881-4157-8E2F-BA50D2402C2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB8AE2C9-6881-4157-8E2F-BA50D2402C2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB8AE2C9-6881-4157-8E2F-BA50D2402C2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{453AF4FF-0E3D-44DC-B7B8-0E5A126ACCA0}.Debug|Any CPU.ActiveCfg = Debug
+		{453AF4FF-0E3D-44DC-B7B8-0E5A126ACCA0}.Release|Any CPU.ActiveCfg = Release
+		{AFD85950-134D-464F-AB07-C286E9C0D4B4}.Debug|Any CPU.ActiveCfg = Debug
+		{AFD85950-134D-464F-AB07-C286E9C0D4B4}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

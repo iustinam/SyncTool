@@ -1,0 +1,171 @@
+<Configuration>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:Job.cs" caret="319" fromTop="14" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="2650" fromTop="16" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="3842" fromTop="1" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="6156" fromTop="34" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="1382" fromTop="20" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="894" fromTop="6" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="1124" fromTop="11" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="9855" fromTop="34" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="6811" fromTop="20" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="1659" fromTop="24" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="2007" fromTop="30" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="9257" fromTop="34" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="2874" fromTop="17" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="3307" fromTop="27" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="3535" fromTop="16" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="2186" fromTop="17" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="2436" fromTop="22" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="465" fromTop="17" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="10170" fromTop="46" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="8785" fromTop="28" />
+      <File id="9E57111F-83FA-4F7C-8BD0-9B6C3AC0F7D4/f:SyncToolService.cs" caret="9033" fromTop="31" />
+    </RecentEdits>
+  </RecentFiles>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Qualified:System.Xml.XmlElement">
+      <Item value="ChildNodes" priority="81" />
+      <Item value="Name" priority="26" />
+      <Item value="GetElementsByTagName`0" priority="53" />
+      <Item value="InnerText" priority="107" />
+    </ItemStatistics>
+    <ItemStatistics item="CSharpCodeCompletionContext">
+      <Item value="XmlElement`0" priority="61" />
+      <Item value="switch" priority="30" />
+      <Item value="item1" priority="29" />
+      <Item value="case" priority="30" />
+      <Item value="jobsMap" priority="61" />
+      <Item value="item" priority="123" />
+      <Item value="String`0" priority="154" />
+      <Item value="public" priority="154" />
+      <Item value="SyncJob`0" priority="30" />
+      <Item value="Console`0" priority="263" />
+      <Item value="if" priority="30" />
+      <Item value="HashSet" priority="61" />
+      <Item value="master" priority="61" />
+      <Item value="null" priority="92" />
+      <Item value="clients" priority="154" />
+      <Item value="startNode" priority="30" />
+      <Item value="XmlNodeList`0" priority="30" />
+      <Item value="else" priority="30" />
+      <Item value="cli" priority="61" />
+      <Item value="const" priority="30" />
+      <Item value="new" priority="247" />
+      <Item value="HashSet&lt;string&gt;" priority="27" />
+      <Item value="SyncJob" priority="27" />
+      <Item value="name" priority="30" />
+      <Item value="IDictionary" priority="30" />
+      <Item value="start" priority="30" />
+      <Item value="int" priority="30" />
+      <Item value="Int32`0" priority="25" />
+      <Item value="Dictionary&lt;string,SyncJob&gt;" priority="27" />
+      <Item value="void" priority="154" />
+      <Item value="proc`0" priority="30" />
+      <Item value="Process" priority="27" />
+      <Item value="ProcessStartInfo`0" priority="61" />
+      <Item value="ProcessStartInfo" priority="53" />
+      <Item value="proc" priority="25" />
+      <Item value="psInfo" priority="123" />
+      <Item value="false" priority="61" />
+      <Item value="true" priority="30" />
+      <Item value="t" priority="30" />
+      <Item value="DateTime`0" priority="61" />
+      <Item value="private" priority="56" />
+      <Item value="System" priority="60" />
+      <Item value="Timers" priority="26" />
+      <Item value="static" priority="30" />
+      <Item value="HashSet&lt;Timer&gt;" priority="27" />
+      <Item value="for" priority="30" />
+      <Item value="aTimer" priority="92" />
+      <Item value="TimerCallback`0" priority="26" />
+      <Item value="ParameterizedThreadStart`0" priority="31" />
+      <Item value="Timer" priority="27" />
+      <Item value="_AppDomain`0" priority="30" />
+      <Item value="i" priority="30" />
+      <Item value="source" priority="30" />
+      <Item value="_jobTimers" priority="30" />
+      <Item value="Thread`0" priority="61" />
+      <Item value="ThreadPool`0" priority="25" />
+      <Item value="ThreadPriorityLevel`0" priority="30" />
+      <Item value="Thread" priority="27" />
+      <Item value="ThreadStart`0" priority="31" />
+      <Item value="_workerThread" priority="61" />
+      <Item value="Worker`0" priority="26" />
+      <Item value="lock" priority="30" />
+      <Item value="this" priority="30" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.Dictionary`2">
+      <Item value="Add`0" priority="26" />
+      <Item value="ToString`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlNodeList">
+      <Item value="ToString`0" priority="53" />
+      <Item value="Item`0" priority="26" />
+      <Item value="Count" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Xml.XmlNode">
+      <Item value="Value" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="WriteLine`0" priority="188" />
+      <Item value="ReadKey`0" priority="53" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.HashSet`1">
+      <Item value="Count" priority="53" />
+      <Item value="Add`0" priority="53" />
+      <Item value="ToString`0" priority="26" />
+      <Item value="ElementAt`1" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Int32">
+      <Item value="Parse`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Diagnostics.ProcessStartInfo">
+      <Item value="Arguments" priority="26" />
+      <Item value="UseShellExecute" priority="26" />
+      <Item value="RedirectStandardOutput" priority="27" />
+      <Item value="WindowStyle" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Timers.Timer">
+      <Item value="AutoReset" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.DateTime">
+      <Item value="Now" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Object">
+      <Item value="ToString`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.Thread">
+      <Item value="Sleep`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Threading.ThreadPool">
+      <Item value="GetAvailableThreads`0" priority="26" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Threading.Thread">
+      <Item value="Start`0" priority="26" />
+      <Item value="Join`0" priority="26" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+</Configuration>

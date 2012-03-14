@@ -1,0 +1,7 @@
+D:\csharp\master0\test\bin\Debug\test.exe
+D:\csharp\master0\test\bin\Debug\test.pdb
+D:\csharp\master0\test\obj\Debug\ResolveAssemblyReference.cache
+D:\csharp\master0\test\obj\Debug\master0.SyncToolServiceInstaller.resources
+D:\csharp\master0\test\obj\Debug\test.csproj.GenerateResource.Cache
+D:\csharp\master0\test\obj\Debug\test.exe
+D:\csharp\master0\test\obj\Debug\test.pdb

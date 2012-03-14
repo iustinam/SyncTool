@@ -1,0 +1,143 @@
+﻿Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service sharp...
+Creating EventLog source sharp in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source sharp.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service sharp...
+Service sharp has been successfully installed.
+Creating EventLog source sharp in log Application...
+Committing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service sharp...
+Creating EventLog source sharp in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source sharp.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service sharp...
+Service sharp has been successfully installed.
+Creating EventLog source sharp in log Application...
+Committing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncMasterService...
+Creating EventLog source SyncMasterService in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source SyncMasterService.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\csharp\master0\master0\bin\Debug\master0.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\csharp\master0\master0\bin\Debug\master0.exe
+   logfile = D:\csharp\master0\master0\bin\Debug\master0.InstallLog
