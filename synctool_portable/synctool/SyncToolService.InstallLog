@@ -61,3 +61,143 @@ Affected parameters are:
    logtoconsole = 
    assemblypath = D:\_eclipse\SyncToolService.exe
    logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Attempt to stop service SyncToolService.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Uninstalling assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\_eclipse\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\_eclipse\SyncToolService.exe
+   logfile = D:\_eclipse\SyncToolService.InstallLog
+Restoring event log to previous state for source SyncToolService.

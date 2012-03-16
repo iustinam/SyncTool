@@ -5,27 +5,36 @@ push <commit<status<add .< in folderul synctool din repo
 
 folosesc file::spec pentru toate pathurile
 
+
+TESTS
 =======================================================================================
 master: 
 mai crapa brusc cateodata fara sa scrie nici in pathul default...lainceput
 exceptii pe fisiere ... sa fac catch
-crapa start stop rapid
+crapa start stop rapid sau stop-start
+pb access concurent la fisier
+cum poate ajunge nesters unul fisier running?
+ar trebui sa incerce sa stearga regulat fisierele running vechi si nesterse?
 
 -conf "D:\_eclipse\conf.xml"
 build cu timer bun
 
+se opresc toate scripturile daca fac stop la serviciu imediat?... inainte sa apuce sa deschida logul..posibil
+
+
 =======================================================================================
 gui:
-perl path in conf
+validare conf.xml : mandatory: sync,..etc
+start all
+ce se int daca sync.pl nu primeste conf bun?
+refac view job 
+refac jobs tab (editjob viewjob etc, si separ alea 2 
+pozitionarea ferestrelor
+
 nu mere refresh la tabul cu service dupa install
 latenta system call in refresh tab
-start/stop service
 
-cum de merge asta ... if(not ($1||$2||$3) ){ $winAdd->messageBox(-title=>"Error Invalid Mail"...... trebuia SI
-problema cu pathuri cu spatii.
-start all
-sync pornit cu param -conf
-ce se int daca sync.pl nu primeste conf bun?
+
 
 =======================================================================================
 sync:

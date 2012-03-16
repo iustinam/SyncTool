@@ -147,6 +147,7 @@ ex:
 pb: nu apare in log dupa ce il rescrie:  ALT 
 add err in output 
 
+##################14.03
 sync: adaugat attachement  log in mail
 service : pathurile s si d din cmd cu ghilimele
 daca fac stop si start rapid.. nu poate sterge fisierul running.. am pus try catch si scrie in log.
@@ -170,5 +171,44 @@ intrun for
 #$frTabConf_Left->Label(-text =>"SMTP Server:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
 #$frTabConf_Left->Label(-text =>"Default Service Log:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
 #$frTabConf_Left->Label(-text =>"Perl Path:", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+
+=====================16 03
+gui:
+perl path in conf
+sync pornit cu param -conf
+
+modificat... if(not ($1||$2||$3) ){ $winAdd->messageBox(-title=>"Error Invalid Mail"...... trebuia &&
+
+service:
+metoda writelog
+
+problema rescrie log.. peste.. din thr separate
+
+
+created timer for 00:00:07: 00:33:20 
+ignoring job 8
+ignoring job 9
+3/16/2012 1:01 PM
+thread started :7: 3/16/2012 1:01 PM
+Calling: 
+D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
+started 7 to 1
+thread started :11: 3/16/2012 1:01 PM
+Calling: 
+D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
+started 11 to 1
+
+
+created timer for 00:00:07: 00:33:20 
+ignoring job 8
+ignoring job 9
+3/16/2012 1:01 PM
+Created 2 timers.
+thread started :7: 3/16/2012 1:01 PM
+D:\_eclipse\run\7.1.3100.portfile is already running.
+thread started :11: 3/16/2012 1:01 PM
+Calling: 
+D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
+started 11 to 1
 
 

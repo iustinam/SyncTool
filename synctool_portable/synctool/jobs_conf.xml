@@ -36,6 +36,18 @@
     <title>bb</title>
   </job>
   <job>
+    <id>11</id>
+    <client>
+      <id>1</id>
+      <addr>D:/test</addr>
+    </client>
+    <email>Iustina.2.Melinte@continental-corporation.com</email>
+    <ignore>0</ignore>
+    <master>C:/Documents and Settings/All Users/Documents</master>
+    <start>11:00:11</start>
+    <title>16.03</title>
+  </job>
+  <job>
     <id>2</id>
     <client>
       <id>1</id>
@@ -125,11 +137,11 @@
       <id>1</id>
       <addr>D:\test</addr>
     </client>
+    <email>Iustina.2.Melinte@continental-corporation.com</email>
     <ignore>0</ignore>
     <master>D:\Perl</master>
     <start>14:37:30</start>
     <title>conti 20.02</title>
-	<email>Iustina.2.Melinte@continental-corporation.com</email>
   </job>
   <job>
     <id>8</id>

@@ -61,3 +61,146 @@ The file is located at D:\_eclipse\SyncToolService.InstallLog.
 The Commit phase completed successfully.
 
 The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The uninstall has completed.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+
+The uninstall has completed.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The specified service already exists
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\_eclipse\SyncToolService.exe assembly's progress.
+The file is located at D:\_eclipse\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
