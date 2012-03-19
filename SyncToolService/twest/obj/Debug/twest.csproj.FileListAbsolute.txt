@@ -1,0 +1,5 @@
+D:\repo\SyncTool\master\SyncToolService\twest\bin\Debug\twest.exe
+D:\repo\SyncTool\master\SyncToolService\twest\bin\Debug\twest.pdb
+D:\repo\SyncTool\master\SyncToolService\twest\obj\Debug\ResolveAssemblyReference.cache
+D:\repo\SyncTool\master\SyncToolService\twest\obj\Debug\twest.exe
+D:\repo\SyncTool\master\SyncToolService\twest\obj\Debug\twest.pdb

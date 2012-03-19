@@ -10,6 +10,7 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.Win32;
 
 namespace master0
 {
@@ -76,6 +77,7 @@ namespace master0
             //ServiceController service = new ServiceController("SyncToolService");
             //service.WaitForStatus(ServiceControllerStatus.Stopped,TimeSpan.FromMilliseconds(500));
 
+            
             _args = args;
             //_timer.Start();
             //_log = new StreamWriter(LOG_PATH, true);
@@ -129,10 +131,17 @@ namespace master0
             StringBuilder tempLog = new StringBuilder();
             tempLog.AppendLine("==================================================================================================================");
             tempLog.AppendLine("opened: "+ DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString());
+            tempLog.AppendLine("cmdline args: " + String.Join(" ",Environment.GetCommandLineArgs()));
 
             bool okParams = true;
             if (_args.Count() > 0)
             {
+                RegistryKey myKey = Registry.LocalMachine.OpenSubKey(
+                "SYSTEM\\CurrentControlSet\\Services\\" + this.ServiceName, true);
+
+                
+                StringBuilder newValue = new StringBuilder(myKey.GetValue("ImagePath") + " ");
+
                 tempLog.AppendLine("args:");
                 for (int i = 0; i < _args.Count(); i++)
                 {
@@ -140,9 +149,11 @@ namespace master0
                     if (_args[i].Equals("-debug"))
                     {
                         _debug = true;
+                        newValue.Append("-debug ");
                     }
                     if (_args[i].Equals("-conf"))
                     {
+                        newValue.Append("-conf ");
 
                         if (!(_args.Count() > i + 1))
                         {
@@ -158,13 +169,46 @@ namespace master0
                         {
                             this._confPath = _args[i + 1];
                             tempLog.AppendLine("Configuration file path: " + this._confPath);
+                            newValue.Append("\"" +this._confPath+ "\"");
+                            if (!myKey.GetValue("ImagePath").ToString().Contains("-conf"))
+                            {
+                                tempLog.AppendLine("Registry key modified to : " + newValue.ToString());
+                                myKey.SetValue("ImagePath", newValue.ToString(), RegistryValueKind.ExpandString);
+                            }
                             i++;
                         }
                     }
                 }
             }
             else{
-                okParams = false;
+                //try take conf from command line stored in registry
+                if(Environment.CommandLine.Contains("-conf")){
+                    string[] cmd = Environment.GetCommandLineArgs();
+                    for(int i=0;i<cmd.Count();i++)
+                    {
+                        if (cmd[i].Equals("-conf"))
+                        {
+                            if (!(cmd.Count() > i + 1))
+                            {
+                                tempLog.AppendLine("ERROR: invalid args, give the conf path after -conf");
+                                okParams = false;
+                            }
+                            if (okParams && (!File.Exists(cmd[i + 1])))
+                            {
+                                tempLog.AppendLine("ERROR: invalid '-conf' parameter : Path does not exist. Stopping.");
+                                okParams = false;
+                            }
+                            if (okParams)
+                            {
+                                this._confPath = cmd[i + 1];
+                                tempLog.AppendLine("Configuration file path: " + this._confPath);
+                                i++;
+                            }
+                        }
+                    }
+                }else{
+                    okParams = false;
+                }
             }
 
             if (!okParams)

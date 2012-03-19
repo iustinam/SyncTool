@@ -7,6 +7,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SyncToolServiceSetup", "Syn
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SyncToolServiceSetupWizard", "SyncToolServiceSetupWizard\SyncToolServiceSetupWizard.vdproj", "{AFD85950-134D-464F-AB07-C286E9C0D4B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "twest", "twest\twest.csproj", "{75DC9995-40CE-4130-AD28-D3D95A182D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{453AF4FF-0E3D-44DC-B7B8-0E5A126ACCA0}.Release|Any CPU.ActiveCfg = Release
 		{AFD85950-134D-464F-AB07-C286E9C0D4B4}.Debug|Any CPU.ActiveCfg = Debug
 		{AFD85950-134D-464F-AB07-C286E9C0D4B4}.Release|Any CPU.ActiveCfg = Release
+		{75DC9995-40CE-4130-AD28-D3D95A182D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DC9995-40CE-4130-AD28-D3D95A182D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DC9995-40CE-4130-AD28-D3D95A182D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DC9995-40CE-4130-AD28-D3D95A182D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

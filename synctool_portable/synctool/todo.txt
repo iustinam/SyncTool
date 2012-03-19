@@ -9,10 +9,12 @@ folosesc file::spec pentru toate pathurile
 TESTS
 =======================================================================================
 master: 
-mai crapa brusc cateodata fara sa scrie nici in pathul default...lainceput
-exceptii pe fisiere ... sa fac catch
-crapa start stop rapid sau stop-start
-pb access concurent la fisier
+start cu conf si dupa restart
+env.getcommandlineargs .. 
+momentan: crapa daca nu are args primit in onstart 
+do: verifica daca nu are args in onstart poate are in cmdlineargs
+adauga in registru si parametrul din scm (daca il primeste) doar daca nu exista deja in env.commandlineargs
+
 cum poate ajunge nesters unul fisier running?
 ar trebui sa incerce sa stearga regulat fisierele running vechi si nesterse?
 
@@ -21,11 +23,11 @@ build cu timer bun
 
 se opresc toate scripturile daca fac stop la serviciu imediat?... inainte sa apuce sa deschida logul..posibil
 
-
+facts: daca are conf din scm il ia pe ala... daca nu se uita in env.getcommandlineargs
 =======================================================================================
 gui:
 validare conf.xml : mandatory: sync,..etc
-start all
+start allw
 ce se int daca sync.pl nu primeste conf bun?
 refac view job 
 refac jobs tab (editjob viewjob etc, si separ alea 2 

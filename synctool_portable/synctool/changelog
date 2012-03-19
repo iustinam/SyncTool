@@ -211,4 +211,16 @@ Calling:
 D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
 started 11 to 1
 
+=====================19.03
 
+uidu3198@iasp209x:~$ ln -s wcps_code.zip link
+uidu3198@iasp209x:~$ ls -al link
+lrwxrwxrwx 1 uidu3198 uidu3198 13 Mar 19 13:11 link -> wcps_code.zip
+....copiere cu winscp pe D:,sterg de pe linux si copii inapoi pe linux
+uidu3198@iasp209x:~$ ls -al link
+-rw-r--r-- 1 uidu3198 uidu3198 197491 Jul 18  2011 link
+
+facem niste linkuri pe linux si sa le vedem printr-un share mapat pe windows.. problema e ca o data ce samba mapeaza tipul asta de fisiere , transforma linkul intr-un fisier simplu care contine exact ce contine fisierul original.. deci in explorer vad doua fisiere identice cu nume diferite... asta tine de felul in care mapeaza samba symlinkurile
+
+sch ins service cuargumentele cmd line
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\<service name>
