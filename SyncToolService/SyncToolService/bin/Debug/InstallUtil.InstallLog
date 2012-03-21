@@ -357,3 +357,372 @@ The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\b
 The Commit phase completed successfully.
 
 The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+An exception occurred during the uninstallation of the System.Configuration.Install.AssemblyInstaller installer.
+System.InvalidOperationException: Unable to create an instance of the master0.SyncToolInstaller installer type.
+The inner exception System.Reflection.TargetInvocationException was thrown with the following error message: Exception has been thrown by the target of an invocation..
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+An exception occurred while uninstalling. This exception will be ignored and the uninstall will continue. However, the application might not be fully uninstalled after the uninstall is complete.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.InvalidOperationException: Unable to create an instance of the master0.SyncToolInstaller installer type.
+The inner exception System.Reflection.TargetInvocationException was thrown with the following error message: Exception has been thrown by the target of an invocation..
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+An exception occurred during the Rollback phase of the System.Configuration.Install.AssemblyInstaller installer.
+System.InvalidOperationException: Unable to create an instance of the master0.SyncToolInstaller installer type.
+The inner exception System.Reflection.TargetInvocationException was thrown with the following error message: Exception has been thrown by the target of an invocation..
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+An exception occurred during the Rollback phase of the installation. This exception will be ignored and the rollback will continue. However, the machine might not fully revert to its initial state after the rollback is complete.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The account name is invalid or does not exist, or the password is invalid for the account name specified
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The specified service already exists
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The specified service already exists
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The specified service already exists
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.ComponentModel.Win32Exception: The specified service already exists
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.
+
+
+The uninstall is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The uninstall has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+An exception occurred during the Install phase.
+System.InvalidOperationException: Unable to create an instance of the master0.SyncToolInstaller installer type.
+The inner exception System.Reflection.TargetInvocationException was thrown with the following error message: Exception has been thrown by the target of an invocation..
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+
+The Rollback phase of the installation is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+An exception occurred during the Rollback phase of the System.Configuration.Install.AssemblyInstaller installer.
+System.InvalidOperationException: Unable to create an instance of the master0.SyncToolInstaller installer type.
+The inner exception System.Reflection.TargetInvocationException was thrown with the following error message: Exception has been thrown by the target of an invocation..
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+An exception occurred during the Rollback phase of the installation. This exception will be ignored and the rollback will continue. However, the machine might not fully revert to its initial state after the rollback is complete.
+
+The Rollback phase completed successfully.
+
+The transacted install has completed.
+
+Running a transacted installation.
+
+Beginning the Install phase of the installation.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Install phase completed successfully, and the Commit phase is beginning.
+See the contents of the log file for the D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe assembly's progress.
+The file is located at D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog.
+
+The Commit phase completed successfully.
+
+The transacted install has completed.

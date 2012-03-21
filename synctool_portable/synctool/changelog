@@ -224,3 +224,36 @@ facem niste linkuri pe linux si sa le vedem printr-un share mapat pe windows.. p
 
 sch ins service cuargumentele cmd line
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\<service name>
+
+ERR
+!!found 1260
+gui: view_job: 1260 does not know ...
+gui: send_msj2GetStats 7 1260
+gui: Couldn't connect to 1260 to send msj2
+!1 port 1260 , run
+..fisierule acolo si sync e running...in procese
+
+
+master: 
+start cu conf si dupa restart
+env.getcommandlineargs .. 
+momentan: crapa daca nu are args primit in onstart 
+do: verifica daca nu are args in onstart poate are in cmdlineargs
+
+adauga in registru si parametrul din scm (daca il primeste) doar daca nu exista deja in env.commandlineargs
+
+=====================21.03
+
+master: install srevice with user
+facts: daca are conf din scm il ia pe ala... daca nu se uita in env.getcommandlineargs
+
+gui:
+gui validare conf.xml
+running_folder : no>>die, invalid>>die : message box fara mw
+serviceLogFile: warning in tab
+sync_path: no>>die, invalid>>die : message box. no mw
+jobs_conf_filename :  check daca e definit in tab jobs si la backup
+perl_path : warning in tab si folosesc default
+portfiles bkp_folder logs_folder touch_portfile_time email_server : warning in tab+ create dirs
+
+file spec peste tot

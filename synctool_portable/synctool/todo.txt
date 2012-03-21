@@ -4,18 +4,22 @@ push <commit<status<add .< in folderul synctool din repo
 ############## TODO
 
 folosesc file::spec pentru toate pathurile
+scriptul trebuie sa faca dir daca nu exista;;
 
+portabil
+acl permisiuni
 
 TESTS
+radu.. cum programeaza ei rsync in linux..pe joburi si cu mail?
+fac un perl care preia joburile din xml si il pun in cron?
+sync portabil:..copiere,paths..caut in cod.. testez atribute? stat? acl ? permisiuni?
+
+tests: stat acl
+
 =======================================================================================
 master: 
-start cu conf si dupa restart
-env.getcommandlineargs .. 
-momentan: crapa daca nu are args primit in onstart 
-do: verifica daca nu are args in onstart poate are in cmdlineargs
-adauga in registru si parametrul din scm (daca il primeste) doar daca nu exista deja in env.commandlineargs
 
-cum poate ajunge nesters unul fisier running?
+cum poate ajunge nesters un fisier running?
 ar trebui sa incerce sa stearga regulat fisierele running vechi si nesterse?
 
 -conf "D:\_eclipse\conf.xml"
@@ -23,20 +27,18 @@ build cu timer bun
 
 se opresc toate scripturile daca fac stop la serviciu imediat?... inainte sa apuce sa deschida logul..posibil
 
-facts: daca are conf din scm il ia pe ala... daca nu se uita in env.getcommandlineargs
 =======================================================================================
 gui:
-validare conf.xml : mandatory: sync,..etc
-start allw
-ce se int daca sync.pl nu primeste conf bun?
+pb: cand e un singur job nu face load la xml in hash
 refac view job 
-refac jobs tab (editjob viewjob etc, si separ alea 2 
 pozitionarea ferestrelor
+start all
+x pe viewJob
+ce se int daca sync.pl nu primeste conf bun?
+jobs tab: ar trebui sa pot face reload daca jobsconf e invalid.
 
 nu mere refresh la tabul cu service dupa install
 latenta system call in refresh tab
-
-
 
 =======================================================================================
 sync:

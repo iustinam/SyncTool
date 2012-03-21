@@ -389,3 +389,406 @@ Affected parameters are:
    logtoconsole = 
    assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
    logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   user = uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   user = uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = uidu3198
+   logtoconsole = 
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   user = cw01\uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Unable to create an instance of the master0.SyncToolInstaller installer type.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Unable to create an instance of the master0.SyncToolInstaller installer type.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Unable to create an instance of the master0.SyncToolInstaller installer type.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Restoring event log to previous state for source SyncToolService.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Creating EventLog source SyncToolService in log Application...
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Restoring event log to previous state for source SyncToolService.
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   pass = ~jungl3off
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   user = cw01\uidu3198
+   logtoconsole = 
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Uninstalling assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Removing EventLog source SyncToolService.
+Service SyncToolService is being removed from the system...
+Service SyncToolService was successfully removed from the system.
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Unable to create an instance of the master0.SyncToolInstaller installer type.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+Rolling back assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Unable to create an instance of the master0.SyncToolInstaller installer type.
+System.Reflection.TargetInvocationException: Exception has been thrown by the target of an invocation.
+The inner exception System.NullReferenceException was thrown with the following error message: Object reference not set to an instance of an object..
+Installing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog
+Installing service SyncToolService...
+Service SyncToolService has been successfully installed.
+Creating EventLog source SyncToolService in log Application...
+Committing assembly 'D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe'.
+Affected parameters are:
+   logtoconsole = 
+   assemblypath = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+   i = 
+   logfile = D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.InstallLog

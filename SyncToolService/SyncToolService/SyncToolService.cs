@@ -546,12 +546,12 @@ namespace master0
 
                             // start tcb with parameter SyncJob , duetime is span1 calculated earlier, repeat every 24hours
 
-                            //System.Threading.Timer t = new Timer(tcb, sj, span1, TimeSpan.FromSeconds(24 * 60 * 60));
-                            //WriteLog(String.Format("created timer for {0}: {1} ", span1, TimeSpan.FromSeconds(24 * 60 * 60)));
+                            System.Threading.Timer t = new Timer(tcb, sj, span1, TimeSpan.FromSeconds(24 * 60 * 60));
+                            WriteLog(String.Format("created timer for {0}: {1} ", span1, TimeSpan.FromSeconds(24 * 60 * 60)));
 
                             //test  stuff
-                            System.Threading.Timer t = new Timer(tcb, sj, TimeSpan.FromSeconds(sj.Id), TimeSpan.FromSeconds(2000));
-                            WriteLog(String.Format("created timer for {0}: {1} ", TimeSpan.FromSeconds(sj.Id), TimeSpan.FromSeconds(2000)));
+                            //System.Threading.Timer t = new Timer(tcb, sj, TimeSpan.FromSeconds(sj.Id), TimeSpan.FromSeconds(2000));
+                            //WriteLog(String.Format("created timer for {0}: {1} ", TimeSpan.FromSeconds(sj.Id), TimeSpan.FromSeconds(2000)));
 
                             _timers.AddLast(t);
                         }
