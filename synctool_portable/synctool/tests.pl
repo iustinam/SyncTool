@@ -4,6 +4,7 @@ use Win32::File;
 use Data::Dumper;
 use File::Spec;
 use Storable qw/nstore retrieve/;
+use Carp;
 
 my $testfile="test.txt";
 my $logfile="testlog.txt";
@@ -170,7 +171,7 @@ sub setupDirsWithAttrsInsideDir{
         
         #PUT DIR CONTENT
         my $f=File::Spec->catfile($newDir,"test.txt");
-        open( H, '>', $f ) or die "err: Cannot create test file $f \n";
+        open( H, '>', $f ) or die "err: Cannot create test file $f $!\n";
         print H "bau";
         close H;
     }
@@ -178,7 +179,61 @@ sub setupDirsWithAttrsInsideDir{
 
 #stat 
 
+sub setupCaseSensitiveDirToFile{
+    # create lowercase dir in src, uppercase file in dst
+    my ($sdir,$ddir)=@_;
+    opendir(D,$sdir) or print "ERR: opendir $sdir\n";
+    mkdir(File::Spec->catdir($sdir,"NEWDIRTOFILE")) or croak("Cannot create dir $!\n");
+    closedir(D);
+    
+    opendir(D,$ddir) or print "ERR: opendir $ddir\n";
+    open( H, '>', File::Spec->catfile($ddir,"newdirtofile") ) or croak "err: Cannot create test file  $!\n";
+    print H "bau";
+    close H;
+    closedir(D);
+}
 
+sub setupCaseSensitiveFileToDir{
+    # create lowercase file in src, uppercase dir in dst
+    my ($sdir,$ddir)=@_;
+    opendir(D,$sdir) or print "ERR: opendir $sdir\n";
+    open( H, '>', File::Spec->catfile($sdir,"NEWFILETODIR") ) or croak "err: Cannot create test file  $!\n";
+    print H "bau";
+    close H;
+    closedir(D);
+    
+    opendir(D,$ddir) or print "ERR: opendir $ddir\n";
+    mkdir(File::Spec->catdir($ddir,"newfiletodir")) or croak("Cannot create dir $!\n");
+    closedir(D);
+}
+
+sub setupCaseSensitiveDirToDir{
+    # create lowercase file in src, uppercase dir in dst
+    my ($sdir,$ddir)=@_;
+    opendir(D,$sdir) or print "ERR: opendir $sdir\n";
+    mkdir(File::Spec->catdir($sdir,"NEWDIR")) or croak("Cannot create dir $!\n");
+    closedir(D);
+    
+    opendir(D,$ddir) or print "ERR: opendir $ddir\n";
+    mkdir(File::Spec->catdir($ddir,"newdir")) or croak("Cannot create dir $!\n");
+    closedir(D);
+}
+
+sub setupCaseSensitiveFileToFile{
+    # create lowercase file in src, uppercase dir in dst
+    my ($sdir,$ddir)=@_;
+    opendir(D,$sdir) or print "ERR: opendir $sdir\n";
+    open( H, '>', File::Spec->catfile($sdir,"NEWFILE") ) or croak "err: Cannot create test file  $!\n";
+    print H "bau";
+    close H;
+    closedir(D);
+    
+    opendir(D,$ddir) or print "ERR: opendir $ddir\n";
+    open( H, '>', File::Spec->catfile($ddir,"newfile") ) or croak "err: Cannot create test file  $!\n";
+    print H "bau";
+    close H;
+    closedir(D);
+}
 sub main{
     #setez pe fis rand attr si fac un nstore pt care au fost selectate si ce attr
     open (F,'<',$testfile) or die "Could not open $testfile\n"; 
@@ -189,7 +244,12 @@ sub main{
         #setRandAttrs(File::Spec->catdir($_));  
         #vrfyAttrs();
         #printAllAttrs("D:\\Perl\\bin\\perl.exe");
-        setupDirsWithAttrsInsideDir(File::Spec->catdir($_));
+        #setupDirsWithAttrsInsideDir(File::Spec->catdir($_));
+        
+        setupCaseSensitiveDirToFile($ARGV[0],$ARGV[1]);
+        setupCaseSensitiveFileToDir($ARGV[0],$ARGV[1]);
+        setupCaseSensitiveDirToDir($ARGV[0],$ARGV[1]);
+        setupCaseSensitiveFileToFile($ARGV[0],$ARGV[1]);
     }   
     close F;
     close $LOG;

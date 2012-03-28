@@ -244,7 +244,7 @@ adauga in registru si parametrul din scm (daca il primeste) doar daca nu exista 
 
 =====================21.03
 
-master: install srevice with user
+master: install service with user
 facts: daca are conf din scm il ia pe ala... daca nu se uita in env.getcommandlineargs
 
 gui:
@@ -257,3 +257,16 @@ perl_path : warning in tab si folosesc default
 portfiles bkp_folder logs_folder touch_portfile_time email_server : warning in tab+ create dirs
 
 file spec peste tot
+========================26
+refacut view job :  
+scos laststats, kb fara virgula, timpul..formatare
+x pe viewJob
+save conf in fisier si use..
+cand fac save la conf global: reface lista de joburi , $paths, $conf, variabilele scoase din paths(loadpaths)
+
+sync: 
+trimite stats cu timpul real nu cel al actiunilor
+vrfy smtp ping
+
+=================28.03
+sync file::spec pt loadpaths , opt{s,d} 

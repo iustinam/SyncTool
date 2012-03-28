@@ -4,17 +4,19 @@ push <commit<status<add .< in folderul synctool din repo
 ############## TODO
 
 folosesc file::spec pentru toate pathurile
-scriptul trebuie sa faca dir daca nu exista;;
 
 portabil
 acl permisiuni
 
 TESTS
-radu.. cum programeaza ei rsync in linux..pe joburi si cu mail?
 fac un perl care preia joburile din xml si il pun in cron?
 sync portabil:..copiere,paths..caut in cod.. testez atribute? stat? acl ? permisiuni?
 
 tests: stat acl
+
+send mail folosin bcc/cc!
+ce ar trebui sa faca daca fisierul/dir are aclasi nume dar case diferit pe src si dst?
+file remove face delete sau shift+del?.. pe share / local
 
 =======================================================================================
 master: 
@@ -29,24 +31,46 @@ se opresc toate scripturile daca fac stop la serviciu imediat?... inainte sa apu
 
 =======================================================================================
 gui:
-pb: cand e un singur job nu face load la xml in hash
-refac view job 
-pozitionarea ferestrelor
-start all
-x pe viewJob
-ce se int daca sync.pl nu primeste conf bun?
+
+ce se int daca sync.pl nu primeste conf bun? =>todo validare ca la gui+creare foldere
 jobs tab: ar trebui sa pot face reload daca jobsconf e invalid.
 
-nu mere refresh la tabul cu service dupa install
+nu mere refresh la tabul cu service dupa install,trebuie sa fac refresh manual
 latenta system call in refresh tab
+pb: cand e un singur job nu face load la xml in hash
+save global config: daca se sch pathurile nu se schimba  ce era 
 
+---oth
+labentry cu cmd jos in edit job?
 =======================================================================================
 sync:
+
+gui: handle_one_proc: recv 7 1 7802 7544 7802 0 0 174616.563 88 0
+!!found 2437
+!! 1 stopped by user
+!1 port 2437 , run
+----2 sync : starter thr: dying..
+----1 killed worker
+----1 sync 2437: deleting portfile D:\_eclipse\run\7.1.2437.portfile
+!1 port 2437 , run
+----5 sync 2437: send_stats2sock: recv KILL
+gui: handle_one_proc: socket closed
+----1 sync 2437: killed stats2sock
+----1 sync 2437: start_n_waitsock finishing..
+----0 done =1
+----0 joined thr_start_n_waitsock; parent dying..
+Perl exited with active threads:
+        1 running and unjoined
+        0 finished and unjoined
+        0 running and detached
+		
 ping smtp?
 sync: ce se intampla daca smtp e invalid
 
 problema thr care nu el face join.. fac dump la coada.. cand primesc ele undef. si astept sa mai faca
 ramasese o data acolo .. in proc explorer (-nu-i specificasem smtp)
+
+
 =======================================================================================
 
 test: cum pornesc serv cu anumit user. instalez , test pe alt calc
