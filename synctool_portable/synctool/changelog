@@ -270,3 +270,18 @@ vrfy smtp ping
 
 =================28.03
 sync file::spec pt loadpaths , opt{s,d} 
+
+
+===============2.04
+send mail folosin bcc/cc
+ignore attrs si pus totul intr-o funct 
+md5 de 2 ori: impart la 2 (punea si pt sursa si pt dest)
+
+ if ( md5($s_path) ne md5($d_path) ) {     >>>>>cica avea si &opt{v} iaix
+trycount pt copy default 2 (daca nu merg md5 doar)
+cred ca am rez pb cu threadurile pt workeri
+foreach(keys %pool){
+                 #$pool{$_}->kill('KILL')->join(); #? de ce mai fac kill... nu doar join?
+                 $pool{$_}->join() if $pool{$_}->is_joinable(); # tananaaa try this
+                 
+

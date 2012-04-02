@@ -1,1 +1,1 @@
-perl sync.pl --conf "D:\_eclipse\conf.xml" -usethr -sid 1 -did 2 --s s --d d -mail "Iustina.2.Melinte@continental-corporation.com" -smtp "smtphub07.conti.de"
+perl sync.pl --conf "D:\_eclipse\conf.xml" -usethr -sid 1 -did 2 --s s --d d -mail "Iustina.2.Melinte@continental-corporation.com,Iustina.Melinte@continental-corporation.com,iustina.m.90@gmail.com" -smtp "smtphub07.conti.de" -md5

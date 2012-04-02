@@ -14,14 +14,25 @@ use constant{
  
 };
 my $attr_types={
-    #'COMPRESSED'=>COMPRESSED,
-    'OFFLINE'=>OFFLINE,
-    'SYSTEM'=>SYSTEM,
-    'TEMPORARY'=>TEMPORARY,
-    'ARCHIVE'=>ARCHIVE,
-    'HIDDEN'=>HIDDEN,
-    'READONLY'=>READONLY,
-    'NORMAL'=>NORMAL};#DIRECTORY);
+    #'COMPRESSED'=>2048 ,
+    'OFFLINE'=>4096,
+    'SYSTEM'=>4,
+    'TEMPORARY'=>256,
+    'ARCHIVE'=>32 ,
+    'HIDDEN'=>2,
+    'READONLY'=>1,
+    'NORMAL'=>128,
+    
+    'DEVICE'=>64,
+    'ENCRYPTED'=>16384,
+    'INTEGRITY_STREAM'=>32768 ,
+    'NOT_CONTENT_INDEXED'=>8192, 
+    'NO_SCRUB_DATA'=>131072,
+    'REPARSE_POINT'=>1024, 
+    'SPARSE_FILE'=>512, 
+    'VIRTUAL'=>65536,
+};#DIRECTORY;
+
 my $LOG;
 #src/dest file/folder 
 

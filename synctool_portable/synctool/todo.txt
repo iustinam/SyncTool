@@ -3,10 +3,19 @@ http://perldoc.perl.org/perlport.html#Files-and-Filesystems
 push <commit<status<add .< in folderul synctool din repo
 ############## TODO
 
-folosesc file::spec pentru toate pathurile
+\\wetp034a\did65048\WinCE\20120326_MMP_WINCE_V4.16.0
+sync schedule wince-uri.. doar cand apare unul nou sau modificat
 
-portabil
-acl permisiuni
+wince pe rbgs
+a facut md5 cate? cat a durat?
+a mai crapat threadulla final?
+a trim mail?
+
+stat in perl in linux arata acelasi 33188 si pt un symlink
+
+permisiuni: file::copy pastreaza?
+mtime, atime, ctime access
+acl
 
 TESTS
 fac un perl care preia joburile din xml si il pun in cron?
@@ -14,7 +23,6 @@ sync portabil:..copiere,paths..caut in cod.. testez atribute? stat? acl ? permis
 
 tests: stat acl
 
-send mail folosin bcc/cc!
 ce ar trebui sa faca daca fisierul/dir are aclasi nume dar case diferit pe src si dst?
 file remove face delete sau shift+del?.. pe share / local
 
@@ -96,3 +104,34 @@ logg scrie in fisier si apeleaza updatelog
 
 service:
 mai intai deschide logul si daca nu gaseste conf-ulscrie in el eroarea.
+
+
+-------------------pb
+D:\_eclipse\Logs\1_2_14.05.38_02.04.
+sync 2774: wait_sock: created portfi
+
+----1 sync 2774:  waiting ..
+
+starter: no more active workers
+12 running, 0 joinable
+starter: enqueuing undef
+----4 received undef
+$VAR1 = bless( [
+                 undef,
+                 undef,
+                 undef,
+                 undef,
+                 undef,
+                 undef,
+                 undef,
+                 undef
+               ], 'Thread::Queue' );
+starter: joining all sync threads
+----5 received undef
+----6 received undef
+----7 received undef
+----8 sync : sync thr: dying..
+starter: joined thr 6
+starter: joined thr 3
+Terminating on signal SIGINT(2)
+Terminate batch job (Y/N)? ^C
