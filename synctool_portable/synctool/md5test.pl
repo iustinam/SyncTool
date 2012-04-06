@@ -9,5 +9,7 @@ sub md5 {
     return $ret;
 }
 my $s=time;
+print "err" if not -f $ARGV[0];
+print "ok" if -f $ARGV[0];
 print md5($ARGV[0]);
-print time-$s."\n";
+print "\n".eval(time-$s)."\n";

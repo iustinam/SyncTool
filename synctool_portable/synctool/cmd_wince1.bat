@@ -1,0 +1,1 @@
+perl sync.pl --conf "D:\_eclipse\conf.xml" -usethr -sid 1 -did 2 --s "D:\test_wince1" --d "D:\test_wince111" -mail "Iustina.2.Melinte@continental-corporation.com,iustina.m.90@gmail.com" -smtp "smtphub07.conti.de" -md5 -excl "WinCE_4.17.0_no_DevEmu.zip"

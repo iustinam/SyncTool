@@ -3,13 +3,48 @@ http://perldoc.perl.org/perlport.html#Files-and-Filesystems
 push <commit<status<add .< in folderul synctool din repo
 ############## TODO
 
-\\wetp034a\did65048\WinCE\20120326_MMP_WINCE_V4.16.0
-sync schedule wince-uri.. doar cand apare unul nou sau modificat
+gen csv din hash
+optiune md5 for specific files?
+nu a mai apucat sa faca md5 cu toolul de wind
+------------
 
-wince pe rbgs
-a facut md5 cate? cat a durat?
-a mai crapat threadulla final?
-a trim mail?
+S_IFSOCK   0140000   socket---------------  /dev/log
+S_IFLNK    0120000   symbolic link---
+S_IFREG    0100000   regular file----
+S_IFBLK    0060000   block device---------/dev/sda
+S_IFDIR    0040000   directory---
+S_IFCHR    0020000   character device----/dev/ttyS0
+S_IFIFO    0010000   FIFO----------
+
+find / -type b &>bdev &         // b/s/c/p
+
+ cp -a `cat sockets` .
+ 
+cp -p -l --symlinks
+cp -a     --sockets
+cp -R -p  --fifo , la device : op not permitted
+cp -p     --hardlinks 
+
+cp -R 
+reproduces the source trees. cp copies all files and subdirectories specified by source.... into directory, making careful arrangements to duplicate special files (FIFO, block special, character special).
+
+cp -a /dev/log log
+cp -p -R fifo fifo1
+..astea 2 pot sa dau comanda de cate ori vreau.. nu ia in considerare daca fisierul dest deja exista
+
+$mode = 0644;   chmod $mode, "foo"; 
+===============================
+cmd din wince bat e cuexcl cunume fisier.. nu ilignora
+
+\\wetp034a\did65048\WinCE\20120326_MMP_WINCE_V4.16.0
+pare blocat, are setate mtime ca pe origine
+incerc copiere locala.. sta mult si daca fac md5 de doua ori e acelasi
+784baac9aeb4e7fc5d37ecd960517535
+784baac9aeb4e7fc5d37ecd960517535
+
+pe rbgs a reusit sa copie si sa faca is md5 , s-a blocat cand astepta threadurile..sa se termine .. varianta veche care facea kill_>join la workeri
+
+nu ma mai lasa sa fac md5 pe el??
 
 stat in perl in linux arata acelasi 33188 si pt un symlink
 
@@ -23,7 +58,6 @@ sync portabil:..copiere,paths..caut in cod.. testez atribute? stat? acl ? permis
 
 tests: stat acl
 
-ce ar trebui sa faca daca fisierul/dir are aclasi nume dar case diferit pe src si dst?
 file remove face delete sau shift+del?.. pe share / local
 
 =======================================================================================
@@ -135,3 +169,72 @@ starter: joined thr 6
 starter: joined thr 3
 Terminating on signal SIGINT(2)
 Terminate batch job (Y/N)? ^C
+==========================================
+set 1 ins ca nr de workeri =1 
+--------
+set 1
+0  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  err: Cannot open stats file D:\_eclipse\Logs\1_2_15.55.19_04.04.12.stats
+print() on closed filehandle $sth at sync.pl line 1064.
+print() on closed filehandle $sth at sync.pl line 1065.
+print() on closed filehandle $sth at sync.pl line 1066.
+print() on closed filehandle $sth at sync.pl line 1067.
+print() on closed filehandle $sth at sync.pl line 1068.
+print() on closed filehandle $sth at sync.pl line 1069.
+print() on closed filehandle $sth at sync.pl line 1070.
+print() on closed filehandle $sth at sync.pl line 1071.
+print() on closed filehandle $sth at sync.pl line 1086.
+wtf??
+
+=============asa ar trebui
+D:\_eclipse>perl sync.pl --conf "D:\_eclipse\conf.xml" -usethr -sid 1 -did 2 --s "D:\test_wince1" --d "D:\test_wince111" -mail "Iustina.2.Melinte@continental-corporation.com,iustina.m.90@gmail.com" -smtp "smtphub07.conti.de" -md5 -excl "WinCE_4.17.0_no_DevEmu.zip"
+
+###########################################################################
+0  ----0 sleeping
+D:\_eclipse\Logs\1_2_08.40.45_06.04.12.log
+set 0
+set 1
+sync 1472: wait_sock: created portfile D:\_eclipse\run\1.2.1472.portfile
+
+----1 sync 1472:  waiting ..
+1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  set 0
+0
+starter: no more active workers
+12 running, 0 joinable
+starter: enqueuing undef
+12 running, 0 joinable
+starter: joining all sync threads
+starter: joined thr 6
+starter: joined thr 3
+starter: joined thr 7
+starter: joined thr 9
+starter: joined thr 2
+starter: joined thr 8
+starter: joined thr 1
+starter: joined thr 4
+starter: joined thr 10
+starter: joined thr 5
+12 running, 0 joinable
+----4 received undef
+----5 received undef
+----6 received undef
+0  ----7 received undef
+----8 received undef
+----9 received undef
+----10 received undef
+----11 received undef
+----3 received undef
+----12 received undef
+0  0  0  ----2 killing parent
+----2 sync_starter finishing..
+sync 1472: recv 1
+0  0  0  0  ----1 sync 1472: joined worker
+----1 sync 1472: start_n_waitsock finishing..
+----0 done =1
+----0 joined thr_start_n_waitsock; parent dying..
+Perl exited with active threads:
+        0 running and unjoined
+        10 finished and unjoined
+        0 running and detached
+
+D:\_eclipse>
+

@@ -284,4 +284,7 @@ foreach(keys %pool){
                  #$pool{$_}->kill('KILL')->join(); #? de ce mai fac kill... nu doar join?
                  $pool{$_}->join() if $pool{$_}->is_joinable(); # tananaaa try this
                  
-
+=================4.04
+ramane thr activ..
+posibil ca $activeSyncThr<1, face join la ce poate apoi intra si in foreach(keys %pool){ si daca e ceva joinable creaza altul??
+pun else..?.. oricum face adelete din hash pt toate.

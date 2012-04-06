@@ -8,6 +8,7 @@ use Win32;            # fs path portability
 use Win32::File;           #GetAttributes and SetAttributes
 use File::Copy;
 use Digest::MD5;
+use Digest::file qw(digest_file_hex);
 use POSIX qw(strftime);    #time in logs
 use threads;
 use threads::shared;
@@ -54,6 +55,7 @@ my $debug_file;    # filled when -v option is set
 
 my %output:shared;
 my $activeSyncThr:shared;
+$activeSyncThr=0;
 my $workQueue=Thread::Queue->new();
 my %workerParams; # parent and src, to know where in the output hash to put the columnar logs
 my $dirThrNo;  #nr de threaduri ( cel default sau 1 daca nu e dat parametru -usethr)
@@ -484,15 +486,19 @@ sub alterWinAttributes{
 ###########test
 # returns md5 of a file
 sub md5 {
+    $timer = time;  
+    my ($f) = @_;
+    print "md5 for $f, ";
     
-    $timer = time;       
-
-    my ($f) = shift;
-    open( FH, '<', $f ) or return ("");
-    binmode(FH);
-    my $ret = Digest::MD5->new->addfile(*FH)->hexdigest();
-    close FH;
-    
+    #open( FH, '<', $f ) or return ("");
+    # print "opened, ";
+    #binmode(FH);
+    #print "binmode, ";
+    #my $ret = Digest::MD5->new->addfile(*FH)->hexdigest();
+    my $ret =digest_file_hex($f, "MD2");
+    print "md5, ";
+    #close FH;
+    #print "closed file\n";
     &update_log("TIME","MD5",time - $timer);
     return $ret;
 }
@@ -658,6 +664,7 @@ sub sync {
                 {
                     lock($activeSyncThr);
                     $activeSyncThr++;
+                    print "set $activeSyncThr\n";
                 }
                 {
                     lock(%output);
@@ -1096,7 +1103,9 @@ sub write_stats_to_handle{
 # this runs in $thr_stats2file
 # statistics writer thread 
 sub drop_stats{
+    $|=1;
     while(!$done){
+        print "$activeSyncThr" ;
         #print  "----".threads->self()->tid()." writing..\n";
         
         if($STAT_WR_SLEEP) {sleep($STAT_WR_SLEEP);}
@@ -1123,6 +1132,7 @@ sub drop_stats{
         open( $sth, '>', $stats_file ) or print "err: Cannot open stats file $stats_file \n";  #rewrite.
         
         &write_stats_to_handle($sth,\%log);
+    
         close $sth;
         #}
         #print  "----".threads->self()->tid()." stats: end..\n";
@@ -1158,21 +1168,6 @@ sub doWork(){
     $SIG{'KILL'}=sub{ print   "----".threads->self()->tid()." sync : sync thr: dying..\n";threads->exit() };
     #my $item;
     while(my $item=$workQueue->dequeue()) {
-#    	sleep(1);
-#    	my $item=$workQueue->dequeue_nb(); 
-#    	if(!$item){                     
-#    		if($activeSyncThr<1) { #au terminat toate
-#    		  print "sync thr dies: no more work\n";
-#    		  threads->exit();
-#    		}
-#    		#next;
-#        }else{
-    
-#            my $output_ref=\%output;
-#            {
-#                lock(STDOUT);
-#                print "\n".threads->self()->tid()." ".Dumper($output_ref);
-#            }
             #print "\n".threads->self()->tid()." $item->{parent}, $item->{src},$output{$item->{parent}}{$item->{src}}{dst} \n";
             #print "\n".threads->self()->tid()." Dequeuing ".$item->{src}." ".$output{$item->{parent}}{$item->{src}}{dst}."\n";
             $workerParams{parent}=$item->{parent};
@@ -1180,14 +1175,10 @@ sub doWork(){
             &sync($item->{src},$output{$item->{parent}}{$item->{src}}{dst});
             
             {
-                lock($activeSyncThr);
+                lock($activeSyncThr); 
                 $activeSyncThr--;
+                print "set $activeSyncThr\n";
             }
-#            print "sync thr active: $activeSyncThr \n";
-#            if($activeSyncThr<1){   #all are blocked on the dequeue... put undef 
-#                print "sync: enqueuing undef\n";
-#                $workQueue->enqueue((undef) x DIR_THR_NO);
-#            }
             
             #if thread doesn't die
             {
@@ -1224,12 +1215,14 @@ sub sync_starter{
     {
         lock($activeSyncThr);
         $activeSyncThr=0;
+        print "set $activeSyncThr\n";
     }
     my %pool=map{ $_=>threads->new(\&doWork) } 1..$dirThrNo;
     
     {
         lock($activeSyncThr);
         $activeSyncThr++;
+        print "set $activeSyncThr\n";
     }
     {
         lock(%output);
@@ -1299,23 +1292,25 @@ sub sync_starter{
                  delete $pool{$_};
                  $ok=0;
              }
-        }
+        }else{
         
-        foreach(keys %pool){
-            #print Dumper($pool{$_});
-            if($pool{$_}->is_joinable()){ # a crapat, facem altul. (si-a scris deja eroarea..)
-                print "starter: thread $_ is joinable.. create other\n";
-                # it died before decrementing... if it was the last left=> everything finished
-                {
-                    lock($activeSyncThr);
-                    $activeSyncThr--;
-                }
-                $pool{$_}->join();
-                delete $pool{$_};
-                $newt=threads->create(\&doWork);      
-                $pool{$_}=$newt;
-            }         
-        }   
+            foreach(keys %pool){
+                #print Dumper($pool{$_});
+                if($pool{$_}->is_joinable()){ # a crapat, facem altul. (si-a scris deja eroarea..)
+                    print "starter: thread $_ is joinable.. create other\n";
+                    # it died before decrementing... if it was the last left=> everything finished
+                    {
+                        lock($activeSyncThr);
+                        $activeSyncThr--;
+                        print "set $activeSyncThr\n";
+                    }
+                    $pool{$_}->join();
+                    delete $pool{$_};
+                    $newt=threads->create(\&doWork);      
+                    $pool{$_}=$newt;
+                }         
+            }   
+        }
     }
     my @running = threads->list(threads::running);
     my @joinable = threads->list(threads::joinable);
@@ -1585,6 +1580,7 @@ EOF
                     }
                     
                     if($thr_stats2sock){
+                        print "thr_stats2sock is defined";
                         if($job_done){  
                             while(not $thr_stats2sock->is_joinable()){
                                 print   "----".threads->self()->tid()." sync $port: waiting for thr_stats2sock to finish\n";
