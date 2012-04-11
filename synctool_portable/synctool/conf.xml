@@ -9,4 +9,5 @@
   <serviceLogFile>sync_service.log</serviceLogFile>
   <sync_path>sync.pl</sync_path>
   <touch_portfile_time>2</touch_portfile_time>
+  <linux_scheduler_log_path>/home/uidu3198/SyncTool1/SyncTool/synctool_portable/synctool/scheduler.log</linux_scheduler_log_path>
 </opt>

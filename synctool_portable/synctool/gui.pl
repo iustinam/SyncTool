@@ -86,7 +86,7 @@ my $service_log_file;
 my $service_path;
 my $perl_path;
 my $smtp_server;
-my %conf_valid;
+my %conf_valid; #validate paths from conf
 
 GetOptions(
         "conf=s" => \$xml_conf,
