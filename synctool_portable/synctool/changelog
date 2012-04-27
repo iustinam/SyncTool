@@ -288,3 +288,18 @@ foreach(keys %pool){
 ramane thr activ..
 posibil ca $activeSyncThr<1, face join la ce poate apoi intra si in foreach(keys %pool){ si daca e ceva joinable creaza altul??
 pun else..?.. oricum face adelete din hash pt toate.
+
+====================19.04
+ Directories are one type of folder, namely, folders which correspond to file system locations. There are other types of folders, such as Control Panel or Network Neighborhood or Printers. These other types of folders represent objects in the shell namespace which do not correspond to files. In common usage, the term virtual folder has been applied to refer to folders which are not directories
+
+ =====================20.04
+ problema exclude pt paths,excludea un item din lista pentru sursa sau destinatie, dar daca el exista in ambele parti itemul ajungea in lista reunita si il excludea degeaba.
+ 
+ test:
+ no del if not in src
+ no add if not in dest
+ no replace if both in src and dest
+ 
+ 
+
+ 
