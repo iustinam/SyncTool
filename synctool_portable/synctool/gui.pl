@@ -483,7 +483,10 @@ $frTabConf_Bottom->Button(-text=>"Restore backup",-command=>sub{&restoreConf();}
 
 sub resetConfEntries{
     foreach(keys %$paths){
-        $confEntries->{$_}->delete(0,'end'); $confEntries->{$_}->insert(0,$paths->{$_});
+        if($confEntries->{$_}){
+            $confEntries->{$_}->delete(0,'end'); 
+            $confEntries->{$_}->insert(0,$paths->{$_});
+        }
     }
     
 }
@@ -942,6 +945,11 @@ sub edit_job{
                                          $winAdd=undef;
                                          $btnAdd->configure(-state=>'normal');$btnEdit->configure(-state=>'normal');
                                         
+                                        #remove empty exclude/mail hashes 
+                                        delete $tmpJob->{exclude} if not scalar @{$tmpJob->{exclude}};
+                                        delete $tmpJob->{exclude_re} if not scalar @{$tmpJob->{exclude_re}};
+                                        delete $tmpJob->{email} if not scalar @{$tmpJob->{email}};
+                                        
                                          $conf->{job}{$edit_sid}=$tmpJob;      
                                          &writeXmlJobs();
                                          &MW_loadJobList();
@@ -1151,6 +1159,7 @@ sub view_job{
         #####get running processes for this job
         
         #clear labels
+        #print "of" if $stats{$sid_wwId};
         foreach(keys %{$stats{$sid_wwId}{cli}}){
             $stats{$sid_wwId}{cli}{$_}{file_exists}=0;
             if($info{$sid_wwId}{$_}{last_run}){
@@ -1324,10 +1333,8 @@ sub start{
             push @cmd1,$_.",";
         }
     }
-    if($smtp_server){
+    if($smtp_server && $conf->{job}{$sid_wwId}{email}){
         push @cmd1,"-smtp"; push @cmd1, $smtp_server;
-    }
-    if($conf->{job}{$sid_wwId}{email}){
         push @cmd1,"--mailto";
         foreach( @{$conf->{job}{$sid_wwId}{email}}){
             push @cmd1,$_.",";
@@ -1769,8 +1776,7 @@ sub validateConf{
             die("Invalid jobs config: Duplicate  job name\n");
         }
     }
-    
-    #duplicate clients for job
+  
     my %clients;
     foreach my $sid (keys %{$conf->{job}}){
         #print "$sid\n";

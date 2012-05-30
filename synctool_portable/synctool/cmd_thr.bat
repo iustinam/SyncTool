@@ -1,0 +1,1 @@
+perl sync.pl --conf "D:\_eclipse\conf.xml"  -nogui --s \\wetp003a\did65022\SCC\ --d D:\thr1 -mail iustina.m.90@gmail.com -smtp "smtphub07.conti.de" 

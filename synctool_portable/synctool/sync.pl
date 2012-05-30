@@ -569,9 +569,10 @@ sub logg {
 sub update_log{
     my ($key1,$key2,$val)=@_;
     return if(not ($val&&$key1&&$key2));
+    #print "$val $key1 $key2\n";
     {
         lock(%log);
-        $log{$key1}{$key2}+=$val;
+        $log{$key1}{$key2}+=$val or print("$key1, $key2, $val : $! \n");
     }
 }
 ###########################################################################
@@ -685,7 +686,7 @@ sub sync {
                 {
                     lock($activeSyncThr);
                     $activeSyncThr++;
-                    print "set $activeSyncThr\n";
+                    print "set no active thr $activeSyncThr\n" if ($opt{v});
                 }
                 {
                     lock(%output);
@@ -1198,7 +1199,7 @@ sub doWork(){
             {
                 lock($activeSyncThr); 
                 $activeSyncThr--;
-                print "set $activeSyncThr\n";
+                print "set no active thr $activeSyncThr\n" if($opt{v});
             }
             
             #if thread doesn't die
@@ -1236,14 +1237,14 @@ sub sync_starter{
     {
         lock($activeSyncThr);
         $activeSyncThr=0;
-        print "set $activeSyncThr\n";
+        print "set no active thr $activeSyncThr$activeSyncThr\n" if($opt{v});
     }
     my %pool=map{ $_=>threads->new(\&doWork) } 1..$dirThrNo;
     
     {
         lock($activeSyncThr);
         $activeSyncThr++;
-        print "set $activeSyncThr\n";
+        print "set no active thr $activeSyncThr\n" if($opt{v});
     }
     {
         lock(%output);
@@ -1323,7 +1324,7 @@ sub sync_starter{
                     {
                         lock($activeSyncThr);
                         $activeSyncThr--;
-                        print "set $activeSyncThr\n";
+                        print "set no active thr $activeSyncThr\n" if($opt{v});
                     }
                     $pool{$_}->join();
                     delete $pool{$_};
