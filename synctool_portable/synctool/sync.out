@@ -1,0 +1,24 @@
+0Using the default configuration file: D:\_eclipse\conf.xml
+D:\_eclipse\Logs\sid_did_13.36.02_01.06.12.log
+        
+        ---------------------------------------------------------------------------------------
+        !Warning!
+        Option -nogui was set, gui.pl will not know that this runs.
+        This is unsafe if another instance of sync.pl runs for the same source and destination.
+        ---------------------------------------------------------------------------------------
+
+----1 sync 2310:  waiting ..
+10
+starter: no more active workers
+3 running, 0 joinable 
+starter: enqueuing undef
+3 running, 0 joinable 
+starter: joining all sync threads
+----3 received undef
+starter: joined thr 1 
+2 running, 1 joinable 
+----2 killing parent
+----2 sync_starter finishing..
+sync 2310: recv 1
+0----1 sync 2310: joined worker
+----1 sync 2310: start_n_waitsock finishing..

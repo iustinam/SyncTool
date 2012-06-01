@@ -1,0 +1,151 @@
+opened 13:45:59 01/06/12
+Backing up jobs conf
+        1 file(s) copied.
+$VAR1 = 'copy';
+$VAR2 = 'D:\\_eclipse\\jobs_conf.xml';
+$VAR3 = 'D:\\_eclipse\\bkp\\jobs_conf.xml_13.45.59_01.06.12.jobs_bkp';
+6
+11
+3
+7
+9
+2
+12
+8
+1
+4
+10
+5
+created RUNNING_FILE 
+
+gui 2330: Waiting .. 
+my ww id 5 
+!1 port  , run  
+!1 port  , run  
+my ww id 12 
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+
+gui calling: 
+D:\Perl\bin\perl.exe D:\_eclipse\sync.pl --conf D:\_eclipse\conf.xml --s D:/_eclipse --d D:\test -sid 12 -did 1 --gui 
+started 12 to 1 
+
+###########################################################################
+0D:\_eclipse\Logs\12_1_13.46.18_01.06.12.log
+!1 port  , run  
+----3 sync : send_stats2sock: sending 2_12_1 to gui (ask to handle my stats)
+gui 2330: accepted: 2331 : 2_12_1
+gui 2330: recv 2, sid 12 did 1 
+sync : send_stats2sock: sending 12_1_0_0_0_0_0_0_1_0
+sync 2332: wait_sock: created portfile D:\_eclipse\run\12.1.2332.portfile 
+
+----1 sync 2332:  waiting ..
+gui 2330: handle_one_proc: cli IO::Socket::INET=GLOB(0x6fc9eac) 
+gui: handle_one_proc: recv 12 1 0 0 0 0 0 0 1 0 
+1!!found 2332
+!1 port 2332 , run 1 
+!!found 2332
+!1 port 2332 , run 1 
+sync : send_stats2sock: sending 12_1_1028_2_0_1_0_0.844_3_0
+gui: handle_one_proc: recv 12 1 1028 2 0 1 0 0.844 3 0 
+1!!found 2332
+!1 port 2332 , run 1 
+
+starter: no more active workers
+4 running, 0 joinable 
+starter: enqueuing undef
+4 running, 0 joinable 
+starter: joining all sync threads
+starter: joined thr 1 
+4 running, 0 joinable 
+----4 received undef
+!!found 2332
+!1 port 2332 , run 1 
+sync : send_stats2sock: sending 12_1_1456_5_0_4_0_5.064_5_1
+gui: handle_one_proc: recv 12 1 1456 5 0 4 0 5.064 5 1 
+----2 killing parent
+----2 sync_starter finishing..
+sync 2332: recv 1
+0!1 port 2332 , run 1 
+----1 sync 2332: joined worker
+thr_stats2sock is defined----1 sync 2332: waiting for thr_stats2sock to finish
+!1 port  , run 1 
+----3 send_stats2sock finishing..
+gui: handle_one_proc: recv 12 1 fin ,close socket
+----1 sync 2332: joined stats2sock
+----1 sync 2332: start_n_waitsock finishing..
+----0 done =1
+----0 joined thr_start_n_waitsock; parent dying..
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+my ww id 12 
+!1 port  , run  
+
+gui calling: 
+D:\Perl\bin\perl.exe D:\_eclipse\sync.pl --conf D:\_eclipse\conf.xml --s D:/_eclipse --d D:\test -sid 12 -did 1 --gui 
+started 12 to 1 
+
+###########################################################################
+0D:\_eclipse\Logs\12_1_13.47.03_01.06.12.log
+!1 port  , run  
+sync 2336: wait_sock: created portfile D:\_eclipse\run\12.1.2336.portfile 
+
+----1 sync 2336:  waiting ..
+----3 sync : send_stats2sock: sending 2_12_1 to gui (ask to handle my stats)
+gui 2330: accepted: 2337 : 2_12_1
+gui 2330: recv 2, sid 12 did 1 
+sync : send_stats2sock: sending 12_1_17_0_0_0_0_0_1_0
+gui 2330: handle_one_proc: cli IO::Socket::INET=GLOB(0x6e4e04c) 
+gui: handle_one_proc: recv 12 1 17 0 0 0 0 0 1 0 
+1!!found 2336
+!1 port 2336 , run 1 
+sync : send_stats2sock: sending 12_1_390_2_0_1_0_1.017_2_0
+gui: handle_one_proc: recv 12 1 390 2 0 1 0 1.017 2 0 
+!!found 2336
+!1 port 2336 , run 1 
+sync : send_stats2sock: sending 12_1_896_2_0_1_0_1.017_3_0
+gui: handle_one_proc: recv 12 1 896 2 0 1 0 1.017 3 0 
+!!found 2336
+!1 port 2336 , run 1 
+1sync : send_stats2sock: sending 12_1_1317_2_0_1_0_1.017_4_0
+gui: handle_one_proc: recv 12 1 1317 2 0 1 0 1.017 4 0 
+!!found 2336
+!1 port 2336 , run 1 
+
+starter: no more active workers
+4 running, 0 joinable 
+starter: enqueuing undef
+4 running, 0 joinable 
+starter: joining all sync threads
+starter: joined thr 1 
+4 running, 0 joinable 
+----4 received undef
+sync : send_stats2sock: sending 12_1_1461_3_1_4_0_1.022_5_1
+gui: handle_one_proc: recv 12 1 1461 3 1 4 0 1.022 5 1 
+!!found 2336
+!1 port 2336 , run 1 
+0----2 killing parent
+----2 sync_starter finishing..
+sync 2336: recv 1
+gui: handle_one_proc: recv 12 1 fin ,close socket
+----3 send_stats2sock finishing..
+!1 port 2336 , run  
+----1 sync 2336: joined worker
+thr_stats2sock is defined----1 sync 2336: joined stats2sock
+----1 sync 2336: start_n_waitsock finishing..
+!1 port  , run  
+----0 done =1
+----0 joined thr_start_n_waitsock; parent dying..
+!1 port  , run  
+!1 port  , run  
+!1 port  , run  
+gui: deleted running file

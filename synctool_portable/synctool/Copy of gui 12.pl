@@ -31,12 +31,11 @@ use Tk::Optionmenu;
 use Tk::NoteBook;
 use Tk::LabEntry;
 use Tk::LabFrame;
-################################# variables
+################################# vars
 
 my $version = "3820934120";
 my $lupdate = POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($0))[9]));
 my $TOUCH_GUI_RUN=1;
-my $debug_file="gui.debug";
 
 my $listen_port:shared;
 
@@ -73,7 +72,6 @@ print "#########################################################################
 use constant{
     DEFAULT_CONF_PATH =>File::Spec->catfile("D:\\_eclipse\\conf.xml"),
     SERVICE_FILE=>"SyncToolService.exe",
-    DEFAULT_CRONTAB_PATH=>"/var/spool/cron/crontabs/bkt",
 };
 my $xml_conf;
 my $paths;
@@ -85,35 +83,16 @@ my $BKP_FOLDER;
 my $running_file:shared;
 my $touch_portfile_time;
 my $service_log_file;
-my $scheduler_log_file;
 my $service_path;
 my $perl_path;
 my $smtp_server;
-my $crontabFile;
 my %conf_valid; #validate paths from conf
-################################################################
-my $conf;
-my $xs; #will hold the xmlsimple obj
-my $thr_wait_sock;
-my $thr_wait_kids;
-my $serviceInstalled:shared;
-my $serviceRunning:shared;
-my $thr_touch_running_file;
-###################################################### GUI ELEMENTS (.. just to keep things organized)
-my ($menubar,$help);
-#### MW
-my ($nb,$tabJobs,$tabService,$tabScheduler,$tabConf);
-######## SERVICE TAB
-my ($frTabService_Up,$frTabService_Bottom,$frTabService_Bottom2,$lblLasSeen,$btnNotifyConf);
-my ($lblInstallSts,$btnUnInstall,$btnInstall,$lblRunSts,$btnServiceStop,$btnServiceStart);
-###### LINUX SCHEDULER TAB
-my ($frTabScheduler,$fr1TabScheduler,$lblNoTasksScheduler,$lblLasSeenScheduler,$lblErrScheduler);
-###### GLOBAL CONFIG TAB
-my ($frTabConf_head,$frTabConf_Up,$frTabConf_Left,$frTabConf_Right,$frTabConf_Warns,$frTabConf_Bottom);
-my (@label_order,$confEntries,$confVariables,@order);
-###### JOBS TAB
-my ($t_frame,$b_frame,$l_frame,$r_frame,$btnAdd,$btnDelete,$btnEdit,$btnView,$btn_reload,$btn_bkpjobs);
 
+GetOptions(
+        "conf=s" => \$xml_conf,
+        );
+if (not $xml_conf) {$xml_conf= DEFAULT_CONF_PATH ;print "Using default configuration file: ".$xml_conf."\n"}
+&loadPaths($xml_conf);
 
 sub loadPaths{
     my $xml_conf_param = shift or undef;
@@ -174,12 +153,6 @@ sub loadPaths{
         $conf_valid{serviceLogFile}="* default: sync_service.log";
     }
     
-    if($paths->{linux_scheduler_log_path}){
-        $scheduler_log_file=File::Spec->catfile($running_folder,$paths->{linux_scheduler_log_path});
-    }else{
-        $conf_valid{linux_scheduler_log_path}="* default: scheduler.log";
-    }
-    
     $service_path=File::Spec->catfile($running_folder,SERVICE_FILE);
     
     if($paths->{bkp_folder}){
@@ -212,74 +185,32 @@ sub loadPaths{
     
     $smtp_server=$paths->{email_server} or $conf_valid{email_server}="* No email will be sent." ;
     
-    if($paths->{crontab_path}){
-        $crontabFile=File::Spec->catfile($running_folder,$paths->{crontab_path});
-    }else{
-        $crontabFile=DEFAULT_CRONTAB_PATH;
-        $conf_valid{$crontabFile}="* Using default crontab path: $crontabFile\n";
-    }
     #die( "$running_folder \n$LOG_FOLDER \n$PORFILE_FOLDER\n$running_file \n$jobs_confFile \n$touch_portfile_time \n$sync_path \n$BKP_FOLDER\n");
 }
 
-sub redirectSTDOUT{
-    #redirect stdout
-    close STDOUT;
-    open STDOUT,'>',$debug_file or print "err: cannot open STDOUT to $debug_file :$! \n";
-    select(STDOUT);
-    $|=1; 
-    print "opened ".POSIX::strftime("%H:%M:%S %d/%m/%y",localtime)."\n";   
-}
+################################################################################# READ JOBS CONF
+my $conf;
+my $xs; #will hold the xmlsimple obj
 
-sub main(){
-    GetOptions(
-        "conf=s" => \$xml_conf,
-        );
-    if (not $xml_conf) {$xml_conf= DEFAULT_CONF_PATH ;print "Using default configuration file: ".$xml_conf."\n"}
-    &loadPaths($xml_conf);
-    &redirectSTDOUT();
+&readXmlJobs($jobs_confFile,1) if(!$conf_valid{jobs_conf_filename});
+#my $conf=XMLin($jobs_confFile,forcearray=>[qw(client)]); #todo check if exists, print err parsing xml id any
 
-    ################# READ JOBS CONF
-    &readXmlJobs($jobs_confFile,1) if(!$conf_valid{jobs_conf_filename});
-    #my $conf=XMLin($jobs_confFile,forcearray=>[qw(client)]); #todo check if exists, print err parsing xml id any
-    
-    &init(); #share this structure based on sid(s) and did(s) in %conf
-    
-    $thr_wait_sock=threads->new(\&wait_socket_msj)->detach();
-    $thr_wait_kids=threads->new(\&wait_kids)->detach();
-    
-    threads->new(\&recheckServiceStatus)->detach();
-    #threads->new(\&refreshServiceTab)->detach(); #se blocheaza
-    $| = 1;
-    ############### Create Main Window
-    $mw = MainWindow->new();
-    
-    $mw->title ("SyncTool \@conti");
-    $mw->geometry('+40+350');
-    $mw->resizable(0,0);
-    
-    ############### handle EXIT
-    $mw->protocol('WM_DELETE_WINDOW',sub{ &bbye()} );
-    $SIG{'INT'}=sub{print "Cancelled.\n";&bbye()};  #switch to ww and back to make it work
-    
-    ############### File Menu
-    $mw->configure(-menu =>$menubar = $mw->Menu);
-    # Help Menu
-    $help = $menubar->cascade(-label=> '~Help', -tearoff   => 0,);
-    
-    $help->command(-label => "About",-command => sub{
-            $mw-> messageBox(-title=>"About SyncTool",-message=>"SyncTool v ".$version.",\nmodified ".$lupdate."   ",-type=>'ok',-icon=>'info');
-        },);
-    paintMainWindowTabs(); 
-    paintServiceTab();
-    paintLinuxTabScheduler();
-    paintTabGlobalConfig();
-    paintTabJobs();
-    # Initiate Main Loop where the Loop.
-    MainLoop();
-}
+&init(); #share this structure based on sid(s) and did(s) in %conf
 
+my $thr_wait_sock=threads->new(\&wait_socket_msj)->detach();
+my $thr_wait_kids=threads->new(\&wait_kids)->detach();
+my $thr_touch_running_file;
+
+$| = 1;
+
+#foreach my $job ( keys %{$conf->{job}}){                
+#    foreach(keys %{$conf->{job}{$job}{client}}){
+#        print "dst: $conf->{job}{$job}{client}{$_}{addr} \n";  
+#    }   
+#}
 #################################################################################
 
+#needs $conf and $MW_listBox
 sub MW_loadJobList{
     #my $MW_listBox =shift or ((print "no ww id to put the joblist\n" )&& return) ; ##?? mere
     my @job_list;
@@ -290,7 +221,7 @@ sub MW_loadJobList{
     $MW_listBox->insert('end', @job_list);
 }
 
-#################################################################################
+############################################################################## # GUI elemets
 
 sub unlink_running_file{
     if($listen_port){
@@ -338,245 +269,217 @@ sub reloadJobsConf{
     &MW_loadJobList();
 }
 
+############### Create Main Window
+$mw = MainWindow->new();
+
+$mw->title ("SyncTool \@conti");
+$mw->geometry('+40+350');
+$mw->resizable(0,0);
+
+############### handle EXIT
+$mw->protocol('WM_DELETE_WINDOW',sub{ &bbye()} );
+$SIG{'INT'}=sub{print "Cancelled.\n";&bbye()};  #switch to ww and back to make it work
+
+############### File Menu
+$mw->configure(
+    -menu => my $menubar = $mw->Menu
+    );
+    
+#my $file = $menubar->cascade(-label     => '~File',
+#                             -tearoff   => 0, #?
+#);
+#
+#$file->command(
+#    -label       => "Close",
+#    -accelerator => 'Ctrl-w',
+#    -underline   => 0,
+#    -command     => \&bbye,
+#);
+
+# Help Menu
+my $help = $menubar->cascade(-label     => '~Help',
+                             -tearoff   => 0,
+);
+
+$help->command(
+   -label        => "About",
+   -command      => sub{$mw-> messageBox(-title=>"About SyncTool",-message=>"SyncTool v ".$version.",\nmodified ".$lupdate."   ",-type=>'ok',-icon=>'info');},
+);
 ####################################################################################### MAIN WINDOW TABS
+my $nb = $mw->NoteBook( )->pack(-expand => 1, -fill => 'both');
 
-sub paintMainWindowTabs{
-    $nb = $mw->NoteBook( )->pack(-expand => 1, -fill => 'both');  
-    $tabJobs = $nb->add('Jobs', -label => 'Jobs');
-    $tabService = $nb->add('Windows Service', -label => 'Windows Service', -raisecmd => sub{&refreshServiceTab;} , -state=>($^O =~ /lin/i)?'disabled':'normal');
-    $tabScheduler=$nb->add('Linux scheduler', -label => 'Linux Scheduler', -raisecmd => sub{&refreshSchedulerTab;} , -state=>($^O =~ /win/i)?'disabled':'normal');
-    $tabConf = $nb->add('Configuration', -label => 'Configuration');
-}
+my $tabJobs = $nb->add('Jobs', -label => 'Jobs');
 
-###################################### SERVICE TAB
-sub paintServiceTab{
-    $frTabService_Up = $tabService->Frame()->pack(-side=>'top',-anchor => "nw",-pady => 20);
-    $frTabService_Bottom = $tabService->Frame()->pack(-side => 'top',-padx => 10,-pady => 10,-anchor => "nw");
-    
-    
-    $frTabService_Up->Label(-text =>"Installation status: ", -justify => 'left')
-        ->grid(
-        $lblInstallSts = $frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
-        $btnInstall= $frTabService_Up->Button(-text=>"Install",-width=>15,-command=>sub{
-             system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe $service_path";
-    #         open H, "C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe $service_path |" or print("cannot install service\n");
-    #         my $res=<H>;   close H;
-             #&refreshServiceTab;
-        }),
-        $btnUnInstall=$frTabService_Up->Button(-text=>"Uninstall",-width=>15,-command=>sub{
-            system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe /u $service_path";
-    #        open H, "C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe /u $service_path |" or print("cannot uninstall service\n");
-    #        my $res=<H>;   close H;
-            #&refreshServiceTab;
-        }),
-        -row=>0, -columnspan=>1, -sticky=>'nsew', -padx=>3,-pady=>2
-        );
-    
-    $frTabService_Up->Label(-text =>"Running: ", -justify => 'left')
-        ->grid(
-        $lblRunSts=$frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
-        $btnServiceStart= $frTabService_Up->Button(-text=>"Start",-command=>sub{
-            #system 1,"sc start synctoolservice -conf ".File::Spec->catfile($xml_conf);
-            open H, "SC start synctoolservice -conf ".File::Spec->catfile($xml_conf)." |" or print("cannot start service\n");
-            my $res=<H>;   close H;
-        }),
-        $btnServiceStop=$frTabService_Up->Button(-text=>"Stop",-command=>sub{
-            #system 1,"sc stop synctoolservice";
-            open H, "SC stop synctoolservice |" or print("cannot stop service\n");
-            my $res=<H>;   close H;
-        }),
-        -row=>1, -columnspan=>1, -sticky=>'nsew',-padx=>3,-pady=>2
-        );
-    
-    
-    $frTabService_Bottom2= $frTabService_Bottom->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-    $frTabService_Bottom2->Label(-text =>"Last seen running: ", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-    $lblLasSeen= $frTabService_Bottom2->Label(-text =>"-", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-    
-    $frTabService_Bottom->Button(-width=>40,-text=>"Recheck Service Status",-command=>sub{&refreshServiceTab();})
-        ->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $btnNotifyConf=$frTabService_Bottom->Button(-width=>40,-text=>"Notify Jobs Reconfiguration",-command=>sub{
-        opendir( D, $PORFILE_FOLDER) or print("err: cannot open portfile dir: $!");
-        my @portfiles= grep /service_running.*$/, readdir(D);
-        closedir(D);
-        if((scalar @portfiles)>1){
-            print "warning: more than 1 service running file was found\n";   
-        }
-        if((scalar @portfiles)<1){
-            print "warning: no service running file was found\n";   
-        }
-        $portfiles[0]=~m/service_running\.([0-9]*)$/;
-        print $1."\n";
-        if($1){
-           system 1,"$perl_path service_reload_jobs_conf.pl $1"; 
-        }
-    })
-        ->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $frTabService_Bottom->Button(-width=>40,-text=>"Open Configured Service Log",
-        -command=>sub{system 1,"start notepad.exe $service_log_file";})
-        ->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $frTabService_Bottom->Button(-width=>40,-text=>"Open Default Service Log",
-        -command=>sub{system 1,"start notepad.exe C:\\SyncTool\\sync_service.log";})
-        ->grid(-row=>3, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $frTabService_Bottom->Button(-width=>40,-text=>"Open Service Control Manager",
-        -command=>sub{system 1,'services.msc';})
-        ->grid(-row=>4, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-}
+my $tabService = $nb->add('Service', -label => 'Service', -raisecmd => sub{&refreshServiceTab;});
 
-sub recheckServiceStatus{
-    while(1){
-        open H, 'SC QUERY state= all |findstr "SyncTool" |' or print("cannot determine service installation state\n");
-        my $res=<H>;   close H;
-        if($res){ #Installed
-            $serviceInstalled="yes";
-            open H1, 'sc query SyncToolService | FIND "STATE" | FIND "RUNNING" |' or print("cannot determine service running state\n");
-            my $res1=<H1>; close H1;  
-            if(not $res1){#not running
-                $serviceRunning="no";
-            }else{# running
-                $serviceRunning="yes";
-            }
-        }else{ #not installed
-            $serviceInstalled="no";
-        }
-        sleep(1);
-    }
-}
+my $tabConf = $nb->add('Configuration', -label => 'Configuration');
 
-sub refreshServiceTab{
-        $btnServiceStart->configure(-state=>'disabled') if $btnServiceStart;
-        $btnServiceStop->configure(-state=>'disabled') if $btnServiceStop;
-        $btnInstall->configure(-state=>'disabled') if $btnInstall;
-        $btnUnInstall->configure(-state=>'disabled') if $btnUnInstall;
-        $btnNotifyConf->configure(-state=>'disabled') if $btnNotifyConf;
-        
-#        open H, 'SC QUERY state= all |findstr "SyncTool" |' or print("cannot determine service installation state\n");
+############################################# SERVICE TAB
+
+my $frTabService_Up = $tabService->Frame()->pack(-side=>'top',-anchor => "nw",-pady => 20);
+my $frTabService_Bottom = $tabService->Frame()->pack(-side => 'top',-padx => 10,-pady => 10,-anchor => "nw");
+
+my ($lblInstallSts,$btnUnInstall,$btnInstall,$lblRunSts,$btnServiceStop,$btnServiceStart);
+$frTabService_Up->Label(-text =>"Installation status: ", -justify => 'left')
+    ->grid(
+    $lblInstallSts = $frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
+    $btnInstall= $frTabService_Up->Button(-text=>"Install",-width=>15,-command=>sub{
+         system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe $service_path";
+#         open H, "C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe $service_path |" or print("cannot install service\n");
+#         my $res=<H>;   close H;
+         #&refreshServiceTab;
+    }),
+    $btnUnInstall=$frTabService_Up->Button(-text=>"Uninstall",-width=>15,-command=>sub{
+        system 1,"C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe /u $service_path";
+#        open H, "C:\\WINDOWS\\Microsoft.NET\\Framework\\v2.0.50727\\InstallUtil.exe /u $service_path |" or print("cannot uninstall service\n");
 #        my $res=<H>;   close H;
-        if($serviceInstalled&&($serviceInstalled eq "yes")){
-        
-            $lblInstallSts->configure(-text=>"Installed") if $lblInstallSts;
-            $btnUnInstall->configure(-state=>'normal') if $btnUnInstall;
-            
-#            open H1, 'sc query SyncToolService | FIND "STATE" | FIND "RUNNING" |' or print("cannot determine service running state\n");
-#            my $res1=<H1>; close H1;  
-            if($serviceRunning&&($serviceRunning eq "no")){  #not running
-                $lblRunSts->configure(-text=>"no") if $lblRunSts;
-                $btnServiceStart->configure(-state=>'normal') if $btnServiceStart;  
-            }else{     #running
-                $lblRunSts->configure(-text=>"yes") if $lblRunSts;
-                $btnServiceStop->configure(-state=>'normal') if $btnServiceStop;
-                $btnNotifyConf->configure(-state=>'normal') if $btnNotifyConf;
-            }
-        }else{  #not installed
-            $lblInstallSts->configure(-text=>"Uninstalled") if $lblInstallSts;
-            $btnInstall->configure(-state=>'normal') if $btnInstall;
-        }   
-        
-        #check last modified date for service log file
-        $lblLasSeen->configure(-text=>POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($service_log_file))[9]))) if $lblLasSeen;
-}
-####################################### LINUX SCHEDULER TAB
-sub paintLinuxTabScheduler{
-    $frTabScheduler= $tabScheduler->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-    $frTabScheduler->Label(-text =>"Number of scheduled tasks ", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-    $lblNoTasksScheduler= $frTabScheduler->Label(-text =>"-", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-    
-    $tabScheduler->Button(-width=>40,-text=>"Schedule tasks with cron",-command=>sub{&scheduleCronTasks();})
-        ->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $tabScheduler->Button(-width=>40,-text=>"Backup crontab",-command=>sub{
-            system("cp /var/spool/cron/crontabs/bkt /var/spool/cron/crontabs/bkt.bkp");
-            if($?==-1){
-            	$lblErrScheduler->configure(-text=> "Cannot backup cron\n");
-            }else{
-            	#$lblErrScheduler->configure(-text=> "Command exited with value %d". $? >> 8);
-            }
-        })->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    $tabScheduler->Button(-width=>40,-text=>"Open Scheduler Log",
-        -command=>sub{system 1,"gedit $scheduler_log_file &";})
-        ->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
-    
-    $fr1TabScheduler= $tabScheduler->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-    $fr1TabScheduler->Label(-text =>"Last seen running: ", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
-    $lblLasSeenScheduler= $fr1TabScheduler->Label(-text =>"-", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);    
-    
-    $lblErrScheduler=$tabScheduler->Label(-text =>" ", -justify => 'left')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-}
+        #&refreshServiceTab;
+    }),
+    -row=>0, -columnspan=>1, -sticky=>'nsew', -padx=>3,-pady=>2
+    );
 
-sub scheduleCronTasks{
-    system 1,"perl cron_scheduler -conf $xml_conf";
-}
+$frTabService_Up->Label(-text =>"Running: ", -justify => 'left')
+    ->grid(
+    $lblRunSts=$frTabService_Up->Label(-text =>" ", -justify => 'left',-width=>15),
+    $btnServiceStart= $frTabService_Up->Button(-text=>"Start",-command=>sub{
+        #system 1,"sc start synctoolservice -conf ".File::Spec->catfile($xml_conf);
+        open H, "SC start synctoolservice -conf ".File::Spec->catfile($xml_conf)." |" or print("cannot start service\n");
+        my $res=<H>;   close H;
+    }),
+    $btnServiceStop=$frTabService_Up->Button(-text=>"Stop",-command=>sub{
+        #system 1,"sc stop synctoolservice";
+        open H, "SC stop synctoolservice |" or print("cannot stop service\n");
+        my $res=<H>;   close H;
+    }),
+    -row=>1, -columnspan=>1, -sticky=>'nsew',-padx=>3,-pady=>2
+    );
 
-sub refreshSchedulerTab{
-    #check last modified date for scheduler log file
-    if(-f $scheduler_log_file){
-        $lblLasSeenScheduler->configure(-text=>POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($scheduler_log_file))[9])));
+
+my $frTabService_Bottom2= $frTabService_Bottom->Frame()->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+$frTabService_Bottom2->Label(-text =>"Last seen running: ", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
+my $lblLasSeen= $frTabService_Bottom2->Label(-text =>"ieri", -justify => 'left')->pack(-side => "left", -anchor => "nw",-pady=>4);
+
+$frTabService_Bottom->Button(-width=>40,-text=>"Recheck Service Status",-command=>sub{&refreshServiceTab();})
+    ->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
+my $btnNotifyConf=$frTabService_Bottom->Button(-width=>40,-text=>"Notify Jobs Reconfiguration",-command=>sub{
+    opendir( D, $PORFILE_FOLDER) or print("err: cannot open portfile dir: $!");
+    my @portfiles= grep /service_running.*$/, readdir(D);
+    closedir(D);
+    if((scalar @portfiles)>1){
+        print "warning: more than 1 service running file was found\n";   
     }
+    if((scalar @portfiles)<1){
+        print "warning: no service running file was found\n";   
+    }
+    $portfiles[0]=~m/service_running\.([0-9]*)$/;
+    print $1."\n";
+    if($1){
+       system 1,"$perl_path service_reload_jobs_conf.pl $1"; 
+    }
+})
+    ->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
+$frTabService_Bottom->Button(-width=>40,-text=>"Open Configured Service Log",
+    -command=>sub{system 1,"start notepad.exe $service_log_file";})
+    ->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
+$frTabService_Bottom->Button(-width=>40,-text=>"Open Default Service Log",
+    -command=>sub{system 1,"start notepad.exe C:\\SyncTool\\sync_service.log";})
+    ->grid(-row=>3, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
+$frTabService_Bottom->Button(-width=>40,-text=>"Open Service Control Manager",
+    -command=>sub{system 1,'services.msc';})
+    ->grid(-row=>4, -columnspan=>1, -sticky=>'nsew')->pack(-side=> 'top',-anchor => 'nw',-pady=>3);
     
-    #number of scheduled tasks
-    open H, 'cat $crontabFile |grep -c sync.pl  |' or print("cannot determine service installation state\n");
+    
+sub refreshServiceTab{
+    $btnServiceStart->configure(-state=>'disabled');
+    $btnServiceStop->configure(-state=>'disabled');
+    $btnInstall->configure(-state=>'disabled');
+    $btnUnInstall->configure(-state=>'disabled');
+    $btnNotifyConf->configure(-state=>'disabled');
+    
+    open H, 'SC QUERY state= all |findstr "SyncTool" |' or print("cannot determine service installation state\n");
     my $res=<H>;   close H;
-    print $res."\n";
-    $lblNoTasksScheduler->configure(-text=>"$res");
-#    system("cat /var/spool/cron/crontabs/bkt |grep -c sync.pl ");
-#    if($?==-1){
-#    	$lblErrScheduler->configure(-text=> "Cannot determine the number of scheduled tasks\n");
-#    }else{
-#        $lblNoTasksScheduler->configure(-text=>"13");
-#    }
+    if($res){
+    #if(not system('SC QUERY state= all |findstr "SyncTool" ')){  #installed
+        $lblInstallSts->configure(-text=>"Installed");
+        $btnUnInstall->configure(-state=>'normal');
         
+        open H1, 'sc query SyncToolService | FIND "STATE" | FIND "RUNNING" |' or print("cannot determine service running state\n");
+        my $res1=<H1>; close H1;  
+        if(not $res1){
+        #if(system('sc query SyncToolService | FIND "STATE" | FIND "RUNNING" ')){ #not running
+            $lblRunSts->configure(-text=>"no");
+            $btnServiceStart->configure(-state=>'normal');  
+        }else{     #running
+            $lblRunSts->configure(-text=>"yes");
+            $btnServiceStop->configure(-state=>'normal');
+            $btnNotifyConf->configure(-state=>'normal');
+        }
+    }else{  #not installed
+        $lblInstallSts->configure(-text=>"Uninstalled");
+        $btnInstall->configure(-state=>'normal');
+    }   
+    
+    #check last modified date for service log file
+    $lblLasSeen->configure(-text=>POSIX::strftime("%H:%M:%S %d/%m/%y",localtime((stat($service_log_file))[9])));
 }
-####################################### GLOBAL CONFIG TAB
-sub paintTabGlobalConfig{
-    $frTabConf_head = $tabConf->Frame()->pack(-side => 'top',-padx => 10,-pady => 10);
-    $frTabConf_Up = $tabConf->Frame()->pack(-side => 'top');
-    $frTabConf_Left = $frTabConf_Up->Frame()->pack(-side => 'left',-padx => 10,-pady => 10);
-    $frTabConf_Right = $frTabConf_Up->Frame()->pack(-side => 'left',-padx => 10,-pady => 10);
-    $frTabConf_Warns = $frTabConf_Up->Frame()->pack(-side => 'right',-padx => 10,-pady => 10);
-    $frTabConf_Bottom = $tabConf->Frame()->pack(-side => 'bottom',-padx => 10,-pady => 10);
+############################################# GLOBAL CONFIG TAB
+ #my $frTabConf_Up   = $tabConf->Frame->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x', -padx => 1, -pady => 1.5);
+ #my $frTabConf_Down   = $tabConf->Frame->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x', -padx => 1, -pady => 1.5);
     
-    $frTabConf_head->Label(-text =>"Configuration file located at: $xml_conf", -justify => 'left')->pack(-side => "top", -anchor => "nw");
-    
-    @label_order=("Running Folder: ","Jobs Configuration Filename: ","Sync Script Filename: ","Porfiles Folder","Logs Folder","Backups Folder",
-                        "Touch Portfiles Interval (sec):","SMTP Server:","Default Service Log:","Perl Path:");
-    foreach(@label_order){
-        $frTabConf_Left->Label(-text =>$_, -justify => 'left')->pack(-side => "top", -anchor => "nw");
-    }
-    
-    $confEntries={};   
-    $confVariables={}; 
-    #foreach (keys %$paths){     #cannot use : out of order (labels on the left do not correspond)                   
-    #     $confEntries->{$_}=$frTabConf_Right->Entry( -justify => 'left')->pack(-side => "top", -anchor => "nw");
-    #}
-    
-    @order=('running_folder','jobs_conf_filename','sync_path','portfiles','logs_folder','bkp_folder','touch_portfile_time','email_server','serviceLogFile','perl_path');
-    foreach(@order) {
-        $confEntries->{$_}=$frTabConf_Right->Entry(-textvariable=>\$confVariables->{$_}, -justify => 'left')->pack(-side => "top", -anchor => "nw");
-        $frTabConf_Warns->Label(-text =>$conf_valid{$_}, -justify => 'left')->pack(-side => "top", -anchor => "nw");
-    }
-    
-    
-    resetConfEntries();
-    #save inputs in file, update conf (reload)
-    $frTabConf_Bottom->Button(-text=>"Save",-command=>sub{
-            my $nok_jobconf=0;
-            if(not ($confVariables->{jobs_conf_filename} eq $paths->{jobs_conf_filename})){
-                print "jobs conf file changed,should reload\n";
-                $nok_jobconf=1;
-                
-            }
-            &putConfEntriesInPaths();
-            &saveConf();
-            #&loadPaths($xml_conf);
-            if($nok_jobconf){
-                print "jobs conf file changed, reload\n";
-                &loadPaths($xml_conf);
-                &readXmlJobs($jobs_confFile);   #read from jobs conf file 
-                &MW_loadJobList();  #put from conf->{job} in listbox in jobs tab
-            }
-        })->pack(-side=>'left',-anchor=>'nw',-padx=>1);
-    $frTabConf_Bottom->Button(-text=>"Backup conf",-command=>sub{&saveConf(1);})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
-    $frTabConf_Bottom->Button(-text=>"Restore backup",-command=>sub{&restoreConf();})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+ 
+# $frTabConf_Up->LabEntry(-label =>"Running Folder: ", -labelPack=>[-side => "left", -anchor => "w"], 
+#                        -width=>30, -textvariable=>\$paths->{running_folder} )
+#                        ->pack(-side => "top", -anchor => "nw");
+
+my $frTabConf_head = $tabConf->Frame()->pack(-side => 'top',-padx => 10,-pady => 10);
+my $frTabConf_Up = $tabConf->Frame()->pack(-side => 'top');
+my $frTabConf_Left = $frTabConf_Up->Frame()->pack(-side => 'left',-padx => 10,-pady => 10);
+my $frTabConf_Right = $frTabConf_Up->Frame()->pack(-side => 'left',-padx => 10,-pady => 10);
+my $frTabConf_Warns = $frTabConf_Up->Frame()->pack(-side => 'right',-padx => 10,-pady => 10);
+my $frTabConf_Bottom = $tabConf->Frame()->pack(-side => 'bottom',-padx => 10,-pady => 10);
+
+$frTabConf_head->Label(-text =>"Configuration file located at: $xml_conf", -justify => 'left')->pack(-side => "top", -anchor => "nw");
+
+my @label_order=("Running Folder: ","Jobs Configuration Filename: ","Sync Script Filename: ","Porfiles Folder","Logs Folder","Backups Folder",
+                    "Touch Portfiles Interval (sec):","SMTP Server:","Default Service Log:","Perl Path:");
+foreach(@label_order){
+    $frTabConf_Left->Label(-text =>$_, -justify => 'left')->pack(-side => "top", -anchor => "nw");
 }
+
+my $confEntries={};   
+my $confVariables={}; 
+#foreach (keys %$paths){     #cannot use : out of order (labels on the left do not correspond)                   
+#     $confEntries->{$_}=$frTabConf_Right->Entry( -justify => 'left')->pack(-side => "top", -anchor => "nw");
+#}
+
+my @order=('running_folder','jobs_conf_filename','sync_path','portfiles','logs_folder','bkp_folder','touch_portfile_time','email_server','serviceLogFile','perl_path');
+foreach(@order) {
+    $confEntries->{$_}=$frTabConf_Right->Entry(-textvariable=>\$confVariables->{$_}, -justify => 'left')->pack(-side => "top", -anchor => "nw");
+    $frTabConf_Warns->Label(-text =>$conf_valid{$_}, -justify => 'left')->pack(-side => "top", -anchor => "nw");
+}
+
+
+resetConfEntries();
+#save inputs in file, update conf (reload)
+$frTabConf_Bottom->Button(-text=>"Save",-command=>sub{
+        my $nok_jobconf=0;
+        if(not ($confVariables->{jobs_conf_filename} eq $paths->{jobs_conf_filename})){
+            print "jobs conf file changed,should reload\n";
+            $nok_jobconf=1;
+            
+        }
+        &putConfEntriesInPaths();
+        &saveConf();
+        #&loadPaths($xml_conf);
+        if($nok_jobconf){
+            print "jobs conf file changed, reload\n";
+            &loadPaths($xml_conf);
+            &readXmlJobs($jobs_confFile);   #read from jobs conf file 
+            &MW_loadJobList();  #put from conf->{job} in listbox in jobs tab
+        }
+    })->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+$frTabConf_Bottom->Button(-text=>"Backup conf",-command=>sub{&saveConf(1);})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
+$frTabConf_Bottom->Button(-text=>"Restore backup",-command=>sub{&restoreConf();})->pack(-side=>'left',-anchor=>'nw',-padx=>1);
 
 sub resetConfEntries{
     foreach(keys %$paths){
@@ -585,6 +488,7 @@ sub resetConfEntries{
             $confEntries->{$_}->insert(0,$paths->{$_});
         }
     }
+    
 }
 
 sub putConfEntriesInPaths{
@@ -593,87 +497,85 @@ sub putConfEntriesInPaths{
     }
 }
 ############################################# JOBS TAB
-sub paintTabJobs{
-    $t_frame = $tabJobs->Frame()->pack(-side => 'top');
-    $b_frame = $tabJobs->Frame()->pack(-side => 'top',-padx => 10,-pady => 10);
-    $l_frame = $t_frame->Frame()->pack(-side => 'left');
-        
-    $MW_listBox = $l_frame->Scrolled("Listbox", -selectmode => "single", -width => "50", -height => "15",  #?in ce il masoara
-    		  -scrollbars => 'osoe'); # optional south and optional east
-    &MW_loadJobList();
-    
-    $MW_listBox->bind('<Button-1>', sub {
-        $selected_job = $MW_listBox->get($MW_listBox->curselection());
-        ## we have the name, we need to find the id corresponding to src
-        foreach(keys %{$conf->{job}}){
-            if($conf->{job}{$_}{title} eq $selected_job){
-                $selected_job=$_;
-                last;
-            }
-        }
-    });
-    $MW_listBox->pack(-side => 'top', -fill => 'both', -expand => 1);  #?
-    
-    $r_frame = $t_frame->Frame()->pack(-side => 'right',-padx => 10,-pady => 10);
-        
-    $btnAdd = $r_frame->Button(
-         -text         => "Add", 
-         -width        => 12,
-         -command      => sub { &edit_job }
-    )->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')
-         ->pack(
-         -side         => 'top',
-         -anchor       => 'nw',     #north west position
-    );
-    
-    $btnDelete = $r_frame->Button(
-         -text         => "Delete", 
-         -width        => 12,
-         -command      => sub { &delete_job($selected_job) if $selected_job;  }
-    )->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')
-         ->pack(
-         -side         => 'top',
-         -anchor       => 'nw', 
-    );
-    
-    $btnEdit = $r_frame->Button(
-         -text         => "Edit Conf", 
-         -width        => 12,
-         -command      => sub { &edit_job($selected_job) if $selected_job; }
-    )->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')
-         ->pack(
-         -side         => 'top',
-         -anchor       => 'nw', 
-    );
-    
-    $btnView = $r_frame->Button(
-         -text         => "View Job", 
-         -width        => 12,
-         -command      => sub { &view_job($selected_job,$wwId++) }
-    )->grid(-row=>3, -columnspan=>1, -sticky=>'nsew')
-         ->pack(
-         -side         => 'top',
-         -anchor       => 'nw', 
-    );
-    #my $btn_close = $b_frame->Button(-text => "Close",-command => sub{bbye();})->pack(-side => 'left',-anchor=> 'nw', -padx => 3);
-    $btn_reload = $b_frame->Button(-text => "Restore Jobs Configuration",-width=>25,-command => sub{reloadJobsConf();})
-        #->grid(-row=>5, -columnspan=>1, -sticky=>'nsew')
-        ->pack(-side => 'left',-anchor=> 'nw');
-    $btn_bkpjobs = $b_frame->Button(-text => "Backup",-width=>25,-command => sub{backupJobsConf($jobs_confFile);})
-        #->grid(-row=>5, -columnspan=>1, -sticky=>'nsew')
-        ->pack(-side => 'left',-anchor=> 'nw', -padx=>4);
-    
-    if($conf_valid{jobs_conf_filename}){
-        foreach($btnAdd,$btnDelete,$btnEdit,$btnView,$btn_reload){
-            $_->configure(-state=>'disabled');
-        }
-        $b_frame->Label(-text =>"Missing or invalid jobs configuration file.", -justify => 'right')->pack(-padx=>10,-side => "left", -anchor => "nw");
-    }
-}
-######################################################################################################### 
-#########################################################################################################  OTHER WINDOWS
 
-################################################################################## NEW/EDIT JOB WINDOW
+my $t_frame = $tabJobs->Frame()->pack(-side => 'top');
+my $b_frame = $tabJobs->Frame()->pack(-side => 'top',-padx => 10,-pady => 10);
+my $l_frame = $t_frame->Frame()->pack(-side => 'left');
+    
+$MW_listBox = $l_frame->Scrolled("Listbox", -selectmode => "single", -width => "50", -height => "15",  #?in ce il masoara
+		  -scrollbars => 'osoe'); # optional south and optional east
+&MW_loadJobList();
+
+$MW_listBox->bind('<Button-1>', sub {
+    $selected_job = $MW_listBox->get($MW_listBox->curselection());
+    ## we have the name, we need to find the id corresponding to src
+    foreach(keys %{$conf->{job}}){
+        if($conf->{job}{$_}{title} eq $selected_job){
+            $selected_job=$_;
+            last;
+        }
+    }
+});
+$MW_listBox->pack(-side => 'top', -fill => 'both', -expand => 1);  #?
+
+my $r_frame = $t_frame->Frame()->pack(-side => 'right',-padx => 10,-pady => 10);
+    
+my $btnAdd = $r_frame->Button(
+     -text         => "Add", 
+     -width        => 12,
+     -command      => sub { &edit_job }
+)->grid(-row=>0, -columnspan=>1, -sticky=>'nsew')
+     ->pack(
+     -side         => 'top',
+     -anchor       => 'nw',     #north west position
+);
+
+my $btnDelete = $r_frame->Button(
+     -text         => "Delete", 
+     -width        => 12,
+     -command      => sub { &delete_job($selected_job) if $selected_job;  }
+)->grid(-row=>1, -columnspan=>1, -sticky=>'nsew')
+     ->pack(
+     -side         => 'top',
+     -anchor       => 'nw', 
+);
+
+my $btnEdit = $r_frame->Button(
+     -text         => "Edit Conf", 
+     -width        => 12,
+     -command      => sub { &edit_job($selected_job) if $selected_job; }
+)->grid(-row=>2, -columnspan=>1, -sticky=>'nsew')
+     ->pack(
+     -side         => 'top',
+     -anchor       => 'nw', 
+);
+
+my $btnView = $r_frame->Button(
+     -text         => "View Job", 
+     -width        => 12,
+     -command      => sub { &view_job($selected_job,$wwId++) }
+)->grid(-row=>3, -columnspan=>1, -sticky=>'nsew')
+     ->pack(
+     -side         => 'top',
+     -anchor       => 'nw', 
+);
+#my $btn_close = $b_frame->Button(-text => "Close",-command => sub{bbye();})->pack(-side => 'left',-anchor=> 'nw', -padx => 3);
+my $btn_reload = $b_frame->Button(-text => "Restore Jobs Configuration",-width=>25,-command => sub{reloadJobsConf();})
+    #->grid(-row=>5, -columnspan=>1, -sticky=>'nsew')
+    ->pack(-side => 'left',-anchor=> 'nw');
+    
+if($conf_valid{jobs_conf_filename}){
+    foreach($btnAdd,$btnDelete,$btnEdit,$btnView,$btn_reload){
+        $_->configure(-state=>'disabled');
+    }
+    $b_frame->Label(-text =>"Missing or invalid jobs configuration file.", -justify => 'right')->pack(-padx=>10,-side => "left", -anchor => "nw");
+}
+##############################################################################
+
+# Initiate Main Loop where the Loop.
+MainLoop();
+##############################################################################
+
 # if it receives a parameter then it must edit the job selected, else we need to create a new one
 sub edit_job{
     my $edit_sid = shift || undef;
@@ -760,12 +662,10 @@ sub edit_job{
             
     ################# ADD client , REMOVE and LISTBOX
     #$l_frame->grid($l_frame->Button(-text=>"+"),$l_frame->Button(-text=>"+"),-sticky=>"nw");
-    #my $lfClients =$l_frame->LabFrame(-label=>"Clients",-labelside => 'acrosstop')->grid(-row => 2,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-    my $l2_frame =$l_frame->Frame()->grid(-row => 2,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+    my $lfClients =$l_frame->LabFrame(-label=>"Clients",-labelside => 'acrosstop')->grid(-row => 2,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+    my $l2_frame   = $lfClients->Label->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
     
-    #my $l2_frame   = $lfClients->Label->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
-    
-    $l2_frame->LabEntry(-label =>"Clients ", -labelPack=>[-side => "left", -anchor => "w"], 
+    $l2_frame->LabEntry(-label =>"New Client ", -labelPack=>[-side => "left", -anchor => "w"], 
                         -width=>25,-textvariable => \$new_cli,-background   => 'gray',)
         ->pack(-side => 'left',-anchor=> 'nw', -padx => 1);
     
@@ -817,7 +717,7 @@ sub edit_job{
                 },-height=>0.3)
             ->pack(-side => 'left',-anchor=> 'nw', -padx => 2);
     
-    my $l3_frame   = $l_frame->Frame->grid(-row => 3,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 2, -pady => 1.5);
+    my $l3_frame   = $lfClients->Frame->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
     $new_listBox_cli = $l3_frame->Scrolled("Listbox", -selectmode => "single", -width => "45", -height => "8",  #?in ce il masoara
 		  -scrollbars => 'osoe');
 		  
@@ -829,7 +729,7 @@ sub edit_job{
     $new_listBox_cli->pack(-padx=>5,-side => 'top',-anchor=> 'nw');  
     
     ################# email area
-    my $lfMail =$l_frame->LabFrame(-label=>"Mail",-labelside => 'acrosstop')->grid(-row => 4,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
+    my $lfMail =$l_frame->LabFrame(-label=>"Mail",-labelside => 'acrosstop')->grid(-row => 3,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
    
     my $l4_frame   = $lfMail->Frame->grid(-row => 0,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
     my $l5_frame   = $lfMail->Frame->grid(-row => 1,-column => 0,-sticky => 'nw')->pack(-side => 'top',-fill=>'x',-padx => 1, -pady => 1.5);
@@ -1110,7 +1010,8 @@ sub delete_job{
     &writeXmlJobs();
     &MW_loadJobList();    
 }
-################################################################################## VIEW JOB WINDOW
+##############################################################################
+
 my $no_rows=0;
 sub view_job{
     my $sid_wwId = shift || return;
@@ -1395,6 +1296,16 @@ sub view_job{
 #    }
 }
 
+#sub close_ww{
+#    my ($sid_wwId,$thr,$winView)=@_;
+#    $winView->destroy(); 
+#    $stats{$sid_wwId}{ww}=undef;
+#    foreach (keys %{$thr->{$sid_wwId}}){
+#        if($thr{$sid_wwId}{$_}){
+#               &send_msj3StopStats($sid_wwId,$stats{$sid_wwId}{cli}{$_}{port});   
+#        }   
+#    }   
+#}
 #####################################
 
 # starts a new sync job # params sid,did
@@ -1702,6 +1613,10 @@ sub handle_one_proc{
     }
 }
 
+#sub get_thr_from_hash{
+#    my ($s,$d)=@_;
+#    return $thr{$s}{$d};   
+#}
 ##############################################################################
 
 sub wait_socket_msj{
@@ -1888,16 +1803,6 @@ sub writeXmlJobs{
     print $conffile $out;
     close ($conffile);   
 }
-sub backupJobsConf{
-    my ($jobsConf)=@_;
-    my $bkp_ext=POSIX::strftime("_%H.%M.%S_%d.%m.%y",localtime).".jobs_bkp";
-    print "Backing up jobs conf\n";
-    my @cmd=("copy",$jobsConf,File::Spec->catfile($BKP_FOLDER,$paths->{jobs_conf_filename}.$bkp_ext));
-    if ( system(@cmd) ) {
-        print "gui: readXmlJobs: err backing up $jobsConf \n ";
-    }
-    print Dumper(@cmd);
-}
 
 sub readXmlJobs{
     #first backup the last $jobs_confFile
@@ -1905,14 +1810,13 @@ sub readXmlJobs{
     return if not $jobsConf;
     
     if($bkp_flag){
-        &backupJobsConf($jobsConf);
-#        my $bkp_ext=POSIX::strftime("_%H.%M.%S_%d.%m.%y",localtime).".jobs_bkp";
-#        print "Backing up jobs conf\n";
-#        #die('copy ', "\"$jobsConf\" ", " \"".$BKP_FOLDER."\\".$paths->{jobs_conf_filename}.$bkp_ext."\"");
-#        my @cmd=("copy",$jobsConf,$BKP_FOLDER."\\".$paths->{jobs_conf_filename}.$bkp_ext);
-#        if ( system(@cmd) ) {
-#            print "gui: readXmlJobs: err backing up $jobsConf \n ";
-#        }
+        my $bkp_ext=POSIX::strftime("_%H.%M.%S_%d.%m.%y",localtime).".jobs_bkp";
+        print "Backing up jobs conf\n";
+        #die('copy ', "\"$jobsConf\" ", " \"".$BKP_FOLDER."\\".$paths->{jobs_conf_filename}.$bkp_ext."\"");
+        my @cmd=("copy",$jobsConf,$BKP_FOLDER."\\".$paths->{jobs_conf_filename}.$bkp_ext);
+        if ( system(@cmd) ) {
+            print "gui: readXmlJobs: err backing up $jobsConf \n ";
+        }
     }
     # The fastest existing backend for XML::Simple.
     local $XML::Simple::PREFERRED_PARSER = 'XML::Parser';
@@ -1969,5 +1873,3 @@ sub restoreConf{
     &saveConf();
     &resetConfEntries;
 }
-
-&main();

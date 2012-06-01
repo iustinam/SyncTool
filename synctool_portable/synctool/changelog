@@ -299,7 +299,26 @@ pun else..?.. oricum face adelete din hash pt toate.
  no del if not in src
  no add if not in dest
  no replace if both in src and dest
+ ======================30.05
+ sync:
+ skip_add pune sursa in log
+ problema: crapa  abnormally: Invalid value for shared scalar at sync.pl line 574.
  
+ ======================1.06
+ gui:
+ solved grupboxul clients.. ideea cred ca era : browse era pus intr-un LabFrame/ Frame... si cred ca asta facea sa dispara componentele idn interior (caseta pt client/labelul/+,-), 
+ acum am folosit l_frame ca sa pun pe 2 raduri ce era pentru clients (partea de sus si listboxul sunt descendenti ai frame-ului stang)
  
-
+-thr separat care verifica constant stareta servciciului
+aduagat $crontabFile si crontab_path in xml si in gui.pl
+>btn backup jobs conf 
+>organizez in fct (main.., init)
+ 
+ sync:
+ pus un nou mesaj tip 5 pt webapp stats
+ require win32 si win32::file in main.. dupa ce am verificat os-ul
+ ...done cu linux/webapp
+ default conf path linux si win..
+ sa faca redirect stdout oricum.. sa nu vad nimic..intr-un fisier .out
+ scos  time all
  

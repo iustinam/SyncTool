@@ -4,8 +4,8 @@ use Getopt::Long;
 use Data::Dumper;
 use Carp;                  # prints stack trace
 use File::Spec;
-#use Win32;            # fs path portability
-#use Win32::File;           #GetAttributes and SetAttributes
+use Win32;            # fs path portability
+use Win32::File;           #GetAttributes and SetAttributes
 use File::Copy;
 use Digest::MD5;
 use Digest::file qw(digest_file_hex);
@@ -79,8 +79,7 @@ use constant {
     ERR_FILE => 'D:/sync1/errors.txt',
 # number of threads in pool for syncing simultaneously at a given moment in time
     DIR_THR_NO => 10,
-    DEFAULT_WIN_CONF_PATH =>"D:\\_eclipse\\conf.xml",
-    DEFAULT_LINUX_CONF_PATH=>"conf.xml",
+    DEFAULT_CONF_PATH =>"D:\\_eclipse\\conf.xml",
     DEFAULT_TRY_COPY=>2,
 };
 my $attrs={
@@ -429,7 +428,7 @@ sub rm_tree {
         
         # before we remove any dir, FIRST UNSET ANY ATTRIBUTES, especially read-only stuff
         if ( $^O =~ /win/i ) {
-            if(not Win32::File::SetAttributes($path,$attrs->{'NORMAL'})) {
+            if(not Win32::File::SetAttributes($path,NORMAL)) {
                 print  "err: unsetting attr for dir $path: $! \n" if($opt{v})
             }
         }
@@ -989,13 +988,7 @@ sub init {
     
     if ( $opt{h} ) { &usage; }
     my $conf=$opt{conf};
-    if(!$opt{conf}) { 
-        if($^O =~ /win/i){
-            print "Using the default configuration file: ".DEFAULT_WIN_CONF_PATH."\n"; $conf=DEFAULT_WIN_CONF_PATH; 
-        }elsif($^O =~ /lin/i){
-            print "Using the default configuration file: ".DEFAULT_LINUX_CONF_PATH."\n"; $conf=DEFAULT_LINUX_CONF_PATH;
-        }
-    }
+    if(!$opt{conf}) { print "Using the default configuration file: ".DEFAULT_CONF_PATH."\n"; $conf=DEFAULT_CONF_PATH; }
     &load_paths($conf);
     
     my $sid=$opt{sid}?$opt{sid}:"sid";
@@ -1097,12 +1090,12 @@ sub write_stats_to_handle{
     my ($logh,$log)=@_;
     print $logh "--------------------------------------------------------------------\n";
     print $logh $src." >> ".$dst."\n";
-    print $logh "Summary: (folders): $log->{D}{ADD} folders added, $log->{D}{ALT} folders altered, $log->{D}{DEL} folders removed, $log->{D}{SCAN} folders scanned.\n";
-    print $logh "Summary: (files): $log->{F}{ADD} files added, $log->{F}{REPL} files replaced, $log->{F}{ALT} files altered, $log->{F}{DEL} files removed, $log->{F}{SCAN} files scanned. (md5 $log->{F}{MD5})(vrfy existing $log->{F}{VRFY})\n";
-    print $logh "Summary: (folder errors): $log->{D}{SKIP_ADD} SKIP_ADD, $log->{D}{SKIP_DEL} SKIP_DEL, $log->{D}{SKIP_ALT} SKIP_ALT, $log->{D}{SKIP_U} SKIP_U.\n";
-    print $logh "Summary: (file errors): $log->{F}{SKIP_ADD} SKIP_ADD, $log->{F}{SKIP_REPL} SKIP_REPL, $log->{F}{SKIP_DEL} SKIP_DEL, $log->{F}{SKIP_ALT} SKIP_ALT, $log->{F}{SKIP_U} SKIP_U.\n";
-    print $logh "Summary: (total errors):".eval($log->{D}{SKIP_ADD}+$log->{D}{SKIP_DEL}+ $log->{D}{SKIP_ALT}+$log->{D}{SKIP_U}+$log->{F}{SKIP_ADD}+$log->{F}{SKIP_DEL}+$log->{F}{SKIP_ALT}+$log->{F}{SKIP_U}+$log->{F}{SKIP_REPL})." \n";
-    print $logh "Summary: (KB): $log->{KB}{ADD}"." B added, $log->{KB}{REPL}"." B replaced, $log->{KB}{DEL}"." B deleted.\n";
+    print $logh "Summary: Process statistics (folders): $log->{D}{ADD} folders added, $log->{D}{ALT} folders altered, $log->{D}{DEL} folders removed, $log->{D}{SCAN} folders scanned.\n";
+    print $logh "Summary: Process statistics (files): $log->{F}{ADD} files added, $log->{F}{REPL} files replaced, $log->{F}{ALT} files altered, $log->{F}{DEL} files removed, $log->{F}{SCAN} files scanned. (md5 $log->{F}{MD5})(vrfy existing $log->{F}{VRFY})\n";
+    print $logh "Summary: Process statistics (folder errors): $log->{D}{SKIP_ADD} SKIP_ADD, $log->{D}{SKIP_DEL} SKIP_DEL, $log->{D}{SKIP_ALT} SKIP_ALT, $log->{D}{SKIP_U} SKIP_U.\n";
+    print $logh "Summary: Process statistics (file errors): $log->{F}{SKIP_ADD} SKIP_ADD, $log->{F}{SKIP_REPL} SKIP_REPL, $log->{F}{SKIP_DEL} SKIP_DEL, $log->{F}{SKIP_ALT} SKIP_ALT, $log->{F}{SKIP_U} SKIP_U.\n";
+    print $logh "Summary: Process statistics (total errors):".eval($log->{D}{SKIP_ADD}+$log->{D}{SKIP_DEL}+ $log->{D}{SKIP_ALT}+$log->{D}{SKIP_U}+$log->{F}{SKIP_ADD}+$log->{F}{SKIP_DEL}+$log->{F}{SKIP_ALT}+$log->{F}{SKIP_U}+$log->{F}{SKIP_REPL})." \n";
+    print $logh "Summary: Process statistics (KB): $log->{KB}{ADD}"." B added, $log->{KB}{REPL}"." B replaced, $log->{KB}{DEL}"." B deleted.\n";
     #print $logh "Summary: Process statistics (durations): ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{ADD}) )." for adding files, ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{REPL}) )." for file replacing, ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{ALT}) )." for altering attrs, ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{DEL}) )." for removing. (md5 ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{REPL}) )." )(vrfy ".POSIX::strftime( "%H:%M:%S", localtime($log->{TIME}{VRFY}) )." )\n";
 
     my $add_time=(gmtime($log->{TIME}{ADD}))[2].":".(gmtime($log->{TIME}{ADD}))[1].":".(gmtime($log->{TIME}{ADD}))[0]; 
@@ -1117,13 +1110,13 @@ sub write_stats_to_handle{
    # $log->{TIME}{ALL}=$log->{TIME}{ADD}+$log->{TIME}{REPL}+$log->{TIME}{ALT}+$log->{TIME}{DEL}+$log->{TIME}{MD5}+$log->{TIME}{VRFY};
     my $all_time=(gmtime($log->{TIME}{ALL}))[2].":".(gmtime($log->{TIME}{ALL}))[1].":".(gmtime($log->{TIME}{ALL}))[0];
     
-    print $logh "Summary: (durations): ".$add_time." for adding files, ".$repl_time." for file replacing, ".$alt_time." for altering attrs, ".$del_time." for removing, ".$skip_time_str." for SKIP.\n";# (md5 ".$md5_time." )(vrfy ".$vrfy_time." )\n";
-    #print $logh "Summary: Process completed: Total Duration For Taking Actions ".$all_time . "\n";  
+    print $logh "Summary: Process statistics (durations): ".$add_time." for adding files, ".$repl_time." for file replacing, ".$alt_time." for altering attrs, ".$del_time." for removing, ".$skip_time_str." for SKIP. (md5 ".$md5_time." )(vrfy ".$vrfy_time." )\n";
+    print $logh "Summary: Process completed: Total Duration For Taking Actions ".$all_time . "\n";  
     
     my $runtime=time-$script_start_time;
     my $runtime_str= (gmtime($runtime))[2].":".(gmtime($runtime))[1].":".(gmtime($runtime))[0]; 
     
-    print $logh "Summary: Total Runtime ".$runtime_str . "\n"; 
+    print $logh "Summary: Process completed: Total Runtime ".$runtime_str . "\n"; 
 }
 ###########################################################################
 
@@ -1531,7 +1524,7 @@ sub send_stats2sock{
                   $kb."_".eval(time-$script_start_time)."_".$skipped;    
         print "sync : send_stats2sock: sending $stats\n";
 	    syswrite($socket,$stats);
-	    sleep(1); #todo..try less
+	    sleep(2);
     }
     syswrite($socket,$opt{sid}."_".$opt{did}."_"."fin");
     close $socket;
@@ -1646,21 +1639,6 @@ EOF
             }elsif($cmd[0] eq "4"){
                 print "sync $port: recv 4 , gui is on\n"; 
                 &gui_is_on();
-            }elsif($cmd[0] eq "5"){  # WebApp asks for stats
-                print "sync $port: recv 5 send stats\n"; 
-		
-				my $kb=eval($log{KB}{ADD}/1000);
-				my $skipped=$log{F}{SKIP_ADD}+$log{F}{SKIP_ALT}+$log{F}{SKIP_DEL}+$log{F}{SKIP_REPL}+$log{F}{SKIP_U}+
-				$log{D}{SKIP_ADD}+$log{D}{SKIP_ALT}+$log{D}{SKIP_DEL}+$log{D}{SKIP_U};
-											
-				my $stats=$opt{sid}."_".$opt{did}."_".$log{F}{SCAN}."_".$log{F}{ADD}."_".$log{F}{DEL}."_".$log{F}{REPL}."_".$log{F}{ALT}."_".
-						  $kb."_".$log{TIME}{ALL}."_".$skipped;    
-				print "sync : sending $stats to webapp\n";
-				 
-				$cli->print($stats);
-				
-				print   "----".threads->self()->tid()." ..sent\n";
-	
             }
     }
 }
@@ -1720,15 +1698,6 @@ sub start_n_waitsock(){
 }
 
 sub main {
-    if($^O =~ /win/i){
-        require Win32;
-        require Win32::File;
-    }
-#    #redirect stdout
-#    close STDOUT;
-#    open STDOUT,'>',"sync.out" or print "err: cannot open STDOUT to sync.out :$! \n";
-#    select(STDOUT);
-#    $|=1; 
     
     $thr_start_n_waitsock=threads->new(\&start_n_waitsock) or die("err create start_n_waitsock thread: ".$!);
     sleep(0.5);
