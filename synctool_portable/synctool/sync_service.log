@@ -1,58 +1,10 @@
 ==================================================================================================================
-opened: 3/19/2012 3:29 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
+opened: 6/22/2012 7:14 PM
+cmdline args: D:\_eclipse\SyncToolService.exe -conf D:\_eclipse\conf.xml
+
 args:
 -conf
-Configuration file path: D:\_eclipse\conf.xml
-Registry key modified to : "D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe" -conf "D:\_eclipse\conf.xml"
-running folder: D:\_eclipse\
-_syncScriptPath D:\_eclipse\sync.pl
-_jobsConfPath D:\_eclipse\jobs_conf.xml
-_perlPath D:\Perl\bin\perl.exe
-_portfileDir D:\_eclipse\run
-_backupsDir D:\_eclipse\bkp
-_logDir D:\_eclipse\Logs
-_touchPortfileTime 2
-_smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
 
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/19/2012 3:29 PM
-Listening on port 1095
-deleting D:\_eclipse\run\service_running.4991
-creating running file : D:\_eclipse\run\service_running.1095
-thread started :7: 3/19/2012 3:29 PM
-Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/19/2012 3:29 PM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
-
-
-Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-1096
-sent msj1 to 1096
-on stop : 3/19/2012 3:30 PM
-==================================================================================================================
-==================================================================================================================
-opened: 3/19/2012 3:30 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
 Configuration file path: D:\_eclipse\conf.xml
 running folder: D:\_eclipse\
 _syncScriptPath D:\_eclipse\sync.pl
@@ -63,101 +15,44 @@ _backupsDir D:\_eclipse\bkp
 _logDir D:\_eclipse\Logs
 _touchPortfileTime 2
 _smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
 --------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
+zzz, clients:  D:\test, excl: , exclre: 
 
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/19/2012 3:30 PM
-Listening on port 1101
-deleting D:\_eclipse\run\service_running.1095
-creating running file : D:\_eclipse\run\service_running.1101
-thread started :7: 3/19/2012 3:30 PM
-Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/19/2012 3:30 PM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
-
-
-Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-1103
-sent msj1 to 1103
-1102
-sent msj1 to 1102
-on stop : 3/19/2012 3:31 PM
-==================================================================================================================
-==================================================================================================================
-opened: 3/19/2012 3:31 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
-Configuration file path: D:\_eclipse\conf.xml
-running folder: D:\_eclipse\
-_syncScriptPath D:\_eclipse\sync.pl
-_jobsConfPath D:\_eclipse\jobs_conf.xml
-_perlPath D:\Perl\bin\perl.exe
-_portfileDir D:\_eclipse\run
-_backupsDir D:\_eclipse\bkp
-_logDir D:\_eclipse\Logs
-_touchPortfileTime 2
-_smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
-
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
+created timer for zzz: 23:59:28.6640000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
 --------------------------------------
 conti 20.02, clients:  D:\test, excl: , exclre: 
 
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/19/2012 3:31 PM
-Listening on port 1106
-deleting D:\_eclipse\run\service_running.1101
-creating running file : D:\_eclipse\run\service_running.1106
-thread started :7: 3/19/2012 3:31 PM
-Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/19/2012 3:31 PM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
+created timer for conti 20.02: 19:22:47.6640000 
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 7:14 PM
+Listening on port 3172
+deleting D:\_eclipse\run\service_running.1793
+creating running file : D:\_eclipse\run\service_running.3172
 
 
 Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-1108
-sent msj1 to 1108
-1107
-sent msj1 to 1107
-on stop : 3/19/2012 3:31 PM
+on stop : 6/22/2012 7:16 PM
 ==================================================================================================================
 ==================================================================================================================
-opened: 3/19/2012 3:32 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
+opened: 6/22/2012 7:24 PM
+cmdline args: D:\_eclipse\SyncToolService.exe
+
 args:
 -conf
+
 Configuration file path: D:\_eclipse\conf.xml
+Registry key modified to : "D:\_eclipse\SyncToolService.exe" -conf "D:\_eclipse\conf.xml"
 running folder: D:\_eclipse\
 _syncScriptPath D:\_eclipse\sync.pl
 _jobsConfPath D:\_eclipse\jobs_conf.xml
@@ -167,47 +62,41 @@ _backupsDir D:\_eclipse\bkp
 _logDir D:\_eclipse\Logs
 _touchPortfileTime 2
 _smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
 
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
 
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/19/2012 3:32 PM
-Listening on port 1111
-deleting D:\_eclipse\run\service_running.1106
-creating running file : D:\_eclipse\run\service_running.1111
-thread started :7: 3/19/2012 3:32 PM
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 00:01:03.1570000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 7:24 PM
+Listening on port 3226
+deleting D:\_eclipse\run\service_running.3172
+creating running file : D:\_eclipse\run\service_running.3226
+
+
+new starter thread :12: 6/22/2012 7:25 PM
 Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/19/2012 3:32 PM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
+D:\_eclipse\sync.pl -s "D:/_eclipse" -d "D:\test" -sid 12 -did 1 -usethr -conf D:\_eclipse\conf.xml
+started 12 to 1
 
 
 Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-1113
-sent msj1 to 1113
-1112
-sent msj1 to 1112
-on stop : 3/19/2012 3:32 PM
+on stop : 6/22/2012 7:26 PM
 ==================================================================================================================
 ==================================================================================================================
-opened: 3/19/2012 3:44 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
+opened: 6/22/2012 7:26 PM
+cmdline args: D:\_eclipse\SyncToolService.exe -conf D:\_eclipse\conf.xml
 Configuration file path: D:\_eclipse\conf.xml
 running folder: D:\_eclipse\
 _syncScriptPath D:\_eclipse\sync.pl
@@ -218,194 +107,305 @@ _backupsDir D:\_eclipse\bkp
 _logDir D:\_eclipse\Logs
 _touchPortfileTime 2
 _smtpServer SMTPHub07.conti.de
-Listening on port 1141
-ignoring job 1
-ignoring job 10
-deleting D:\_eclipse\run\service_running.1111
-creating running file : D:\_eclipse\run\service_running.1141
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
 --------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
+zzz, clients:  D:\test, excl: , exclre: 
 
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/19/2012 3:44 PM
-thread started :7: 3/19/2012 3:44 PM
-Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/19/2012 3:44 PM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
-
-
-Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-1260
-sent msj1 to 1260
-on stop : 3/19/2012 3:50 PM
-==================================================================================================================
-==================================================================================================================
-opened: 3/21/2012 8:32 AM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
-Configuration file path: D:\_eclipse\conf.xml
-running folder: D:\_eclipse\
-_syncScriptPath D:\_eclipse\sync.pl
-_jobsConfPath D:\_eclipse\jobs_conf.xml
-_perlPath D:\Perl\bin\perl.exe
-_portfileDir D:\_eclipse\run
-_backupsDir D:\_eclipse\bkp
-_logDir D:\_eclipse\Logs
-_touchPortfileTime 2
-_smtpServer SMTPHub07.conti.de
-Listening on port 1142
-ignoring job 1
-ignoring job 10
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
-
-deleting D:\_eclipse\run\service_running.1141
-creating running file : D:\_eclipse\run\service_running.1142
-created timer for 00:00:11: 00:33:20 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 00:00:07: 00:33:20 
-ignoring job 8
-ignoring job 9
-3/21/2012 8:32 AM
-thread started :7: 3/21/2012 8:32 AM
-Calling: 
-D:\_eclipse\sync.pl -s "D:\Perl" -d "D:\test" -sid 7 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 7 to 1
-thread started :11: 3/21/2012 8:32 AM
-Calling: 
-D:\_eclipse\sync.pl -s "C:/Documents and Settings/All Users/Documents" -d "D:/test" -sid 11 -did 1 -usethr -conf D:\_eclipse\conf.xml -smtp SMTPHub07.conti.de -mailto Iustina.2.Melinte@continental-corporation.com,
-started 11 to 1
-
-
-Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-on stop : 3/21/2012 9:00 AM
-==================================================================================================================
-==================================================================================================================
-opened: 4/19/2012 12:55 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe
-args:
--conf
-Configuration file path: D:\_eclipse\conf.xml
-Registry key modified to : "D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe" -conf "D:\_eclipse\conf.xml"
-running folder: D:\_eclipse\
-_syncScriptPath D:\_eclipse\sync.pl
-_jobsConfPath D:\_eclipse\jobs_conf.xml
-_perlPath D:\Perl\bin\perl.exe
-_portfileDir D:\_eclipse\run
-_backupsDir D:\_eclipse\bkp
-_logDir D:\_eclipse\Logs
-_touchPortfileTime 2
-_smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
-Listening on port 2482
-creating running file : D:\_eclipse\run\service_running.2482
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
-
-created timer for 22:04:30.0270000: 1.00:00:00 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 01:41:49.0270000: 1.00:00:00 
-ignoring job 8
-ignoring job 9
-4/19/2012 12:55 PM
-
-
-Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-2705
-modified 1134822.0094183 sec ago,ignore
-2966
-modified 1121219.3075966 sec ago,ignore
-3581
-modified 1123964.3640436 sec ago,ignore
-3614
-modified 1123573.5423679 sec ago,ignore
-3616
-modified 1119623.4283394 sec ago,ignore
-3858
-modified 1115996.0255504 sec ago,ignore
-on stop : 4/19/2012 12:56 PM
-==================================================================================================================
-==================================================================================================================
-opened: 4/19/2012 12:56 PM
-cmdline args: D:\repo\SyncTool\master\SyncToolService\SyncToolService\bin\Debug\SyncToolService.exe -conf D:\_eclipse\conf.xml
-Configuration file path: D:\_eclipse\conf.xml
-running folder: D:\_eclipse\
-_syncScriptPath D:\_eclipse\sync.pl
-_jobsConfPath D:\_eclipse\jobs_conf.xml
-_perlPath D:\Perl\bin\perl.exe
-_portfileDir D:\_eclipse\run
-_backupsDir D:\_eclipse\bkp
-_logDir D:\_eclipse\Logs
-_touchPortfileTime 2
-_smtpServer SMTPHub07.conti.de
-ignoring job 1
-ignoring job 10
---------------------------------------
-16.03, clients:  D:/test, excl: , exclre: 
-
-created timer for 22:04:01.8850000: 1.00:00:00 
-ignoring job 2
-ignoring job 3
-ignoring job 4
-ignoring job 5
-ignoring job 6
---------------------------------------
-conti 20.02, clients:  D:\test, excl: , exclre: 
-
-created timer for 01:41:20.8850000: 1.00:00:00 
-ignoring job 8
-ignoring job 9
-4/19/2012 12:56 PM
-Listening on port 2485
-deleting D:\_eclipse\run\service_running.2482
-System.IO.IOException: The process cannot access the file 'D:\_eclipse\run\service_running.2482' because it is being used by another process.
+created timer for zzz: 23:58:24.1550000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 7:26 PM
+Listening on port 3243
+deleting D:\_eclipse\run\service_running.3226
+System.IO.IOException: The process cannot access the file 'D:\_eclipse\run\service_running.3226' because it is being used by another process.
    at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
    at System.IO.File.Delete(String path)
-   at master0.SyncToolService.ListenConfChange() in D:\repo\SyncTool\master\SyncToolService\SyncToolService\SyncToolService.cs:line 701
-creating running file : D:\_eclipse\run\service_running.2485
+   at master0.SyncToolService.ListenConfChange()
+creating running file : D:\_eclipse\run\service_running.3243
 
 
 Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
-2705
-modified 1134839.9009593 sec ago,ignore
-2966
-modified 1121237.1991376 sec ago,ignore
-3581
-modified 1123982.2555846 sec ago,ignore
-3614
-modified 1123591.4339089 sec ago,ignore
-3616
-modified 1119641.3198804 sec ago,ignore
-3858
-modified 1116013.9170914 sec ago,ignore
-on stop : 4/19/2012 12:56 PM
+on stop : 6/22/2012 7:27 PM
 ==================================================================================================================
+==================================================================================================================
+opened: 6/22/2012 7:54 PM
+cmdline args: C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\SyncToolService.exe -conf C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\conf.xml
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 00:00:37.0420000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 7:54 PM
+Listening on port 3788
+deleting D:\_eclipse\run\service_running.3226
+deleting D:\_eclipse\run\service_running.3243
+creating running file : D:\_eclipse\run\service_running.3788
+
+
+new starter thread :12: 6/22/2012 7:55 PM
+Calling: 
+D:\_eclipse\sync.pl -s "D:/_eclipse" -d "D:\test" -sid 12 -did 1 -usethr -conf D:\_eclipse\conf.xml
+started 12 to 1
+
+
+Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
+on stop : 6/22/2012 7:57 PM
+==================================================================================================================
+==================================================================================================================
+opened: 6/22/2012 7:57 PM
+cmdline args: C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\SyncToolService.exe -conf C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\conf.xml
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 23:57:27.2430000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 7:57 PM
+Listening on port 4419
+deleting D:\_eclipse\run\service_running.3166
+deleting D:\_eclipse\run\service_running.3788
+Sorry..Could not delete :System.IO.IOException: The process cannot access the file 'D:\_eclipse\run\service_running.3788' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at master0.SyncToolService.ListenConfChange()
+creating running file : D:\_eclipse\run\service_running.4419
+Accepted client
+received 1
+Resetting all timers, had 1
+==================================================================================================================
+opened: 6/22/2012 8:04 PM
+cmdline args: C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\SyncToolService.exe -conf C:\Documents and Settings\UIDU3198\Desktop\synctool_mvc\conf.xml
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 23:50:16.3470000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 8:04 PM
+Created 1 timers.
+
+
+Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
+on stop : 6/22/2012 8:09 PM
+==================================================================================================================
+==================================================================================================================
+opened: 6/22/2012 8:14 PM
+cmdline args: D:\_eclipse\SyncToolService.exe
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+Registry key modified to : "D:\_eclipse\SyncToolService.exe" -conf "D:\_eclipse\conf.xml"
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+Listening on port 4909
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+deleting D:\_eclipse\run\service_running.3788
+deleting D:\_eclipse\run\service_running.4419
+creating running file : D:\_eclipse\run\service_running.4909
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 23:40:29.3080000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 8:14 PM
+
+
+Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
+on stop : 6/22/2012 8:15 PM
+==================================================================================================================
+Sorry..Could not delete running file :System.IO.IOException: The process cannot access the file 'D:\_eclipse\run\service_running.4909' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at master0.SyncToolService.OnStop()
+==================================================================================================================
+opened: 6/22/2012 8:29 PM
+cmdline args: D:\_eclipse\SyncToolService.exe -conf D:\_eclipse\conf.xml
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 23:25:45.3130000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 8:29 PM
+Listening on port 4585
+deleting D:\_eclipse\run\service_running.4909
+creating running file : D:\_eclipse\run\service_running.4585
+Accepted client
+received 1
+Resetting all timers, had 1
+==================================================================================================================
+opened: 6/22/2012 8:29 PM
+cmdline args: D:\_eclipse\SyncToolService.exe -conf D:\_eclipse\conf.xml
+
+args:
+-conf
+
+Configuration file path: D:\_eclipse\conf.xml
+running folder: D:\_eclipse\
+_syncScriptPath D:\_eclipse\sync.pl
+_jobsConfPath D:\_eclipse\jobs_conf.xml
+_perlPath D:\Perl\bin\perl.exe
+_portfileDir D:\_eclipse\run
+_backupsDir D:\_eclipse\bkp
+_logDir D:\_eclipse\Logs
+_touchPortfileTime 2
+_smtpServer SMTPHub07.conti.de
+
+
+ignoring job 1,synergy1
+ignoring job 10,bb
+ignoring job 11,16.03
+--------------------------------------
+zzz, clients:  D:\test, excl: , exclre: 
+
+created timer for zzz: 23:25:23.7970000 
+ignoring job 2,synergy2
+ignoring job 3,synergy3
+ignoring job 4,mokup
+ignoring job 5,vm
+ignoring job 6,conti 22.02
+ignoring job 7,conti 20.02
+ignoring job 8,tweet
+ignoring job 9,aa
+6/22/2012 8:29 PM
+Created 1 timers.
+
+
+Sending msj1 (stop) to all portfiles,runfolder D:\_eclipse\run
+on stop : 6/22/2012 8:30 PM
+==================================================================================================================
+Sorry..Could not delete running file :System.IO.IOException: The process cannot access the file 'D:\_eclipse\run\service_running.4585' because it is being used by another process.
+   at System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   at System.IO.File.Delete(String path)
+   at master0.SyncToolService.OnStop()

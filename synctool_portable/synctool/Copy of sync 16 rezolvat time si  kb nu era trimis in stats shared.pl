@@ -304,7 +304,7 @@ sub copy_one {
      my $ref = dfportable($opt{d});
      if(defined($ref)) {
          # warn if space on dest falls below 100KB
-         if(($ref->{bfree}-(stat($s_path))[7])<100000 ){ #100636149760= 100 gb
+         if(($ref->{bfree}-(stat($s_path))[7])<  100000){
              print $logh "\n!Warning! Free space available on destination is $ref->{bfree} \n";
              print "Warning! Free space available on destination is $ref->{bfree} ";
              &die_fast();

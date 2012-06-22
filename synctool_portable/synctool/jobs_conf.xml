@@ -42,7 +42,7 @@
       <addr>D:/test</addr>
     </client>
     <email>Iustina.2.Melinte@continental-corporation.com</email>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>C:/Documents and Settings/All Users/Documents</master>
     <start>11:00:11</start>
     <title>16.03</title>
@@ -55,7 +55,7 @@
     </client>
     <ignore>0</ignore>
     <master>D:/_eclipse</master>
-    <start>11:11:11</start>
+    <start>19:55:11</start>
     <title>zzz</title>
   </job>
   <job>
@@ -149,7 +149,7 @@
       <addr>D:\test</addr>
     </client>
     <email>Iustina.2.Melinte@continental-corporation.com</email>
-    <ignore>0</ignore>
+    <ignore>1</ignore>
     <master>D:\Perl</master>
     <start>14:37:30</start>
     <title>conti 20.02</title>

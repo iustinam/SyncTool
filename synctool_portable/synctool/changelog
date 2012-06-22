@@ -322,3 +322,25 @@ aduagat $crontabFile si crontab_path in xml si in gui.pl
  sa faca redirect stdout oricum.. sa nu vad nimic..intr-un fisier .out
  scos  time all
  
+ =========================sync 21.06.2012
+ avea probleme cu variabilele pt timpul total si kb (trimise stats).. parca.. nu era shared+ alte modif cand trasmit la mvc stats
+ 
+ ================================22.06.12
+ gui:
+ tab global conf:
+orice valoare goala: apare HASH{...}  :
+ggl:perl  hash(0x) ..rezolvat cu if(not ref $paths->{$_} eq "HASH")..fa ce trebuia
+http://www.perlmonks.org/?node_id=173677
+
+validare conf tab cu rosiatic
+tk perl stop application (cand vreaus a o inchid dintr-un.. thread creat de ferestre etc.. nu stiu ce..nu inchide la die, trebuie sa fac $mw->distroy();)
+
+delete cu warning
+
+service 
+get bytes from string
+const string input = "Dot Net Perls";
+	byte[] array = Encoding.ASCII.GetBytes(input);
+sterge running file on stop
+
+	

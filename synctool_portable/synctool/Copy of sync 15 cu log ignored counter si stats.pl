@@ -38,8 +38,7 @@ $thr_start_n_waitsock,
 );
  # parent thread will remain blocked reading from socket (when recv "exit" msj ,set $done=1)
 my $last_action_add=0; #prevent logging "ALT" actions if an ADD was made previously>> keep log simple
-my $script_start_time:shared;
-$script_start_time=time; # when writing stats file, calculate total duration
+my $script_start_time=time; # when writing stats file, calculate total duration
 
 my %opt = ();
 my $log_file;      #contains every file scanned
@@ -304,7 +303,7 @@ sub copy_one {
      my $ref = dfportable($opt{d});
      if(defined($ref)) {
          # warn if space on dest falls below 100KB
-         if(($ref->{bfree}-(stat($s_path))[7])<100000 ){ #100636149760= 100 gb
+         if(($ref->{bfree}-(stat($s_path))[7])<  100000){
              print $logh "\n!Warning! Free space available on destination is $ref->{bfree} \n";
              print "Warning! Free space available on destination is $ref->{bfree} ";
              &die_fast();
@@ -572,10 +571,7 @@ sub logg {
 # updates %log for key and value
 sub update_log{
     my ($key1,$key2,$val)=@_;
-    if(not ($val&&$key1&&$key2)){
-        #print("not..$key1, $key2, $val : $! \n");
-        return;
-    }
+    return if(not ($val&&$key1&&$key2));
     #print "$val $key1 $key2\n";
     {
         lock(%log);
@@ -1540,12 +1536,9 @@ sub send_stats2sock{
         my $kb=eval($log{KB}{ADD}/1000);
         my $skipped=$log{F}{SKIP_ADD}+$log{F}{SKIP_ALT}+$log{F}{SKIP_DEL}+$log{F}{SKIP_REPL}+$log{F}{SKIP_U}+
         $log{D}{SKIP_ADD}+$log{D}{SKIP_ALT}+$log{D}{SKIP_DEL}+$log{D}{SKIP_U};
-                               
-        my $runtime=time-$script_start_time;
-        my $runtime_str= (gmtime($runtime))[2].":".(gmtime($runtime))[1].":".(gmtime($runtime))[0];
-     
+                                
         my $stats=$opt{sid}."_".$opt{did}."_".$log{F}{SCAN}."_".$log{F}{ADD}."_".$log{F}{DEL}."_".$log{F}{REPL}."_".$log{F}{ALT}."_".
-                  $kb."_".$runtime_str."_".$skipped;    
+                  $kb."_".eval(time-$script_start_time)."_".$skipped;    
         print "sync : send_stats2sock: sending $stats\n";
 	    syswrite($socket,$stats);
 	    sleep(1); #todo..try less
@@ -1669,12 +1662,9 @@ EOF
 				my $kb=eval($log{KB}{ADD}/1000);
 				my $skipped=$log{F}{SKIP_ADD}+$log{F}{SKIP_ALT}+$log{F}{SKIP_DEL}+$log{F}{SKIP_REPL}+$log{F}{SKIP_U}+
 				$log{D}{SKIP_ADD}+$log{D}{SKIP_ALT}+$log{D}{SKIP_DEL}+$log{D}{SKIP_U};
-			     
-			    my $runtime=time-$script_start_time;
-                my $runtime_str= (gmtime($runtime))[2].":".(gmtime($runtime))[1].":".(gmtime($runtime))[0];
-        
+											
 				my $stats=$opt{sid}."_".$opt{did}."_".$log{F}{SCAN}."_".$log{F}{ADD}."_".$log{F}{DEL}."_".$log{F}{REPL}."_".$log{F}{ALT}."_".
-						  $kb."_".$runtime_str."_".$skipped."_".$log{F}{IGNORE};    
+						  $kb."_".$log{TIME}{ALL}."_".$skipped."_".$log{F}{IGNORE};    
 				print "sync : sending $stats to webapp\n";
 				 
 				$cli->print($stats);
